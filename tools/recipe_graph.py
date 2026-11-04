@@ -740,7 +740,27 @@ def name_of(item, lang, names):
         return (cyr or cands)[0]
     if meta == 0 and f'cp.{name}' in lang:
         return lang[f'cp.{name}']
+    if parts[0] == 'uniresources':
+        m = re.match(r'(ingot|block|plate|dust|nugget|pile|gem|gear|rod|crushed)([A-Z]\w*)$', name)
+        if m:
+            metal = UNI_METALS.get(m.group(2), m.group(2))
+            return f'{UNI_FORMS[m.group(1)]} ({metal})'
     return base
+
+
+UNI_FORMS = {'ingot': 'Слиток', 'block': 'Блок', 'plate': 'Пластина', 'dust': 'Пыль', 'nugget': 'Самородок', 'pile': 'Груда',
+             'gem': 'Самоцвет', 'gear': 'Шестерня', 'rod': 'Стержень', 'crushed': 'Измельчённая руда'}
+UNI_METALS = {
+    'Steel': 'сталь', 'Bronze': 'бронза', 'Iron': 'железо', 'Tin': 'олово', 'Copper': 'медь', 'Lead': 'свинец', 'Silver': 'серебро',
+    'Osmium': 'осмий', 'Nickel': 'никель', 'Invar': 'инвар', 'Electrum': 'электрум', 'Aluminum': 'алюминий', 'Uranium': 'уран',
+    'RefinedObsidian': 'очищенный обсидиан', 'Obsidian': 'обсидиан', 'Alumite': 'алюмит', 'Voidite': 'войдит', 'PigIron': 'чугун',
+    'Sebastyanite': 'себастьянит', 'Skyfiry': 'скайфарий', 'Radvirium': 'радвириум', 'AluminumBrass': 'алюминиевая латунь',
+    'Charcoal': 'древесный уголь', 'Redstone': 'редстоун', 'Mana': 'мана', 'Lumium': 'люмиум', 'Mithril': 'мифрил', 'Fluxite': 'флюксит',
+    'Constantan': 'константан', 'Gold': 'золото', 'Diamond': 'алмаз', 'Emerald': 'изумруд', 'Coal': 'уголь', 'Platinum': 'платина',
+    'Iridium': 'иридий', 'Signalum': 'сигнум', 'Enderium': 'эндериум', 'Ic2Alloy': 'композит', 'Ardite': 'ардит', 'Cobalt': 'кобальт',
+    'Manyullyn': 'манулин', 'Zinc': 'цинк', 'Brass': 'латунь', 'Titanium': 'титан', 'Chrome': 'хром', 'Tungsten': 'вольфрам',
+    'Thorium': 'торий', 'Plutonium': 'плутоний', 'Sulfur': 'сера', 'Saltpeter': 'селитра', 'Quartz': 'кварц', 'Glowstone': 'светокамень', 'RefinedGlowstone': 'очищенный светокамень',
+}
 
 
 HINT_WORDS = ('Выпадает', 'Можно получить', 'Встречается', 'Растёт', 'Добывается', 'Генерация', 'Падает', 'Покупка')

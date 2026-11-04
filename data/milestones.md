@@ -75,7 +75,7 @@
 - *Репликатор:* Иридиевая руда; lolidimensions:terra_cobblestone; minecraft:tripwire_hook; Chest; minecraft:wool:11; lolidimensions:eremus_sand; ещё 3.
 - *Молекулярная ферма:* Apple; lolidimensions:passion_fruit; lolidimensions:mango; Лимон; Багровый гриб; Умеренный гриб; ещё 35.
 - *Жидкости и газы:* Креозот; Растительное масло; liquid:ic2uumatter; liquid:turpentine; liquid:creeper_acid; Фруктовый сок; ещё 11.
-- *Нет серверного рецепта (крафт мода, мир, магазин):* Утильсырьё; uniresources:blockUranium; IC2:itemCrushedOre; IC2:itemCrushedOre:3; IC2:itemCrushedOre:1; ore:logWood; ещё 142.
+- *Нет серверного рецепта (крафт мода, мир, магазин):* Утильсырьё; Блок (уран); IC2:itemCrushedOre; IC2:itemCrushedOre:3; IC2:itemCrushedOre:1; ore:logWood; ещё 142.
 
 ## Демонический Дракон Бесконечности
 
@@ -94,7 +94,7 @@
 - *Репликатор:* Иридиевая руда; minecraft:tripwire_hook; Chest; lolidimensions:terra_cobblestone; Светящийся плод; lolidimensions:eremus_sand; ещё 1.
 - *Молекулярная ферма:* lolidimensions:passion_fruit; lolidimensions:mango; Лимон; Багровый гриб; Умеренный гриб; Чёрное яблоко; ещё 32.
 - *Жидкости и газы:* Креозот; Растительное масло; liquid:ic2uumatter; liquid:turpentine; Фруктовый сок; Молотый лёд; ещё 9.
-- *Нет серверного рецепта (крафт мода, мир, магазин):* Утильсырьё; uniresources:blockUranium; IC2:itemCrushedOre; IC2:itemCrushedOre:1; IC2:itemCrushedOre:3; ore:logWood; ещё 50.
+- *Нет серверного рецепта (крафт мода, мир, магазин):* Утильсырьё; Блок (уран); IC2:itemCrushedOre; IC2:itemCrushedOre:1; IC2:itemCrushedOre:3; ore:logWood; ещё 50.
 
 ## Сотая добыча
 
@@ -113,7 +113,7 @@
 - *Репликатор:* Иридиевая руда; lolidimensions:terra_cobblestone; minecraft:tripwire_hook; Chest; minecraft:wool:11; lolidimensions:eremus_sand; ещё 3.
 - *Молекулярная ферма:* lolidimensions:passion_fruit; lolidimensions:mango; Лимон; Багровый гриб; Умеренный гриб; Чёрное яблоко; ещё 34.
 - *Жидкости и газы:* Креозот; Растительное масло; liquid:ic2uumatter; liquid:turpentine; Фруктовый сок; Молотый лёд; ещё 9.
-- *Нет серверного рецепта (крафт мода, мир, магазин):* Утильсырьё; uniresources:blockUranium; IC2:itemCrushedOre; IC2:itemCrushedOre:3; IC2:itemCrushedOre:1; ore:logWood; ещё 102.
+- *Нет серверного рецепта (крафт мода, мир, магазин):* Утильсырьё; Блок (уран); IC2:itemCrushedOre; IC2:itemCrushedOre:3; IC2:itemCrushedOre:1; ore:logWood; ещё 102.
 
 ## Сотая удача
 
@@ -132,7 +132,7 @@
 - *Репликатор:* Иридиевая руда; lolidimensions:terra_cobblestone; minecraft:tripwire_hook; Chest; minecraft:wool:11; lolidimensions:eremus_sand; ещё 3.
 - *Молекулярная ферма:* lolidimensions:passion_fruit; lolidimensions:mango; Лимон; Багровый гриб; Умеренный гриб; Чёрное яблоко; ещё 35.
 - *Жидкости и газы:* Креозот; Растительное масло; liquid:ic2uumatter; liquid:turpentine; Фруктовый сок; Молотый лёд; ещё 9.
-- *Нет серверного рецепта (крафт мода, мир, магазин):* Утильсырьё; uniresources:blockUranium; IC2:itemCrushedOre; IC2:itemCrushedOre:3; IC2:itemCrushedOre:1; ore:logWood; ещё 56.
+- *Нет серверного рецепта (крафт мода, мир, магазин):* Утильсырьё; Блок (уран); IC2:itemCrushedOre; IC2:itemCrushedOre:3; IC2:itemCrushedOre:1; ore:logWood; ещё 56.
 
 ## Кодекс жизни
 
@@ -151,7 +151,7 @@
 - *Репликатор:* Иридиевая руда; lolidimensions:terra_cobblestone; minecraft:tripwire_hook; Chest; lolidimensions:eremus_sand; lolidimensions:hibernus_snowball; ещё 6.
 - *Молекулярная ферма:* lolidimensions:passion_fruit; lolidimensions:mango; Лимон; Багровый гриб; Умеренный гриб; Чёрное яблоко; ещё 39.
 - *Жидкости и газы:* Креозот; Растительное масло; liquid:turpentine; liquid:ic2uumatter; Фруктовый сок; Молотый лёд; ещё 10.
-- *Нет серверного рецепта (крафт мода, мир, магазин):* Утильсырьё; uniresources:blockUranium; IC2:itemCrushedOre; IC2:itemCrushedOre:3; IC2:itemCrushedOre:1; ore:logWood; ещё 134.
+- *Нет серверного рецепта (крафт мода, мир, магазин):* Утильсырьё; Блок (уран); IC2:itemCrushedOre; IC2:itemCrushedOre:3; IC2:itemCrushedOre:1; ore:logWood; ещё 134.
 
 ## Демонический сет
 
@@ -178,5 +178,5 @@
 - *Репликатор:* Иридиевая руда; lolidimensions:terra_cobblestone; minecraft:tripwire_hook; Chest; lolidimensions:eremus_sand; minecraft:wool:11; ещё 2.
 - *Молекулярная ферма:* lolidimensions:passion_fruit; lolidimensions:mango; Лимон; Багровый гриб; Умеренный гриб; Чёрное яблоко; ещё 32.
 - *Жидкости и газы:* Креозот; Растительное масло; liquid:ic2uumatter; liquid:turpentine; Фруктовый сок; Молотый лёд; ещё 11.
-- *Нет серверного рецепта (крафт мода, мир, магазин):* Утильсырьё; uniresources:blockUranium; IC2:itemCrushedOre; IC2:itemCrushedOre:3; IC2:itemCrushedOre:1; ore:logWood; ещё 75.
+- *Нет серверного рецепта (крафт мода, мир, магазин):* Утильсырьё; Блок (уран); IC2:itemCrushedOre; IC2:itemCrushedOre:3; IC2:itemCrushedOre:1; ore:logWood; ещё 75.
 
