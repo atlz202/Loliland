@@ -4,6 +4,9 @@
 а клиент кладёт их в config/scripts_cache.dat (Java-сериализованный TreeMap<String, byte[]>
 с .class-файлами). Файл уже лежит на диске игрока, читаем его без модов и без запросов к серверу.
 
+Актуальный клиент: %APPDATA%\\.loliland\\game-resources\\clients\\hitech\\main\\config\\scripts_cache.dat
+(старая папка loliland\\updates\\clients\\hitech не обновляется).
+
 Запуск (нужен JDK, т.е. javap в PATH):
     python3 extract.py путь/к/scripts_cache.dat папка_для_zs
 """

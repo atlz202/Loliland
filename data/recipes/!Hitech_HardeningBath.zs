@@ -1,0 +1,7 @@
+MTHardeningBath.addLiquid(<liquid:frost>.withAmount(10), 20)
+MTHardeningBath.addLiquid(<liquid:ic2coolant>.withAmount(10), 1)
+MTHardeningBath.addLiquid(<liquid:fresh_water>.withAmount(10), 40)
+MTHardeningBath.addRecipe(<uniresources:blockSteel>, <lolienergistics:hot_iron_block>)
+MTCauldron.addRecipe(<uniresources:blockSteel>, <lolienergistics:hot_iron_block>, 40)
+MTHardeningBath.addRecipe(<uniresources:ingotSteel>, <lolienergistics:hot_iron_ingot>)
+MTCauldron.addRecipe(<uniresources:ingotSteel>, <lolienergistics:hot_iron_ingot>, 20)

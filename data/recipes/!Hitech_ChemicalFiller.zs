@@ -1,0 +1,5 @@
+MTChemicalFiller.addGasRecipe(GasBracketHandler.getGas('hydrogen_chloride').withAmount(100), GasBracketHandler.getGas('hydrogen').withAmount(100), GasBracketHandler.getGas('chlorine').withAmount(100))
+MTChemicalFiller.addGasRecipe(GasBracketHandler.getGas('ypsilonium').withAmount(200), GasBracketHandler.getGas('hydrogen_chloride').withAmount(100), GasBracketHandler.getGas('tritium').withAmount(100))
+MTChemicalFiller.addGasRecipe(GasBracketHandler.getGas('sulfur_trioxide').withAmount(200), GasBracketHandler.getGas('sulfur_dioxide').withAmount(200), GasBracketHandler.getGas('oxygen').withAmount(100))
+MTChemicalFiller.addFluidRecipe(<liquid:sulfuric_acid>.withAmount(100), GasBracketHandler.getGas('sulfur_trioxide').withAmount(100), GasBracketHandler.getGas('steam').withAmount(100))
+MTChemicalFiller.addFluidRecipe(<liquid:fusion_fuel_dt>.withAmount(200), GasBracketHandler.getGas('deuterium').withAmount(100), GasBracketHandler.getGas('tritium').withAmount(100))

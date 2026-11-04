@@ -1,0 +1,5 @@
+MTCrystallizationCooling.add(<uniresources:blockAlumite>, <liquid:alumite.molten>.withAmount(1296))
+MTCrystallizationCooling.add(<uniresources:blockElectrum>, <liquid:electrum.molten>.withAmount(1296))
+MTCrystallizationCooling.add(<uniresources:blockEnder>, <liquid:resonatingplasma>.withAmount(1296))
+MTCrystallizationCooling.add(<uniresources:blockInvar>, <liquid:invar.molten>.withAmount(1296))
+MTCrystallizationCooling.add(<lolidimensions:obsidian>, <liquid:obsidian.molten>.withAmount(288))

@@ -1,0 +1,8 @@
+MTBlastFurnace.addHeatLiquid(<liquid:liquid_magma>.withAmount(10), 1)
+MTBlastFurnace.addHeatLiquid(<liquid:petrotheum>.withAmount(10), 3)
+MTBlastFurnace.addHeatLiquid(<liquid:redstone>.withAmount(10), 2)
+MTBlastFurnace.addCoolLiquid(<liquid:frost>.withAmount(10), 2)
+MTBlastFurnace.addCoolLiquid(<liquid:ic2coolant>.withAmount(10), 3)
+MTBlastFurnace.addCoolLiquid(<liquid:fresh_water>.withAmount(10), 1)
+MTBlastFurnace.addRecipe(<lolienergistics:hot_iron_block>, <uniresources:blockIron>, 5400, <lolienergistics:slag>.withAmount(9))
+MTBlastFurnace.addRecipe(<lolienergistics:hot_iron_ingot>, <ore:ingotIron>, 600, <lolienergistics:slag>)
