@@ -1,0 +1,5 @@
+SafariNet.addBlacklist('net.minecraft.entity.passive.EntityHorse')
+SafariNet.addBlacklist('mekanism.common.entity.EntityRobit')
+SafariNet.addBlacklist('net.minecraft.entity.monster.EntitySnowman')
+SafariNet.addBlacklist('lolidimensions.ldhl_arch_angel_boss')
+SafariNet.addBlacklist('techguns.entities.npc.NPCTurret')
