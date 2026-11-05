@@ -71,6 +71,10 @@ def main():
             if m:
                 cur = ('Forestry', vc[m.group(1)])
                 continue
+            m = re.search(r'// String (pollen|royalJelly|honeydew|propolis|beeswax)$', line)
+            if m:
+                cur = ('Forestry', m.group(1))
+                continue
             m = re.search(r'Field net/minecraft/init/Items\.(\w+):', line)
             if m:
                 cur = ('minecraft', m.group(1))

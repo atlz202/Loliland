@@ -53,6 +53,12 @@
 "DRIPPING",
 5,
 0.2
+],
+[
+"addProduct",
+"royalJelly",
+null,
+0.15
 ]
 ],
 "DILIGENT": [
@@ -77,6 +83,12 @@
 "STRINGY",
 3,
 0.2
+],
+[
+"addProduct",
+"pollenCluster",
+null,
+0.15
 ]
 ],
 "STEADFAST": [

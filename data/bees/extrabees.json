@@ -2816,6 +2816,12 @@ null
 ],
 [
 "addSpecialty",
+"Forestry",
+"pollen",
+0.2
+],
+[
+"addSpecialty",
 "ExtraBees",
 52,
 0.15

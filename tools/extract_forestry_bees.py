@@ -2,7 +2,8 @@
 
     unzip forestry.jar 'forestry/apiculture/*' -d /tmp/forestry && python3 tools/extract_forestry_bees.py /tmp/forestry
 
-Пишет data/bees/forestry_bees.json: вид -> [(тип, сота, мета, шанс)].
+Пишет data/bees/forestry_bees.json: вид -> [(тип, сота, мета, шанс)]. Не соты (маточное молочко, пыльца)
+идут с метой null и своим именем предмета.
 """
 import subprocess, re, json, os
 import sys
@@ -37,9 +38,8 @@ for n,name in cls2name.items():
     for line in body.splitlines():
         m=re.search(r'EnumHoneyComb\.(\w+)',line)
         if m: cur=('Forestry:beeCombs',comb_idx[m.group(1)],m.group(1)); continue
-        m=re.search(r'Field (?:net/minecraft/init/Items|forestry/\S+)\.(\w+):',line)
-        if m and 'EnumHoneyComb' not in line and 'items' not in m.group(1): 
-            pass
+        m=re.search(r'Field forestry/\S+Registry\w+\.(royalJelly|pollenCluster|honeydew|propolis|beeswax):',line)
+        if m: cur=('Forestry',None,m.group(1)); continue
         m=re.search(r'// float ([\d.]+)f',line)
         if m and cur: fl=float(m.group(1)); continue
         m=re.search(r'\.(addProduct|addSpecialty)',line)

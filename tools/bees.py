@@ -6,7 +6,9 @@
   - спрос на соты считается по графу рецептов (6 вех и 28 совершенных пасек сверх 4 стартовых), соты стоят стопом;
   - продукты пчёл: data/bees/forestry_bees.json (tools/extract_forestry_bees.py),
     data/bees/extrabees.json (tools/extract_extrabees.py) и пчёлы сервера из data/recipes/!Hitech_bee.zs;
-  - центрифуга сервера переводит усовершенствованные соты в соты ExtraBees (100% + 25%, то есть 1,25 штуки).
+  - центрифуга сервера переводит усовершенствованные соты в соты ExtraBees (100% + 25%, то есть 1,25 штуки);
+  - рецепты самих модов (центрифуга, сжиматель, плотник Forestry и ExtraBees) в графе не лежат, поэтому то, что
+    делается только из продуктов пчёл, переводится в соты таблицей NATIVE (цифры из байткода модов).
 
 Выбор пчёл: все пчёлы считаются одинаково сложными. Сначала берётся наименьшее число видов, которое покрывает все
 нужные соты, а среди таких наборов тот, где на все соты уходит меньше всего циклов (нужно / шанс).
@@ -31,8 +33,42 @@ CUSTOM_COMB_RU = {  # у пар сот сервера одно русское и
     10023: 'Аурумные соты (вторые)'}
 
 
+ITEM = {'royalJelly': 'Forestry:royalJelly', 'pollenCluster': 'Forestry:pollen', 'pollen': 'Forestry:pollen'}
+ITEM_RU = {'Forestry:royalJelly': 'Маточное молочко', 'Forestry:pollen': 'Пыльца'}
+CREOSOTE_PER_COMB = 0.7 * 500  # смолистые соты: 70% креозотного прополиса, сжиматель даёт 500 mB с прополиса
+SILK_PER_COMB = 0.8 * 0.6  # шелковистые соты: 80% шелковистого прополиса, с него 60% шёлковой нити
+NATIVE = {  # базовый ресурс графа -> [(продукт пчёл, сколько на единицу)]
+    'liquid:creosote': [('ExtraBees:honeyComb:24', 1 / CREOSOTE_PER_COMB)],
+    'lolienergistics:creosote_bucket': [('ExtraBees:honeyComb:24', 1000 / CREOSOTE_PER_COMB)],
+    'ExtraBees:honeyDrop:8': [('ExtraBees:honeyComb:43', 1.0)],  # окрашенные соты дают свою каплю со 100%
+    'ExtraBees:honeyDrop:9': [('ExtraBees:honeyComb:44', 1.0)],
+    'ExtraBees:honeyDrop:10': [('ExtraBees:honeyComb:45', 1.0)],
+    'ExtraBees:honeyDrop:21': [('ExtraBees:honeyComb:56', 1.0)],
+    # ароматная панель: плотник, 500 mB мёда, маточное молочко, 3 доски, 2 воска, пыльца
+    'Forestry:craftingMaterial:6': [('Forestry:royalJelly', 1), ('Forestry:pollen', 1)],
+    # шёлковая ткань: плотник, 9 шёлковых нитей и 500 mB воды
+    'Forestry:craftingMaterial:3': [('Forestry:beeCombs:6', 9 / SILK_PER_COMB)],
+    'Forestry:royalJelly': [('Forestry:royalJelly', 1)],
+    'Forestry:pollen': [('Forestry:pollen', 1)],
+}
+LOCKED = {'extrabees.species.jaded': 'выводится только у игрока jadedcat (условие ExtraBees)'}
+SIDE = {'liquid:for.honey': 1, 'Forestry:craftingMaterial:6': 500}  # мёд в mB, идёт попутно (см. by_products)
+WAX = {'Forestry:beeswax': 1, 'Forestry:craftingMaterial:6': 2}
+
+
 def fid(meta):
     return 'Forestry:beeCombs' if meta == 0 else f'Forestry:beeCombs:{meta}'
+
+
+def expand(need):
+    """Спрос графа -> спрос на продукты пчёл: соты как есть, остальное через NATIVE."""
+    out = defaultdict(float)
+    for x, v in need.items():
+        if COMB.match(x) or x == 'ore:beeComb':
+            out[x] += v
+        for p, k in NATIVE.get(x, []):
+            out[p] += v * k
+    return out
 
 
 def load_bees(lang):
@@ -43,8 +79,12 @@ def load_bees(lang):
         uid = 'forestry.species' + sp.title()
         p = {}
         for _, cname, meta, ch in prods:
-            p[fid(meta)] = max(p.get(fid(meta), 0), ch)
-            comb_name[fid(meta)] = lang.get(f'item.for.beeCombs.{cname.lower()}.name', cname)
+            i = ITEM.get(cname) if meta is None else fid(meta)
+            if not i:
+                continue
+            p[i] = max(p.get(i, 0), ch)
+            if meta is not None:
+                comb_name[i] = lang.get(f'item.for.beeCombs.{cname.lower()}.name', cname)
         bees[uid] = dict(name=lang.get(f'for.bees.species.{sp.lower()}', sp), src='Forestry', prods=p, parents=[])
     eb = json.load(open(os.path.join(ROOT, 'data/bees/extrabees.json'), encoding='utf8'))
     for meta, (_, ru) in eb['combs'].items():
@@ -52,7 +92,8 @@ def load_bees(lang):
     for uid, v in eb['species'].items():
         p = {}
         for _, mod, meta, ch in v['products']:
-            i = f'ExtraBees:honeyComb:{meta}' if mod == 'ExtraBees' else fid(meta) if mod == 'Forestry' else None
+            i = (f'ExtraBees:honeyComb:{meta}' if mod == 'ExtraBees' else ITEM.get(meta) if isinstance(meta, str)
+                 else fid(meta) if mod == 'Forestry' else None)
             if i:
                 p[i] = max(p.get(i, 0), ch)
         bees[uid] = dict(name=v['name'], src='ExtraBees', prods=p, parents=[(a, b, c) for a, b, c, _ in v['mutations']])
@@ -83,27 +124,30 @@ def load_bees(lang):
     for uid in list(bees):
         if not bees[uid]['prods']:
             del bees[uid]
+    comb_name.update(ITEM_RU)
     return bees, conv, comb_name
 
 
 def demand(g):
     allc = {i for r in g.recipes for i in [x['id'] for x in r['ins'] + r['outs']] if COMB.match(i)}
     stop = tuple(allc) + (sm.HELL_STAR,)
-    keep = lambda x: COMB.match(x) or x == 'ore:beeComb'  # noqa: E731
     mil, ddb, api = defaultdict(float), defaultdict(float), defaultdict(float)
+    raw = defaultdict(float)  # базовые ресурсы, которые идут попутно (мёд, воск), на вехи и 28 пасек
     for k, _, tt in ms.MILESTONES:
         for t in tt:
             need, _ = g.demand(t, 1, stop)
+            for x, v in expand(need).items():
+                mil[x] += v
+                if k == 'ddb':
+                    ddb[x] += v
             for x, v in need.items():
-                if keep(x):
-                    mil[x] += v
-                    if k == 'ddb':
-                        ddb[x] += v
+                raw[x] += v
     need, _ = g.demand(APIARY, 1, stop)
+    for x, v in expand(need).items():
+        api[x] += v
     for x, v in need.items():
-        if keep(x):
-            api[x] += v
-    return mil, ddb, api, stop
+        raw[x] += CRAFTED * v
+    return mil, ddb, api, stop, raw
 
 
 def first_era(g, stop, lang, names):
@@ -114,7 +158,7 @@ def first_era(g, stop, lang, names):
         ts = [ids[t] for t in targets] if targets else [t for k, _, tt in ms.MILESTONES if k != 'ddb' for t in tt]
         for t in ts:
             need, _ = g.demand(t, 1, stop)
-            for x in need:
+            for x in expand(need):
                 first.setdefault(x, era)
     return first
 
@@ -129,9 +173,8 @@ def era_demand(g, stop, lang, names):
         d = defaultdict(float)
         for t in targets:
             need, _ = g.demand(ids[t], 1, stop)
-            for x, v in need.items():
-                if COMB.match(x):
-                    d[x] += v
+            for x, v in expand(need).items():
+                d[x] += v
         out.append((era, d))
     return out
 
@@ -140,6 +183,8 @@ def eff_table(bees, conv, combs):
     """eff[bee][comb] = соты с одного цикла слота: прямой шанс или шанс на соты, которые центрифуга переводит в нужные."""
     eff = defaultdict(dict)
     for b, v in bees.items():
+        if b in LOCKED:
+            continue
         for c in combs:
             best = v['prods'].get(c, 0)
             for src, k in conv.get(c, []):
@@ -228,7 +273,7 @@ def main():
     lang, names = rg.load_names(rg.default_assets())
     bees, conv, cname = load_bees(lang)
     bname = lambda b: bees[b]['name'] if b in bees else lang.get('for.bees.species.' + b.replace('forestry.species', '').lower(), b.split('.')[-1])  # noqa: E731
-    mil, ddb, api, stop = demand(g)
+    mil, ddb, api, stop, raw = demand(g)
     first = first_era(g, stop, lang, names)
     eras_d = era_demand(g, stop, lang, names)
     total = {c: mil[c] + CRAFTED * api[c] for c in set(mil) | set(api)}
@@ -271,27 +316,77 @@ def main():
          'сколько рабочих циклов пчёл в сумме уйдёт на эту соту. Слоты делятся по циклам. Длину цикла в совершенной '
          'пасеке клиент не знает, её надо замерить на сервере (в конце).\n']
 
+    # что идёт попутно: мёд с капель (100 mB с капли Forestry), воск с окрашенных сот
+    honey_need = sum(raw.get(x, 0) * k for x, k in SIDE.items())
+    wax_need = sum(raw.get(x, 0) * k for x, k in WAX.items())
+    drops = total.get('ExtraBees:honeyComb:24', 0) * 0.5 + sum(total.get(f'ExtraBees:honeyComb:{m}', 0) for m in (43, 44, 45, 56)) * 0.8
+    wax = sum(total.get(f'ExtraBees:honeyComb:{m}', 0) for m in (43, 44, 45, 56)) * 0.8
+    cre = 'ExtraBees:honeyComb:24'
+    cre_bee = assign[cre]
+    tot_u = sum(per.values())
+    acc, top = 0, []
+    for b in sorted(per, key=lambda b: -per[b]):
+        if acc / tot_u >= 0.95:
+            break
+        acc += per[b]
+        top.append(b)
+    cycle_s = 550 / 20  # рабочий цикл пчёл в обычной пасеке Forestry
+    days = (t_grow + t_after) * cycle_s / 86400
+
     L.append('## Главное\n')
-    L.append(f'- **Набор: {len(chosen)} видов пчёл.** Из них {len(forced)} без замены: их соты больше никто не даёт. '
-             'Это же и набор с наибольшим выходом: лишние виды ничего не ускоряют (ниже почему).\n'
-             '- **Основная нагрузка на 7 пчёл.** Рыбная, аурумная, волшебная и четыре усовершенствованные (водная, '
-             'ценная, радиоактивная, янтарная) забирают больше 80% всех циклов.\n'
-             f'- **Сначала пасеки.** Одна новая пасека стоит около {fmt(per_one)} циклов, почти все на четыре '
-             'усовершенствованные пчелы. Если сначала достроить все 32, а потом закрывать вехи, на всё уйдёт около '
-             f'{fmt(t_grow + t_after)} циклов одного слота. На 4 пасеках без роста те же вехи займут {fmt(t_none)}, '
-             f'то есть в {t_none / (t_grow + t_after):.0f} раза дольше. Это только по сотам: кроме них пасека стоит '
-             '8 катализаторов бесконечности и корпус с каркасами на десятки миллионов mB газов и жидкостей, так что '
-             'темп роста может задать не пасека пчёл, а эти крафты.\n'
-             '- **Ранним драконам сот нужно мало.** До души дракона хаоса уходят сотни рыбных и теневых сот, это '
-             'один-два слота. Тысячи начинаются с душ огненного и ледяного драконов, к этому времени пасек уже больше.\n'
+    L.append(f'- **Креозот: {per[cre_bee] / tot_u * 100:.0f}% всей работы пчёл.** На вехи уходит около '
+             f'{raw.get("liquid:creosote", 0) / 1e9:.0f} млрд mB креозота: коксовый уголь в капиллярном наполнителе, '
+             f'из него слитки ВОП-графита. Креозот берётся только со смолистых сот: 70% креозотного прополиса, '
+             f'в сжимателе 500 mB с прополиса, то есть {CREOSOTE_PER_COMB:.0f} mB с соты. Это {fmt(total[cre])} сот и '
+             f'{fmt(per[cre_bee])} циклов медлительной пчелы (30%). В лейте она занимает почти все слоты.\n'
+             f'- **Набор: {len(chosen)} видов пчёл.** Из них {len(forced)} без замены: их продукт больше никто не даёт. '
+             'Лишние виды почти ничего не ускоряют (ниже почему).\n'
+             f'- **Кроме креозота заметны** рыбная, ядовитая (шелковистые соты на шёлковую ткань), аурумная и четыре '
+             'усовершенствованные. Вместе с медлительной они дают '
+             f'{sum(per[b] for b in top[:8]) / tot_u * 100:.0f}% циклов.\n'
+             f'- **Сначала пасеки.** Одна новая пасека стоит около {fmt(per_one)} циклов, в основном на четыре '
+             'усовершенствованные пчелы и шелковистые соты. Если сначала достроить все 32, а потом закрывать вехи, '
+             f'на всё уйдёт около {fmt(t_grow + t_after)} циклов одного слота. На 4 пасеках без роста те же вехи займут '
+             f'{fmt(t_none)}, то есть в {t_none / (t_grow + t_after):.0f} раз дольше. Это только по пчёлам: кроме сот '
+             'пасека стоит 8 катализаторов бесконечности и корпус с каркасами на десятки миллионов mB газов и жидкостей.\n'
+             f'- **Главный вопрос: скорость пасеки.** {fmt(t_grow + t_after)} циклов слота при обычном цикле Forestry '
+             f'(550 тиков) это около {days:.0f} дней. Значит, весь план держится на улучшениях скорости и «Стаке» '
+             'совершенной пасеки, их выход надо замерить первым делом (в конце файла как).\n'
              '- **Для каждой пасеки нужны почти все виды.** Пчелиный сердечник берёт по чуть-чуть почти всех сот из '
              'набора, поэтому до первой своей пасеки нужно вывести все виды и хотя бы немного на каждом поработать.\n')
 
-    L.append('## Сколько сот нужно\n')
+    L.append('## Что делается только из продуктов пчёл\n')
+    L.append('Рецептов центрифуги, сжимателя и плотника самих модов в графе нет, поэтому эти ресурсы граф считал '
+             'базовыми. Здесь они переведены в соты по байткоду Forestry и ExtraBees.\n')
+    L.append('| Ресурс | Нужно (вехи и 28 пасек) | Откуда | В сотах или продуктах |')
+    L.append('|---|---|---|---|')
+    L.append(f'| Креозот | {fmt(raw.get("liquid:creosote", 0) / 1000)} вёдер | смолистые соты: 70% креозотного прополиса, '
+             f'500 mB с прополиса в сжимателе | {fmt(total[cre])} смолистых сот |')
+    for m, drop in ((44, 9), (43, 8), (45, 10), (56, 21)):
+        c = f'ExtraBees:honeyComb:{m}'
+        L.append(f'| {cn(c).replace("окрашенные соты", "капли").capitalize()} | {fmt(raw.get(f"ExtraBees:honeyDrop:{drop}", 0))} '
+                 f'| {cn(c).lower()}: капля своего цвета со 100% | {fmt(total.get(c, 0))} сот |')
+    pan = raw.get('Forestry:craftingMaterial:6', 0)
+    silk = raw.get('Forestry:craftingMaterial:3', 0)
+    L.append(f'| Ароматные панели | {fmt(pan)} | плотник: маточное молочко, пыльца, 2 воска, 3 доски, 500 mB мёда | '
+             f'{fmt(total.get("Forestry:royalJelly", 0))} маточного молочка, {fmt(total.get("Forestry:pollen", 0))} пыльцы |')
+    L.append(f'| Шёлковая ткань | {fmt(silk)} | плотник: 9 шёлковых нитей; нить 60% с шелковистого прополиса, прополис '
+             f'80% с шелковистых сот | {fmt(total.get("Forestry:beeCombs:6", 0))} шелковистых сот |')
+    L.append('')
+    L.append(f'**Мёд и воск идут попутно.** Мёда нужно {fmt(honey_need / 1000)} вёдер (вехи и ароматные панели), это '
+             f'{fmt(honey_need / 100)} капель по 100 mB. Смолистые и окрашенные соты дают попутно около {fmt(drops)} '
+             f'капель. Воска нужно {fmt(wax_need)}, окрашенные соты дают около {fmt(wax)}.\n')
+    L.append(f'**Не пчёлы, но тоже много.** Растительного масла {str(round(raw.get("liquid:seedoil", 0) / 1e9, 1)).replace(".", ",")} млрд mB, '
+             f'фруктового сока и этанола по {fmt(raw.get("liquid:juice", 0) / 1000)} вёдер. Их можно брать с семян и '
+             'фруктов. Пчёлами тоже можно: семянные и фруктовые соты ExtraBees дают 90% капли, капля 200 mB. Тогда на '
+             f'масло нужно ещё около {fmt(raw.get("liquid:seedoil", 0) / 180)} семянных сот, в этот расчёт они не '
+             'входят.\n')
+
+    L.append('## Сколько сот и продуктов нужно\n')
     L.append(f'«Вехи» = все шесть вех, «ДДБ» = только дерево Демонического дракона, «пасека» = одна совершенная '
              f'пасека, «всего» = вехи и 28 пасек. Ещё {fmt(any_comb)} любых сот (`ore:beeComb`) уходит в рецепты, '
              'их даёт любая пчела.\n')
-    L.append('| Сота | Вехи | Из них ДДБ | Пасека | Всего | В вехах впервые нужна |')
+    L.append('| Сота или продукт | Вехи | Из них ДДБ | Пасека | Всего | В вехах впервые нужна |')
     L.append('|---|---|---|---|---|---|')
     gkey = lambda c: (fmt(mil.get(c, 0)), fmt(ddb.get(c, 0)), fmt(api.get(c, 0)))  # noqa: E731
     groups = defaultdict(list)
@@ -331,15 +426,23 @@ def main():
     L.append('')
     worse = [(c, best[c], assign[c]) for c in combs if eff[assign[c]][c] < eff[best[c]][c]]
     if worse:
-        L.append('**Почему наименьший набор и есть лучший.** Есть соты, где у пчелы из набора шанс ниже лучшего:\n')
+        L.append('**Где у пчелы из набора шанс ниже лучшего.**\n')
         for c, bb, ba in worse:
-            other = max((x for x, y in assign.items() if y == ba and x != c), key=lambda x: total[x] / eff[ba][x])
-            L.append(f'- {cn(c)}: в наборе {bees[ba]["name"]} {pct(eff[ba][c])}, лучшая {bees[bb]["name"]} '
-                     f'{pct(eff[bb][c])}. Но {bees[ba]["name"].lower()} всё равно работает ради соты «{cn(other)}» и '
-                     f'дольше, чем нужно на {cn(c).lower()}, так что эти соты идут попутно.')
+            own = total[c] / eff[ba][c]
+            others = [x for x, y in assign.items() if y == ba and x != c]
+            other = max(others, key=lambda x: total[x] / eff[ba][x]) if others else None
+            head = (f'- {cn(c)}: в наборе {bees[ba]["name"].lower()} {pct(eff[ba][c])}, лучшая '
+                    f'{bees[bb]["name"].lower()} {pct(eff[bb][c])}.')
+            if other and total[other] / eff[ba][other] >= own:
+                L.append(head + f' Но {bees[ba]["name"].lower()} всё равно работает ради соты «{cn(other)}» дольше, '
+                         'так что эти соты идут попутно и лишний вид ничего не даёт.')
+            else:
+                save = own - max([total[x] / eff[ba][x] for x in others] + [0]) - total[c] / eff[bb][c]
+                L.append(head + f' Ещё один вид сэкономил бы около {fmt(save)} циклов, это '
+                         f'{str(round(save / sum(per.values()) * 100, 1)).replace(".", ",")}% всей работы. Можно добавить, если он уже выведен.')
         L.append('')
-        L.append(f'С лучшей пчелой на каждую соту вышло бы {len(set(best.values()))} видов и {fmt(sum(per_best.values()))} '
-                 f'циклов, у наименьшего набора {fmt(sum(per.values()))}.\n')
+        L.append(f'Если на каждую соту брать лучшую пчелу, набор вырастет до {len(set(best.values()))} видов, а работа '
+                 f'будет {fmt(sum(per_best.values()))} циклов против {fmt(sum(per.values()))}.\n')
 
     def table(alloc_, rot, small, per_phase):
         rows = ['| Пчела | Слотов | Соты |', '|---|---|---|']
@@ -392,7 +495,11 @@ def main():
              '- **Гены скорости.** Если у части пчёл гены скорости разные, их доли надо пересчитать: выход умножается '
              'на множитель гена.\n'
              '- **Улучшение «Стак».** По описанию пчёлы дают сразу стак продукции. Если так, все циклы делятся на 64, '
-             'а доли остаются те же.\n')
+             'а доли остаются те же.\n'
+             '- **Изнурённая пчела.** В ExtraBees её мутация (Драконья + Реликтовая, 2%) срабатывает только у игрока '
+             'jadedcat, а она родитель покфениумной. Узнать, как её получают на сервере (магазин, кит, шаблон Gendustry).\n'
+             '- **Креозот на сервере.** Проверить в NEI, что смолистые соты в центрифуге дают 70% креозотного прополиса, '
+             'а прополис в сжимателе 500 mB: сервер мог поменять эти рецепты, а от них зависит больше 80% работы.\n')
     open(os.path.join(ROOT, 'data/bees.md'), 'w', encoding='utf8').write('\n'.join(L) + '\n')
     json.dump(dict(demand={c: dict(milestones=mil.get(c, 0), ddb=ddb.get(c, 0), apiary=api.get(c, 0), total=total[c],
                                    first=first.get(c)) for c in combs},
