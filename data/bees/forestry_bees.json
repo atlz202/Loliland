@@ -1,0 +1,366 @@
+{
+"FOREST": [
+[
+"addProduct",
+"HONEY",
+0,
+0.3
+]
+],
+"MEADOWS": [
+[
+"addProduct",
+"HONEY",
+0,
+0.3
+]
+],
+"COMMON": [
+[
+"addProduct",
+"HONEY",
+0,
+0.35
+]
+],
+"CULTIVATED": [
+[
+"addProduct",
+"HONEY",
+0,
+0.4
+]
+],
+"NOBLE": [
+[
+"addProduct",
+"DRIPPING",
+5,
+0.2
+]
+],
+"MAJESTIC": [
+[
+"addProduct",
+"DRIPPING",
+5,
+0.3
+]
+],
+"IMPERIAL": [
+[
+"addProduct",
+"DRIPPING",
+5,
+0.2
+]
+],
+"DILIGENT": [
+[
+"addProduct",
+"STRINGY",
+3,
+0.2
+]
+],
+"UNWEARY": [
+[
+"addProduct",
+"STRINGY",
+3,
+0.3
+]
+],
+"INDUSTRIOUS": [
+[
+"addProduct",
+"STRINGY",
+3,
+0.2
+]
+],
+"STEADFAST": [
+[
+"addProduct",
+"COCOA",
+1,
+0.2
+]
+],
+"VALIANT": [
+[
+"addProduct",
+"COCOA",
+1,
+0.3
+]
+],
+"HEROIC": [
+[
+"addProduct",
+"COCOA",
+1,
+0.4
+]
+],
+"SINISTER": [
+[
+"addProduct",
+"SIMMERING",
+2,
+0.45
+]
+],
+"FIENDISH": [
+[
+"addProduct",
+"SIMMERING",
+2,
+0.55
+]
+],
+"DEMONIC": [
+[
+"addProduct",
+"SIMMERING",
+2,
+0.45
+]
+],
+"MODEST": [
+[
+"addProduct",
+"PARCHED",
+7,
+0.2
+]
+],
+"FRUGAL": [
+[
+"addProduct",
+"PARCHED",
+7,
+0.3
+]
+],
+"AUSTERE": [
+[
+"addProduct",
+"PARCHED",
+7,
+0.2
+],
+[
+"addSpecialty",
+"POWDERY",
+10,
+0.5
+]
+],
+"TROPICAL": [
+[
+"addProduct",
+"SILKY",
+6,
+0.2
+]
+],
+"EXOTIC": [
+[
+"addProduct",
+"SILKY",
+6,
+0.3
+]
+],
+"EDENIC": [
+[
+"addProduct",
+"SILKY",
+6,
+0.2
+]
+],
+"ENDED": [
+[
+"addProduct",
+"MYSTERIOUS",
+8,
+0.3
+]
+],
+"SPECTRAL": [
+[
+"addProduct",
+"MYSTERIOUS",
+8,
+0.5
+]
+],
+"PHANTASMAL": [
+[
+"addProduct",
+"MYSTERIOUS",
+8,
+0.4
+]
+],
+"WINTRY": [
+[
+"addProduct",
+"FROZEN",
+4,
+0.3
+]
+],
+"ICY": [
+[
+"addProduct",
+"FROZEN",
+4,
+0.2
+]
+],
+"GLACIAL": [
+[
+"addProduct",
+"FROZEN",
+4,
+0.2
+]
+],
+"VINDICTIVE": [
+[
+"addProduct",
+"IRRADIATED",
+9,
+0.25
+]
+],
+"VENGEFUL": [
+[
+"addProduct",
+"IRRADIATED",
+9,
+0.4
+]
+],
+"AVENGING": [
+[
+"addProduct",
+"IRRADIATED",
+9,
+0.4
+]
+],
+"LEPORINE": [
+[
+"addProduct",
+"SILKY",
+6,
+0.3
+]
+],
+"MERRY": [
+[
+"addProduct",
+"FROZEN",
+4,
+0.3
+]
+],
+"TIPSY": [
+[
+"addProduct",
+"FROZEN",
+4,
+0.3
+]
+],
+"TRICKY": [
+[
+"addProduct",
+"HONEY",
+0,
+0.4
+]
+],
+"RURAL": [
+[
+"addProduct",
+"WHEATEN",
+14,
+0.2
+]
+],
+"FARMERLY": [
+[
+"addProduct",
+"WHEATEN",
+14,
+0.27
+]
+],
+"AGRARIAN": [
+[
+"addProduct",
+"WHEATEN",
+14,
+0.35
+]
+],
+"MARSHY": [
+[
+"addProduct",
+"MOSSY",
+15,
+0.3
+]
+],
+"MIRY": [
+[
+"addProduct",
+"MOSSY",
+15,
+0.36
+]
+],
+"BOGGY": [
+[
+"addProduct",
+"MOSSY",
+15,
+0.39
+]
+],
+"MONASTIC": [
+[
+"addProduct",
+"WHEATEN",
+14,
+0.3
+],
+[
+"addSpecialty",
+"MELLOW",
+16,
+0.1
+]
+],
+"SECLUDED": [
+[
+"addSpecialty",
+"MELLOW",
+16,
+0.2
+]
+],
+"HERMITIC": [
+[
+"addSpecialty",
+"MELLOW",
+16,
+0.2
+]
+]
+}

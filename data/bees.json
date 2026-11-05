@@ -1,0 +1,677 @@
+{
+ "demand": {
+  "jgendustry:HoneyComb:10016": {
+   "milestones": 4215260.0,
+   "ddb": 398640.0,
+   "apiary": 200.0,
+   "total": 4220860.0,
+   "first": "Дракон хаоса, призыв"
+  },
+  "ExtraBees:honeyComb:6": {
+   "milestones": 538496.0,
+   "ddb": 0,
+   "apiary": 67648.0,
+   "total": 2432640.0,
+   "first": "Остальные пять вех"
+  },
+  "ExtraBees:honeyComb:37": {
+   "milestones": 517888.0,
+   "ddb": 0,
+   "apiary": 67648.0,
+   "total": 2412032.0,
+   "first": "Остальные пять вех"
+  },
+  "ExtraBees:honeyComb:20": {
+   "milestones": 517888.0,
+   "ddb": 0,
+   "apiary": 67648.0,
+   "total": 2412032.0,
+   "first": "Остальные пять вех"
+  },
+  "ExtraBees:honeyComb:13": {
+   "milestones": 516864.0,
+   "ddb": 0,
+   "apiary": 67648.0,
+   "total": 2411008.0,
+   "first": "Остальные пять вех"
+  },
+  "jgendustry:HoneyComb:10022": {
+   "milestones": 856292.0,
+   "ddb": 76080.0,
+   "apiary": 40.0,
+   "total": 857412.0,
+   "first": "Душа дракона хаоса"
+  },
+  "jgendustry:HoneyComb:10017": {
+   "milestones": 843064.0,
+   "ddb": 79728.0,
+   "apiary": 40.0,
+   "total": 844184.0,
+   "first": "Дракон хаоса, призыв"
+  },
+  "ExtraBees:honeyComb:32": {
+   "milestones": 704088.0,
+   "ddb": 66208.0,
+   "apiary": 16.0,
+   "total": 704536.0,
+   "first": "Дракон хаоса, призыв"
+  },
+  "jgendustry:HoneyComb:10018": {
+   "milestones": 455867.40625,
+   "ddb": 3046.875,
+   "apiary": 0.0,
+   "total": 455867.40625,
+   "first": "ДДБ"
+  },
+  "jgendustry:HoneyComb:10020": {
+   "milestones": 199403.40625,
+   "ddb": 3046.875,
+   "apiary": 0.0,
+   "total": 199403.40625,
+   "first": "ДДБ"
+  },
+  "Forestry:beeCombs:2": {
+   "milestones": 56520.0,
+   "ddb": 5184.0,
+   "apiary": 488.0,
+   "total": 70184.0,
+   "first": "Дракон бесконечности, призыв"
+  },
+  "Forestry:beeCombs:4": {
+   "milestones": 56520.0,
+   "ddb": 5184.0,
+   "apiary": 488.0,
+   "total": 70184.0,
+   "first": "Дракон бесконечности, призыв"
+  },
+  "ExtraBees:honeyComb:31": {
+   "milestones": 56488.0,
+   "ddb": 5184.0,
+   "apiary": 488.0,
+   "total": 70152.0,
+   "first": "Дракон бесконечности, призыв"
+  },
+  "Forestry:beeCombs:5": {
+   "milestones": 3824.0,
+   "ddb": 0,
+   "apiary": 976.0,
+   "total": 31152.0,
+   "first": "Остальные пять вех"
+  },
+  "Forestry:beeCombs:7": {
+   "milestones": 1928.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15592.0,
+   "first": "Остальные пять вех"
+  },
+  "Forestry:beeCombs:15": {
+   "milestones": 1928.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15592.0,
+   "first": "Остальные пять вех"
+  },
+  "Forestry:beeCombs:6": {
+   "milestones": 1928.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15592.0,
+   "first": "Остальные пять вех"
+  },
+  "Forestry:beeCombs": {
+   "milestones": 1928.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15592.0,
+   "first": "Остальные пять вех"
+  },
+  "Forestry:beeCombs:3": {
+   "milestones": 1928.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15592.0,
+   "first": "Остальные пять вех"
+  },
+  "jgendustry:HoneyComb:10011": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "jgendustry:HoneyComb:10008": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "ExtraBees:honeyComb:10": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "jgendustry:HoneyComb:10007": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "jgendustry:HoneyComb:10003": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "ExtraBees:honeyComb:65": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "ExtraBees:honeyComb:26": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "jgendustry:HoneyComb:10006": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "ExtraBees:honeyComb:30": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "jgendustry:HoneyComb:10009": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "jgendustry:HoneyComb:10002": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "ExtraBees:honeyComb:15": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "ExtraBees:honeyComb:33": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "jgendustry:HoneyComb:10014": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "jgendustry:HoneyComb:10015": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "ExtraBees:honeyComb:27": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "jgendustry:HoneyComb:10005": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "jgendustry:HoneyComb:10013": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "jgendustry:HoneyComb:10001": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "ExtraBees:honeyComb:24": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "jgendustry:HoneyComb:10012": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "jgendustry:HoneyComb:10010": {
+   "milestones": 1896.0,
+   "ddb": 0,
+   "apiary": 488.0,
+   "total": 15560.0,
+   "first": "Остальные пять вех"
+  },
+  "jgendustry:HoneyComb:10004": {
+   "milestones": 9064.0,
+   "ddb": 640.0,
+   "apiary": 0.0,
+   "total": 9064.0,
+   "first": "Души огненного и ледяного"
+  }
+ },
+ "chosen": {
+  "gendustry.bee.Cobalt": {
+   "name": "Кобальтовая",
+   "units": 103733.33333333334,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10013": 0.15
+   }
+  },
+  "extrabees.species.creosote": {
+   "name": "Медлительная",
+   "units": 51866.66666666667,
+   "forced": true,
+   "combs": {
+    "ExtraBees:honeyComb:24": 0.3
+   }
+  },
+  "gendustry.bee.Magnesium": {
+   "name": "Магниевая",
+   "units": 20746.666666666668,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10010": 0.75
+   }
+  },
+  "extrabees.species.abyss": {
+   "name": "Глубинная",
+   "units": 2818144.0,
+   "forced": false,
+   "combs": {
+    "ExtraBees:honeyComb:32": 0.25
+   }
+  },
+  "extrabees.species.iron": {
+   "name": "Ржавая",
+   "units": 311200.0,
+   "forced": true,
+   "combs": {
+    "ExtraBees:honeyComb:15": 0.05
+   }
+  },
+  "gendustry.bee.ImprovedTitan": {
+   "name": "Усовершенствованная титановая",
+   "units": 311200.0,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10015": 0.05
+   }
+  },
+  "gendustry.bee.pokefenniumbee": {
+   "name": "Покфениумная",
+   "units": 1994034.0625,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10020": 0.1
+   }
+  },
+  "extrabees.species.alcohol": {
+   "name": "Ферментная",
+   "units": 155600.0,
+   "forced": true,
+   "combs": {
+    "ExtraBees:honeyComb:10": 0.1
+   }
+  },
+  "forestry.speciesUnweary": {
+   "name": "Неутомимая",
+   "units": 51973.333333333336,
+   "forced": false,
+   "combs": {
+    "Forestry:beeCombs:3": 0.3
+   }
+  },
+  "extrabees.species.yellow": {
+   "name": "Шафрановая",
+   "units": 20789.333333333332,
+   "forced": false,
+   "combs": {
+    "Forestry:beeCombs": 0.75
+   }
+  },
+  "gendustry.bee.ImprovedWater": {
+   "name": "Усовершенствованная водная",
+   "units": 7784448.0,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10007": 0.25,
+    "ExtraBees:honeyComb:6": 0.3125
+   }
+  },
+  "forestry.speciesMajestic": {
+   "name": "Величавая",
+   "units": 103840.0,
+   "forced": false,
+   "combs": {
+    "Forestry:beeCombs:5": 0.3
+   }
+  },
+  "gendustry.bee.ImprovedUranium": {
+   "name": "Усовершенствованная радиоактивная",
+   "units": 7718502.4,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10008": 0.25,
+    "ExtraBees:honeyComb:20": 0.3125
+   }
+  },
+  "gendustry.bee.Zinc": {
+   "name": "Цинковая",
+   "units": 20746.666666666668,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10012": 0.75
+   }
+  },
+  "gendustry.bee.LightMauve": {
+   "name": "Светло-розовато-лиловая",
+   "units": 155600.0,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10001": 0.1
+   }
+  },
+  "forestry.speciesFrugal": {
+   "name": "Бережливая",
+   "units": 51973.333333333336,
+   "forced": false,
+   "combs": {
+    "Forestry:beeCombs:7": 0.3
+   }
+  },
+  "gendustry.bee.Ardite": {
+   "name": "Ардитовая",
+   "units": 103733.33333333334,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10014": 0.15
+   }
+  },
+  "forestry.speciesFiendish": {
+   "name": "Жестокая",
+   "units": 127607.27272727272,
+   "forced": false,
+   "combs": {
+    "Forestry:beeCombs:2": 0.55
+   }
+  },
+  "extrabees.species.quantum": {
+   "name": "Квантовая",
+   "units": 103733.33333333334,
+   "forced": true,
+   "combs": {
+    "ExtraBees:honeyComb:65": 0.15
+   }
+  },
+  "extrabees.species.lead": {
+   "name": "Свинцовая",
+   "units": 311200.0,
+   "forced": true,
+   "combs": {
+    "ExtraBees:honeyComb:33": 0.05
+   }
+  },
+  "forestry.speciesBoggy": {
+   "name": "Болотистая",
+   "units": 39979.48717948718,
+   "forced": false,
+   "combs": {
+    "Forestry:beeCombs:15": 0.39
+   }
+  },
+  "gendustry.bee.NeutroniumAccumulation": {
+   "name": "Нейтрониевая",
+   "units": 906400.0,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10004": 0.01
+   }
+  },
+  "gendustry.bee.Obsidian": {
+   "name": "Обсидиан",
+   "units": 15560.0,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10009": 1.0
+   }
+  },
+  "gendustry.bee.Fish": {
+   "name": "Рыбная",
+   "units": 14069533.333333334,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10017": 0.1,
+    "jgendustry:HoneyComb:10016": 0.3
+   }
+  },
+  "gendustry.bee.ImprovedEmber": {
+   "name": "Усовершенствованная янтарная",
+   "units": 7715225.6,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10006": 0.25,
+    "ExtraBees:honeyComb:13": 0.3125
+   }
+  },
+  "extrabees.species.coffee": {
+   "name": "Кофейная",
+   "units": 194500.0,
+   "forced": true,
+   "combs": {
+    "ExtraBees:honeyComb:30": 0.08
+   }
+  },
+  "extrabees.species.virulent": {
+   "name": "Ядовитая",
+   "units": 129666.66666666667,
+   "forced": true,
+   "combs": {
+    "Forestry:beeCombs:6": 0.25,
+    "ExtraBees:honeyComb:27": 0.12
+   }
+  },
+  "gendustry.bee.StuffIngotbee": {
+   "name": "Волшебная",
+   "units": 4558674.0625,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10018": 0.1
+   }
+  },
+  "gendustry.bee.PalePurple": {
+   "name": "Бледно-фиолетовая",
+   "units": 155600.0,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10002": 0.1
+   }
+  },
+  "gendustry.bee.ImprovedPlatinum": {
+   "name": "Усовершенствованная ценная",
+   "units": 7718502.4,
+   "forced": true,
+   "combs": {
+    "ExtraBees:honeyComb:37": 0.3125,
+    "jgendustry:HoneyComb:10005": 0.25
+   }
+  },
+  "extrabees.species.freezing": {
+   "name": "Самовластная",
+   "units": 701520.0,
+   "forced": true,
+   "combs": {
+    "ExtraBees:honeyComb:31": 0.1,
+    "Forestry:beeCombs:4": 0.2
+   }
+  },
+  "gendustry.bee.PaleTurquoise": {
+   "name": "Бледно-бирюзовая",
+   "units": 155600.0,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10003": 0.1
+   }
+  },
+  "gendustry.bee.AurumBee": {
+   "name": "Аурумная",
+   "units": 8574120.0,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10022": 0.1
+   }
+  },
+  "extrabees.species.acidic": {
+   "name": "Едко-кислотная",
+   "units": 97250.0,
+   "forced": false,
+   "combs": {
+    "ExtraBees:honeyComb:26": 0.16
+   }
+  },
+  "gendustry.bee.Manganese": {
+   "name": "Марганцевая",
+   "units": 20746.666666666668,
+   "forced": true,
+   "combs": {
+    "jgendustry:HoneyComb:10011": 0.75
+   }
+  }
+ },
+ "start": {
+  "slots": {
+   "gendustry.bee.Fish": 2,
+   "gendustry.bee.ImprovedWater": 10,
+   "gendustry.bee.ImprovedPlatinum": 10,
+   "gendustry.bee.ImprovedUranium": 10,
+   "gendustry.bee.ImprovedEmber": 10,
+   "gendustry.bee.AurumBee": 1
+  },
+  "rotation": 5,
+  "rotation_bees": [
+   "extrabees.species.abyss",
+   "extrabees.species.acidic",
+   "extrabees.species.alcohol",
+   "extrabees.species.coffee",
+   "extrabees.species.creosote",
+   "extrabees.species.freezing",
+   "extrabees.species.iron",
+   "extrabees.species.lead",
+   "extrabees.species.quantum",
+   "extrabees.species.virulent",
+   "extrabees.species.yellow",
+   "forestry.speciesBoggy",
+   "forestry.speciesFiendish",
+   "forestry.speciesFrugal",
+   "forestry.speciesMajestic",
+   "forestry.speciesUnweary",
+   "gendustry.bee.Ardite",
+   "gendustry.bee.Cobalt",
+   "gendustry.bee.ImprovedTitan",
+   "gendustry.bee.LightMauve",
+   "gendustry.bee.Magnesium",
+   "gendustry.bee.Manganese",
+   "gendustry.bee.NeutroniumAccumulation",
+   "gendustry.bee.Obsidian",
+   "gendustry.bee.PalePurple",
+   "gendustry.bee.PaleTurquoise",
+   "gendustry.bee.StuffIngotbee",
+   "gendustry.bee.Zinc",
+   "gendustry.bee.pokefenniumbee"
+  ]
+ },
+ "late": {
+  "slots": {
+   "gendustry.bee.Fish": 128,
+   "gendustry.bee.ImprovedWater": 17,
+   "gendustry.bee.ImprovedPlatinum": 17,
+   "gendustry.bee.ImprovedUranium": 17,
+   "gendustry.bee.ImprovedEmber": 17,
+   "gendustry.bee.AurumBee": 79,
+   "extrabees.species.abyss": 26,
+   "gendustry.bee.StuffIngotbee": 46,
+   "gendustry.bee.pokefenniumbee": 20,
+   "forestry.speciesFiendish": 1,
+   "extrabees.species.freezing": 5,
+   "gendustry.bee.NeutroniumAccumulation": 8
+  },
+  "rotation": 3,
+  "rotation_bees": [
+   "extrabees.species.acidic",
+   "extrabees.species.alcohol",
+   "extrabees.species.coffee",
+   "extrabees.species.creosote",
+   "extrabees.species.iron",
+   "extrabees.species.lead",
+   "extrabees.species.quantum",
+   "extrabees.species.virulent",
+   "extrabees.species.yellow",
+   "forestry.speciesBoggy",
+   "forestry.speciesFrugal",
+   "forestry.speciesMajestic",
+   "forestry.speciesUnweary",
+   "gendustry.bee.Ardite",
+   "gendustry.bee.Cobalt",
+   "gendustry.bee.ImprovedTitan",
+   "gendustry.bee.LightMauve",
+   "gendustry.bee.Magnesium",
+   "gendustry.bee.Manganese",
+   "gendustry.bee.Obsidian",
+   "gendustry.bee.PalePurple",
+   "gendustry.bee.PaleTurquoise",
+   "gendustry.bee.Zinc"
+  ]
+ },
+ "cycles": {
+  "per_apiary": 957044.2881118881,
+  "grow": 165843.1374939388,
+  "after": 105667.47365739728,
+  "no_growth": 845339.7892591784
+ }
+}

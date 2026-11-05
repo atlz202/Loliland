@@ -1,0 +1,2945 @@
+{
+"combs": {
+"0": [
+"BARREN",
+"Бесплодные соты"
+],
+"1": [
+"ROTTEN",
+"Гнилые соты"
+],
+"2": [
+"BONE",
+"Костяные соты"
+],
+"3": [
+"OIL",
+"Масляные соты"
+],
+"4": [
+"COAL",
+"Окаменевшие соты"
+],
+"5": [
+"FUEL",
+"Нефтяные соты"
+],
+"6": [
+"WATER",
+"Влажные соты"
+],
+"7": [
+"MILK",
+"Молочные соты"
+],
+"8": [
+"FRUIT",
+"Фруктовые соты"
+],
+"9": [
+"SEED",
+"Семянные соты"
+],
+"10": [
+"ALCOHOL",
+"Спиртовые соты"
+],
+"11": [
+"STONE",
+"Каменистые соты"
+],
+"12": [
+"REDSTONE",
+"Энергетические соты"
+],
+"13": [
+"RESIN",
+"Янтарные соты"
+],
+"14": [
+"IC2ENERGY",
+"Статические соты"
+],
+"15": [
+"IRON",
+"Железные соты"
+],
+"16": [
+"GOLD",
+"Золотые соты"
+],
+"17": [
+"COPPER",
+"Медные соты"
+],
+"18": [
+"TIN",
+"Оловянные соты"
+],
+"19": [
+"SILVER",
+"Серебряные соты"
+],
+"20": [
+"URANIUM",
+"Урановые соты"
+],
+"21": [
+"CLAY",
+"Глиняные соты"
+],
+"22": [
+"OLD",
+"Древние соты"
+],
+"23": [
+"FUNGAL",
+"Грибные соты"
+],
+"24": [
+"CREOSOTE",
+"Смолистые соты"
+],
+"25": [
+"LATEX",
+"Каучуковые соты"
+],
+"26": [
+"ACIDIC",
+"Серные соты"
+],
+"27": [
+"VENOMOUS",
+"Ядовитые соты"
+],
+"28": [
+"SLIME",
+"Слизистые соты"
+],
+"29": [
+"BLAZE",
+"Горящие соты"
+],
+"30": [
+"COFFEE",
+"Кофейные соты"
+],
+"31": [
+"GLACIAL",
+"Ледяные соты"
+],
+"32": [
+"SHADOW",
+"Теневые соты"
+],
+"33": [
+"LEAD",
+"Свинцовые соты"
+],
+"34": [
+"ZINC",
+"Цинковые соты"
+],
+"35": [
+"TITANIUM",
+"Титановые соты"
+],
+"36": [
+"TUNGSTEN",
+"Вольфрамовые соты"
+],
+"37": [
+"PLATINUM",
+"Платиновые соты"
+],
+"38": [
+"LAPIS",
+"Лазуритовые соты"
+],
+"39": [
+"EMERALD",
+"Изумрудные соты"
+],
+"40": [
+"RUBY",
+"Рубиновые соты"
+],
+"41": [
+"SAPPHIRE",
+"Сапфировые соты"
+],
+"42": [
+"DIAMOND",
+"Алмазные соты"
+],
+"43": [
+"RED",
+"Красные окрашенные соты"
+],
+"44": [
+"YELLOW",
+"Жёлтые окрашенные соты"
+],
+"45": [
+"BLUE",
+"Синие окрашенные соты"
+],
+"46": [
+"GREEN",
+"Зелёные окрашенные соты"
+],
+"47": [
+"BLACK",
+"Чёрные окрашенные соты"
+],
+"48": [
+"WHITE",
+"Белые окрашенные соты"
+],
+"49": [
+"BROWN",
+"Коричневые окрашенные соты"
+],
+"50": [
+"ORANGE",
+"Оранжевые окрашенные соты"
+],
+"51": [
+"CYAN",
+"Бирюзовые окрашенные соты"
+],
+"52": [
+"PURPLE",
+"Фиолетовые окрашенные соты"
+],
+"53": [
+"GRAY",
+"Серые окрашенные соты"
+],
+"54": [
+"LIGHTBLUE",
+"Светло-голубые окрашенные соты"
+],
+"55": [
+"PINK",
+"Розовые окрашенные соты"
+],
+"56": [
+"LIMEGREEN",
+"Лаймовые окрашенные соты"
+],
+"57": [
+"MAGENTA",
+"Пурпурные окрашенные соты"
+],
+"58": [
+"LIGHTGRAY",
+"Светло-серые окрашенные соты"
+],
+"59": [
+"NICKEL",
+"Никелевые соты"
+],
+"60": [
+"GLOWSTONE",
+"Пылающие соты"
+],
+"61": [
+"SALTPETER",
+"Нестабильные соты"
+],
+"62": [
+"COMPOST",
+"Разлагающиеся соты"
+],
+"63": [
+"SAWDUST",
+"Пыльные соты"
+],
+"64": [
+"CERTUS",
+"Уверенные соты"
+],
+"65": [
+"ENDERPEARL",
+"Мерцающие соты"
+],
+"66": [
+"YELLORIUM",
+"Йеллориумовые соты"
+],
+"67": [
+"CYANITE",
+"Кианитовые соты"
+],
+"68": [
+"BLUTONIUM",
+"Блутониевые соты"
+]
+},
+"species": {
+"extrabees.species.arid": {
+"enum": "ARID",
+"name": "Засушливая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+0,
+0.3
+]
+],
+"mutations": [
+[
+"forestry.speciesMeadows",
+"forestry.speciesFrugal",
+10,
+null
+],
+[
+"forestry.speciesForest",
+"forestry.speciesFrugal",
+10,
+null
+]
+]
+},
+"extrabees.species.barren": {
+"enum": "BARREN",
+"name": "Бесплодная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+0,
+0.3
+]
+],
+"mutations": [
+[
+"forestry.speciesCommon",
+"extrabees.species.arid",
+10,
+null
+]
+]
+},
+"extrabees.species.desolate": {
+"enum": "DESOLATE",
+"name": "Заброшенная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+0,
+0.3
+]
+],
+"mutations": [
+[
+"extrabees.species.arid",
+"extrabees.species.barren",
+10,
+null
+]
+]
+},
+"extrabees.species.decomposing": {
+"enum": "DECOMPOSING",
+"name": "Разлагающаяся",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+0,
+0.3
+],
+[
+"addSpecialty",
+"ExtraBees",
+62,
+0.08
+]
+],
+"mutations": [
+[
+"forestry.speciesMarshy",
+"extrabees.species.barren",
+15,
+null
+]
+]
+},
+"extrabees.species.gnawing": {
+"enum": "GNAWING",
+"name": "Мучительная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+0,
+0.25
+],
+[
+"addSpecialty",
+"ExtraBees",
+63,
+0.25
+]
+],
+"mutations": [
+[
+"forestry.speciesForest",
+"extrabees.species.barren",
+15,
+null
+]
+]
+},
+"extrabees.species.rotten": {
+"enum": "ROTTEN",
+"name": "Гнилая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+0,
+0.3
+],
+[
+"addSpecialty",
+"ExtraBees",
+1,
+0.1
+]
+],
+"mutations": [
+[
+"forestry.speciesMeadows",
+"extrabees.species.desolate",
+15,
+null
+]
+]
+},
+"extrabees.species.bone": {
+"enum": "BONE",
+"name": "Скелетная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+0,
+0.3
+],
+[
+"addSpecialty",
+"ExtraBees",
+2,
+0.1
+]
+],
+"mutations": [
+[
+"forestry.speciesForest",
+"extrabees.species.desolate",
+15,
+null
+]
+]
+},
+"extrabees.species.creeper": {
+"enum": "CREEPER",
+"name": "Криперная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+0,
+0.3
+],
+[
+"addSpecialty",
+"Forestry",
+10,
+0.08
+]
+],
+"mutations": [
+[
+"forestry.speciesModest",
+"extrabees.species.desolate",
+15,
+null
+]
+]
+},
+"extrabees.species.rock": {
+"enum": "ROCK",
+"name": "Каменная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.3
+]
+],
+"mutations": []
+},
+"extrabees.species.stone": {
+"enum": "STONE",
+"name": "Толерантная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.3
+]
+],
+"mutations": [
+[
+"forestry.speciesDiligent",
+"extrabees.species.rock",
+12,
+null
+]
+]
+},
+"extrabees.species.granite": {
+"enum": "GRANITE",
+"name": "Выносливая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.3
+]
+],
+"mutations": [
+[
+"forestry.speciesUnweary",
+"extrabees.species.stone",
+10,
+null
+]
+]
+},
+"extrabees.species.mineral": {
+"enum": "MINERAL",
+"name": "Устойчивая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.3
+]
+],
+"mutations": [
+[
+"forestry.speciesIndustrious",
+"extrabees.species.granite",
+6,
+null
+]
+]
+},
+"extrabees.species.copper": {
+"enum": "COPPER",
+"name": "Коррозийная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+17,
+0.06
+]
+],
+"mutations": [
+[
+"forestry.speciesWintry",
+"extrabees.species.mineral",
+5,
+null
+],
+[
+"forestry.speciesModest",
+"extrabees.species.mineral",
+5,
+null
+]
+]
+},
+"extrabees.species.tin": {
+"enum": "TIN",
+"name": "Потускневшая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+18,
+0.06
+]
+],
+"mutations": [
+[
+"forestry.speciesMarshy",
+"extrabees.species.mineral",
+5,
+null
+],
+[
+"forestry.speciesTropical",
+"extrabees.species.mineral",
+5,
+null
+]
+]
+},
+"extrabees.species.iron": {
+"enum": "IRON",
+"name": "Ржавая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+15,
+0.05
+]
+],
+"mutations": [
+[
+"forestry.speciesMeadows",
+"extrabees.species.mineral",
+5,
+null
+],
+[
+"forestry.speciesForest",
+"extrabees.species.mineral",
+5,
+null
+]
+]
+},
+"extrabees.species.lead": {
+"enum": "LEAD",
+"name": "Свинцовая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+33,
+0.05
+]
+],
+"mutations": [
+[
+"forestry.speciesMeadows",
+"extrabees.species.mineral",
+5,
+null
+],
+[
+"forestry.speciesModest",
+"extrabees.species.mineral",
+5,
+null
+]
+]
+},
+"extrabees.species.zinc": {
+"enum": "ZINC",
+"name": "Оцинкованная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+34,
+0.05
+]
+],
+"mutations": [
+[
+"forestry.speciesWintry",
+"extrabees.species.mineral",
+5,
+null
+],
+[
+"forestry.speciesTropical",
+"extrabees.species.mineral",
+5,
+null
+]
+]
+},
+"extrabees.species.titanium": {
+"enum": "TITANIUM",
+"name": "Неприступная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+35,
+0.02
+]
+],
+"mutations": [
+[
+"forestry.speciesCultivated",
+"extrabees.species.mineral",
+3,
+null
+]
+]
+},
+"extrabees.species.tungstate": {
+"enum": "TUNGSTATE",
+"name": "Непобедимая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+36,
+0.01
+]
+],
+"mutations": [
+[
+"forestry.speciesCommon",
+"extrabees.species.mineral",
+3,
+null
+]
+]
+},
+"extrabees.species.nickel": {
+"enum": "NICKEL",
+"name": "Взволнованная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+59,
+0.05
+]
+],
+"mutations": [
+[
+"forestry.speciesForest",
+"extrabees.species.mineral",
+5,
+null
+],
+[
+"forestry.speciesMarshy",
+"extrabees.species.mineral",
+5,
+null
+]
+]
+},
+"extrabees.species.gold": {
+"enum": "GOLD",
+"name": "Сверкающая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+16,
+0.02
+]
+],
+"mutations": [
+[
+"forestry.speciesMajestic",
+"extrabees.species.iron",
+2,
+null
+],
+[
+"forestry.speciesMajestic",
+"extrabees.species.copper",
+2,
+null
+],
+[
+"forestry.speciesMajestic",
+"extrabees.species.nickel",
+2,
+null
+],
+[
+"forestry.speciesMajestic",
+"extrabees.species.tungstate",
+2,
+null
+]
+]
+},
+"extrabees.species.silver": {
+"enum": "SILVER",
+"name": "Сияющая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+19,
+0.02
+]
+],
+"mutations": [
+[
+"forestry.speciesMajestic",
+"extrabees.species.zinc",
+2,
+null
+],
+[
+"forestry.speciesMajestic",
+"extrabees.species.tin",
+2,
+null
+],
+[
+"forestry.speciesMajestic",
+"extrabees.species.lead",
+2,
+null
+],
+[
+"forestry.speciesMajestic",
+"extrabees.species.titanium",
+2,
+null
+]
+]
+},
+"extrabees.species.platinum": {
+"enum": "PLATINUM",
+"name": "Ценная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+37,
+0.01
+]
+],
+"mutations": [
+[
+"extrabees.species.gold",
+"extrabees.species.silver",
+2,
+null
+]
+]
+},
+"extrabees.species.lapis": {
+"enum": "LAPIS",
+"name": "Лазуритовая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+38,
+0.05
+]
+],
+"mutations": [
+[
+"forestry.speciesImperial",
+"extrabees.species.mineral",
+5,
+null
+]
+]
+},
+"extrabees.species.emerald": {
+"enum": "EMERALD",
+"name": "Изумрудная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+39,
+0.04
+]
+],
+"mutations": [
+[
+"forestry.speciesForest",
+"extrabees.species.lapis",
+5,
+null
+]
+]
+},
+"extrabees.species.ruby": {
+"enum": "RUBY",
+"name": "Рубиновая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+40,
+0.03
+]
+],
+"mutations": [
+[
+"forestry.speciesModest",
+"extrabees.species.lapis",
+5,
+null
+]
+]
+},
+"extrabees.species.sapphire": {
+"enum": "SAPPHIRE",
+"name": "Сапфировая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+41,
+0.03
+]
+],
+"mutations": [
+[
+"extrabees.species.water",
+"extrabees.species.lapis",
+5,
+null
+]
+]
+},
+"extrabees.species.diamond": {
+"enum": "DIAMOND",
+"name": "Алмазная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+11,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+42,
+0.01
+]
+],
+"mutations": [
+[
+"forestry.speciesCultivated",
+"extrabees.species.lapis",
+5,
+null
+]
+]
+},
+"extrabees.species.unstable": {
+"enum": "UNSTABLE",
+"name": "Нестабильная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+0,
+0.2
+]
+],
+"mutations": [
+[
+"extrabees.species.prehistoric",
+"extrabees.species.mineral",
+5,
+null
+]
+]
+},
+"extrabees.species.nuclear": {
+"enum": "NUCLEAR",
+"name": "Ядерная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+0,
+0.2
+]
+],
+"mutations": [
+[
+"extrabees.species.unstable",
+"extrabees.species.iron",
+5,
+null
+],
+[
+"extrabees.species.unstable",
+"extrabees.species.copper",
+5,
+null
+],
+[
+"extrabees.species.unstable",
+"extrabees.species.tin",
+5,
+null
+],
+[
+"extrabees.species.unstable",
+"extrabees.species.zinc",
+5,
+null
+],
+[
+"extrabees.species.unstable",
+"extrabees.species.nickel",
+5,
+null
+],
+[
+"extrabees.species.unstable",
+"extrabees.species.lead",
+5,
+null
+]
+]
+},
+"extrabees.species.radioactive": {
+"enum": "RADIOACTIVE",
+"name": "Радиоактивная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+0,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+20,
+0.02
+]
+],
+"mutations": [
+[
+"extrabees.species.nuclear",
+"extrabees.species.gold",
+5,
+null
+],
+[
+"extrabees.species.nuclear",
+"extrabees.species.silver",
+5,
+null
+]
+]
+},
+"extrabees.species.yellorium": {
+"enum": "YELLORIUM",
+"name": "Йеллориумовая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+0,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+66,
+0.02
+]
+],
+"mutations": [
+[
+"forestry.speciesFrugal",
+"extrabees.species.nuclear",
+5,
+null
+]
+]
+},
+"extrabees.species.cyanite": {
+"enum": "CYANITE",
+"name": "Цианитовая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+0,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+67,
+0.01
+]
+],
+"mutations": [
+[
+"extrabees.species.nuclear",
+"extrabees.species.yellorium",
+5,
+null
+]
+]
+},
+"extrabees.species.blutonium": {
+"enum": "BLUTONIUM",
+"name": "Блутониевая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+0,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+68,
+0.01
+]
+],
+"mutations": [
+[
+"extrabees.species.cyanite",
+"extrabees.species.yellorium",
+5,
+null
+]
+]
+},
+"extrabees.species.ancient": {
+"enum": "ANCIENT",
+"name": "Древняя",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+22,
+0.3
+]
+],
+"mutations": [
+[
+"forestry.speciesNoble",
+"forestry.speciesDiligent",
+10,
+null
+]
+]
+},
+"extrabees.species.primeval": {
+"enum": "PRIMEVAL",
+"name": "Первобытная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+22,
+0.3
+]
+],
+"mutations": [
+[
+"forestry.speciesSecluded",
+"extrabees.species.ancient",
+8,
+null
+]
+]
+},
+"extrabees.species.prehistoric": {
+"enum": "PREHISTORIC",
+"name": "Доисторическая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+22,
+0.3
+]
+],
+"mutations": [
+[
+"extrabees.species.primeval",
+"extrabees.species.ancient",
+8,
+null
+]
+]
+},
+"extrabees.species.relic": {
+"enum": "RELIC",
+"name": "Реликтовая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+22,
+0.3
+]
+],
+"mutations": [
+[
+"forestry.speciesImperial",
+"extrabees.species.prehistoric",
+8,
+null
+]
+]
+},
+"extrabees.species.coal": {
+"enum": "COAL",
+"name": "Окаменелая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+22,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+4,
+0.08
+]
+],
+"mutations": [
+[
+"extrabees.species.primeval",
+"extrabees.species.growing",
+8,
+null
+],
+[
+"forestry.speciesRural",
+"extrabees.species.primeval",
+8,
+null
+]
+]
+},
+"extrabees.species.resin": {
+"enum": "RESIN",
+"name": "Смолистая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+22,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+13,
+0.05
+]
+],
+"mutations": [
+[
+"forestry.speciesMiry",
+"extrabees.species.primeval",
+8,
+null
+]
+]
+},
+"extrabees.species.oil": {
+"enum": "OIL",
+"name": "Нефтяная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+22,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+3,
+0.05
+]
+],
+"mutations": [
+[
+"extrabees.species.ocean",
+"extrabees.species.primeval",
+8,
+null
+],
+[
+"forestry.speciesFrugal",
+"extrabees.species.primeval",
+8,
+null
+]
+]
+},
+"extrabees.species.distilled": {
+"enum": "DISTILLED",
+"name": "Дистиллированная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+22,
+0.1
+]
+],
+"mutations": [
+[
+"forestry.speciesIndustrious",
+"extrabees.species.oil",
+8,
+null
+]
+]
+},
+"extrabees.species.fuel": {
+"enum": "FUEL",
+"name": "Изысканная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+3,
+0.1
+],
+[
+"addSpecialty",
+"ExtraBees",
+5,
+0.04
+]
+],
+"mutations": [
+[
+"extrabees.species.distilled",
+"extrabees.species.oil",
+8,
+null
+]
+]
+},
+"extrabees.species.creosote": {
+"enum": "CREOSOTE",
+"name": "Медлительная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+4,
+0.1
+],
+[
+"addSpecialty",
+"ExtraBees",
+24,
+0.3
+]
+],
+"mutations": [
+[
+"extrabees.species.distilled",
+"extrabees.species.coal",
+8,
+null
+]
+]
+},
+"extrabees.species.latex": {
+"enum": "LATEX",
+"name": "Эластичная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+13,
+0.1
+],
+[
+"addSpecialty",
+"ExtraBees",
+25,
+0.05
+]
+],
+"mutations": [
+[
+"extrabees.species.distilled",
+"extrabees.species.resin",
+8,
+null
+]
+]
+},
+"extrabees.species.water": {
+"enum": "WATER",
+"name": "Водная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+6,
+0.3
+]
+],
+"mutations": []
+},
+"extrabees.species.river": {
+"enum": "RIVER",
+"name": "Речная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+6,
+0.3
+],
+[
+"addSpecialty",
+"ExtraBees",
+21,
+0.2
+]
+],
+"mutations": [
+[
+"forestry.speciesDiligent",
+"extrabees.species.water",
+10,
+"restrictBiomeType"
+]
+]
+},
+"extrabees.species.ocean": {
+"enum": "OCEAN",
+"name": "Океаническая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+6,
+0.3
+]
+],
+"mutations": [
+[
+"forestry.speciesDiligent",
+"extrabees.species.water",
+10,
+"restrictBiomeType"
+]
+]
+},
+"extrabees.species.ink": {
+"enum": "INK",
+"name": "Испачканная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+6,
+0.3
+],
+[
+"addSpecialty",
+"minecraft",
+"field_151100_aR",
+0.1
+]
+],
+"mutations": [
+[
+"extrabees.species.black",
+"extrabees.species.ocean",
+8,
+null
+]
+]
+},
+"extrabees.species.growing": {
+"enum": "GROWING",
+"name": "Прорастающая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.35
+]
+],
+"mutations": [
+[
+"forestry.speciesForest",
+"forestry.speciesDiligent",
+10,
+null
+]
+]
+},
+"extrabees.species.farm": {
+"enum": "FARM",
+"name": "Фермерская",
+"products": [
+[
+"addProduct",
+"Forestry",
+14,
+0.3
+],
+[
+"addSpecialty",
+"ExtraBees",
+9,
+0.1
+]
+],
+"mutations": [
+[
+"forestry.speciesFarmerly",
+"forestry.speciesMeadows",
+10,
+null
+]
+]
+},
+"extrabees.species.thriving": {
+"enum": "THRIVING",
+"name": "Процветающая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.35
+]
+],
+"mutations": [
+[
+"forestry.speciesUnweary",
+"extrabees.species.growing",
+10,
+null
+]
+]
+},
+"extrabees.species.blooming": {
+"enum": "BLOOMING",
+"name": "Цветущая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.35
+]
+],
+"mutations": [
+[
+"forestry.speciesIndustrious",
+"extrabees.species.thriving",
+8,
+null
+]
+]
+},
+"extrabees.species.sweet": {
+"enum": "SWEET",
+"name": "Сладкая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.4
+],
+[
+"addProduct",
+"minecraft",
+"field_151102_aT",
+0.1
+]
+],
+"mutations": [
+[
+"forestry.speciesValiant",
+"forestry.speciesDiligent",
+15,
+null
+]
+]
+},
+"extrabees.species.sugar": {
+"enum": "SUGAR",
+"name": "Сахарная",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.4
+],
+[
+"addProduct",
+"minecraft",
+"field_151102_aT",
+0.2
+]
+],
+"mutations": [
+[
+"forestry.speciesRural",
+"extrabees.species.sweet",
+15,
+null
+]
+]
+},
+"extrabees.species.ripening": {
+"enum": "RIPENING",
+"name": "Созревающая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.3
+],
+[
+"addProduct",
+"minecraft",
+"field_151102_aT",
+0.1
+],
+[
+"addSpecialty",
+"ExtraBees",
+8,
+0.1
+]
+],
+"mutations": [
+[
+"extrabees.species.sweet",
+"extrabees.species.growing",
+5,
+null
+]
+]
+},
+"extrabees.species.fruit": {
+"enum": "FRUIT",
+"name": "Фруктовая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.3
+],
+[
+"addProduct",
+"minecraft",
+"field_151102_aT",
+0.15
+],
+[
+"addSpecialty",
+"ExtraBees",
+8,
+0.2
+]
+],
+"mutations": [
+[
+"extrabees.species.sweet",
+"extrabees.species.thriving",
+5,
+null
+]
+]
+},
+"extrabees.species.alcohol": {
+"enum": "ALCOHOL",
+"name": "Ферментная",
+"products": [
+[
+"addProduct",
+"Forestry",
+14,
+0.3
+],
+[
+"addSpecialty",
+"ExtraBees",
+10,
+0.1
+]
+],
+"mutations": [
+[
+"forestry.speciesFarmerly",
+"forestry.speciesMeadows",
+10,
+null
+]
+]
+},
+"extrabees.species.milk": {
+"enum": "MILK",
+"name": "Коровья",
+"products": [
+[
+"addProduct",
+"Forestry",
+14,
+0.3
+],
+[
+"addSpecialty",
+"ExtraBees",
+7,
+0.1
+]
+],
+"mutations": [
+[
+"forestry.speciesFarmerly",
+"extrabees.species.water",
+10,
+null
+]
+]
+},
+"extrabees.species.coffee": {
+"enum": "COFFEE",
+"name": "Кофейная",
+"products": [
+[
+"addProduct",
+"Forestry",
+14,
+0.3
+],
+[
+"addSpecialty",
+"ExtraBees",
+30,
+0.08
+]
+],
+"mutations": [
+[
+"forestry.speciesFarmerly",
+"forestry.speciesTropical",
+10,
+null
+]
+]
+},
+"extrabees.species.swamp": {
+"enum": "SWAMP",
+"name": "Влажная",
+"products": [
+[
+"addProduct",
+"Forestry",
+15,
+0.3
+]
+],
+"mutations": [
+[
+"forestry.speciesMiry",
+"extrabees.species.water",
+10,
+null
+]
+]
+},
+"extrabees.species.boggy": {
+"enum": "BOGGY",
+"name": "Мшистая",
+"products": [
+[
+"addProduct",
+"Forestry",
+15,
+0.3
+]
+],
+"mutations": [
+[
+"forestry.speciesBoggy",
+"extrabees.species.swamp",
+8,
+null
+]
+]
+},
+"extrabees.species.fungal": {
+"enum": "FUNGAL",
+"name": "Грибная",
+"products": [
+[
+"addProduct",
+"Forestry",
+15,
+0.3
+],
+[
+"addSpecialty",
+"ExtraBees",
+23,
+0.15
+]
+],
+"mutations": [
+[
+"forestry.speciesBoggy",
+"forestry.speciesMiry",
+8,
+null
+],
+[
+"forestry.speciesBoggy",
+"extrabees.species.fungal",
+8,
+null
+]
+]
+},
+"extrabees.species.basalt": {
+"enum": "BASALT",
+"name": "Озлобленная",
+"products": [
+[
+"addProduct",
+"Forestry",
+2,
+0.25
+]
+],
+"mutations": []
+},
+"extrabees.species.tempered": {
+"enum": "TEMPERED",
+"name": "Яростная",
+"products": [
+[
+"addProduct",
+"Forestry",
+2,
+0.25
+]
+],
+"mutations": [
+[
+"forestry.speciesFiendish",
+"extrabees.species.basalt",
+30,
+"restrictBiomeType"
+]
+]
+},
+"extrabees.species.volcanic": {
+"enum": "VOLCANIC",
+"name": "Огнедышащая",
+"products": [
+[
+"addProduct",
+"Forestry",
+2,
+0.25
+],
+[
+"addSpecialty",
+"ExtraBees",
+29,
+0.1
+]
+],
+"mutations": [
+[
+"forestry.speciesDemonic",
+"extrabees.species.tempered",
+20,
+"restrictBiomeType"
+]
+]
+},
+"extrabees.species.glowstone": {
+"enum": "GLOWSTONE",
+"name": "Сердитая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+60,
+0.15
+]
+],
+"mutations": [
+[
+"extrabees.species.tempered",
+"extrabees.species.excited",
+5,
+null
+]
+]
+},
+"extrabees.species.malicious": {
+"enum": "MALICIOUS",
+"name": "Вредоносная",
+"products": [
+[
+"addProduct",
+"Forestry",
+6,
+0.25
+]
+],
+"mutations": [
+[
+"forestry.speciesSinister",
+"forestry.speciesTropical",
+10,
+null
+]
+]
+},
+"extrabees.species.infectious": {
+"enum": "INFECTIOUS",
+"name": "Заразная",
+"products": [
+[
+"addProduct",
+"Forestry",
+6,
+0.25
+]
+],
+"mutations": [
+[
+"forestry.speciesTropical",
+"extrabees.species.malicious",
+8,
+null
+]
+]
+},
+"extrabees.species.virulent": {
+"enum": "VIRULENT",
+"name": "Ядовитая",
+"products": [
+[
+"addProduct",
+"Forestry",
+6,
+0.25
+],
+[
+"addSpecialty",
+"ExtraBees",
+27,
+0.12
+]
+],
+"mutations": [
+[
+"extrabees.species.malicious",
+"extrabees.species.infectious",
+8,
+null
+]
+]
+},
+"extrabees.species.viscous": {
+"enum": "VISCOUS",
+"name": "Вязкая",
+"products": [
+[
+"addProduct",
+"Forestry",
+6,
+0.25
+]
+],
+"mutations": [
+[
+"forestry.speciesExotic",
+"extrabees.species.water",
+10,
+null
+]
+]
+},
+"extrabees.species.glutinous": {
+"enum": "GLUTINOUS",
+"name": "Клейкая",
+"products": [
+[
+"addProduct",
+"Forestry",
+6,
+0.25
+]
+],
+"mutations": [
+[
+"forestry.speciesExotic",
+"extrabees.species.viscous",
+8,
+null
+]
+]
+},
+"extrabees.species.sticky": {
+"enum": "STICKY",
+"name": "Липкая",
+"products": [
+[
+"addProduct",
+"Forestry",
+6,
+0.25
+],
+[
+"addSpecialty",
+"ExtraBees",
+28,
+0.12
+]
+],
+"mutations": [
+[
+"extrabees.species.viscous",
+"extrabees.species.glutinous",
+8,
+null
+]
+]
+},
+"extrabees.species.corrosive": {
+"enum": "CORROSIVE",
+"name": "Едкая",
+"products": [
+[
+"addProduct",
+"Forestry",
+6,
+0.2
+]
+],
+"mutations": [
+[
+"extrabees.species.malicious",
+"extrabees.species.viscous",
+10,
+null
+]
+]
+},
+"extrabees.species.caustic": {
+"enum": "CAUSTIC",
+"name": "Едко-щелочная",
+"products": [
+[
+"addProduct",
+"Forestry",
+6,
+0.25
+],
+[
+"addSpecialty",
+"ExtraBees",
+26,
+0.03
+]
+],
+"mutations": [
+[
+"forestry.speciesFiendish",
+"extrabees.species.corrosive",
+8,
+null
+]
+]
+},
+"extrabees.species.acidic": {
+"enum": "ACIDIC",
+"name": "Едко-кислотная",
+"products": [
+[
+"addProduct",
+"Forestry",
+6,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+26,
+0.16
+]
+],
+"mutations": [
+[
+"extrabees.species.corrosive",
+"extrabees.species.caustic",
+4,
+null
+]
+]
+},
+"extrabees.species.excited": {
+"enum": "EXCITED",
+"name": "Возбуждённая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+12,
+0.1
+]
+],
+"mutations": [
+[
+"forestry.speciesValiant",
+"forestry.speciesCultivated",
+10,
+null
+]
+]
+},
+"extrabees.species.energetic": {
+"enum": "ENERGETIC",
+"name": "Энергетическая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+12,
+0.12
+]
+],
+"mutations": [
+[
+"forestry.speciesDiligent",
+"extrabees.species.excited",
+8,
+null
+]
+]
+},
+"extrabees.species.ecstatic": {
+"enum": "ECSTATIC",
+"name": "Исступлённая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+12,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+14,
+0.08
+]
+],
+"mutations": [
+[
+"extrabees.species.excited",
+"extrabees.species.energetic",
+8,
+null
+]
+]
+},
+"extrabees.species.artic": {
+"enum": "ARTIC",
+"name": "Бесстрастная",
+"products": [
+[
+"addProduct",
+"Forestry",
+4,
+0.25
+]
+],
+"mutations": [
+[
+"forestry.speciesWintry",
+"forestry.speciesDiligent",
+10,
+null
+]
+]
+},
+"extrabees.species.freezing": {
+"enum": "FREEZING",
+"name": "Самовластная",
+"products": [
+[
+"addProduct",
+"Forestry",
+4,
+0.2
+],
+[
+"addSpecialty",
+"ExtraBees",
+31,
+0.1
+]
+],
+"mutations": [
+[
+"extrabees.species.ocean",
+"extrabees.species.artic",
+10,
+null
+]
+]
+},
+"extrabees.species.shadow": {
+"enum": "SHADOW",
+"name": "Омрачённая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+32,
+0.05
+]
+],
+"mutations": [
+[
+"forestry.speciesSinister",
+"extrabees.species.rock",
+10,
+null
+]
+]
+},
+"extrabees.species.darkened": {
+"enum": "DARKENED",
+"name": "Потемневшая",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+32,
+0.1
+]
+],
+"mutations": [
+[
+"extrabees.species.shadow",
+"extrabees.species.rock",
+8,
+null
+]
+]
+},
+"extrabees.species.abyss": {
+"enum": "ABYSS",
+"name": "Глубинная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+32,
+0.25
+]
+],
+"mutations": [
+[
+"extrabees.species.shadow",
+"extrabees.species.darkened",
+8,
+null
+]
+]
+},
+"extrabees.species.red": {
+"enum": "RED",
+"name": "Тёмно-бордовая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.75
+],
+[
+"addSpecialty",
+"ExtraBees",
+43,
+0.25
+]
+],
+"mutations": [
+[
+"forestry.speciesForest",
+"forestry.speciesValiant",
+5,
+null
+]
+]
+},
+"extrabees.species.yellow": {
+"enum": "YELLOW",
+"name": "Шафрановая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.75
+],
+[
+"addSpecialty",
+"ExtraBees",
+44,
+0.25
+]
+],
+"mutations": [
+[
+"forestry.speciesMeadows",
+"forestry.speciesValiant",
+5,
+null
+]
+]
+},
+"extrabees.species.blue": {
+"enum": "BLUE",
+"name": "Прусская",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.75
+],
+[
+"addSpecialty",
+"ExtraBees",
+45,
+0.25
+]
+],
+"mutations": [
+[
+"forestry.speciesValiant",
+"extrabees.species.water",
+5,
+null
+]
+]
+},
+"extrabees.species.green": {
+"enum": "GREEN",
+"name": "Зелёная",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.75
+],
+[
+"addSpecialty",
+"ExtraBees",
+46,
+0.25
+]
+],
+"mutations": [
+[
+"forestry.speciesTropical",
+"forestry.speciesValiant",
+5,
+null
+]
+]
+},
+"extrabees.species.black": {
+"enum": "BLACK",
+"name": "Черномазая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.75
+],
+[
+"addSpecialty",
+"ExtraBees",
+47,
+0.25
+]
+],
+"mutations": [
+[
+"forestry.speciesValiant",
+"extrabees.species.rock",
+5,
+null
+]
+]
+},
+"extrabees.species.white": {
+"enum": "WHITE",
+"name": "Отбелённая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.75
+],
+[
+"addSpecialty",
+"ExtraBees",
+48,
+0.25
+]
+],
+"mutations": [
+[
+"forestry.speciesWintry",
+"forestry.speciesValiant",
+5,
+null
+]
+]
+},
+"extrabees.species.brown": {
+"enum": "BROWN",
+"name": "Коричневая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.75
+],
+[
+"addSpecialty",
+"ExtraBees",
+49,
+0.25
+]
+],
+"mutations": [
+[
+"forestry.speciesMarshy",
+"forestry.speciesValiant",
+5,
+null
+]
+]
+},
+"extrabees.species.orange": {
+"enum": "ORANGE",
+"name": "Оранжевая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.75
+],
+[
+"addSpecialty",
+"ExtraBees",
+50,
+0.25
+]
+],
+"mutations": [
+[
+"extrabees.species.red",
+"extrabees.species.yellow",
+5,
+null
+]
+]
+},
+"extrabees.species.cyan": {
+"enum": "CYAN",
+"name": "Бирюзовая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.75
+],
+[
+"addSpecialty",
+"ExtraBees",
+51,
+0.25
+]
+],
+"mutations": [
+[
+"extrabees.species.green",
+"extrabees.species.blue",
+5,
+null
+]
+]
+},
+"extrabees.species.purple": {
+"enum": "PURPLE",
+"name": "Фиолетовая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.75
+],
+[
+"addSpecialty",
+"ExtraBees",
+52,
+0.25
+]
+],
+"mutations": [
+[
+"extrabees.species.red",
+"extrabees.species.blue",
+5,
+null
+]
+]
+},
+"extrabees.species.gray": {
+"enum": "GRAY",
+"name": "Серая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.75
+],
+[
+"addSpecialty",
+"ExtraBees",
+53,
+0.25
+]
+],
+"mutations": [
+[
+"extrabees.species.black",
+"extrabees.species.white",
+5,
+null
+]
+]
+},
+"extrabees.species.lightblue": {
+"enum": "LIGHTBLUE",
+"name": "Голубая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.75
+],
+[
+"addSpecialty",
+"ExtraBees",
+54,
+0.25
+]
+],
+"mutations": [
+[
+"extrabees.species.blue",
+"extrabees.species.white",
+5,
+null
+]
+]
+},
+"extrabees.species.pink": {
+"enum": "PINK",
+"name": "Розовая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.75
+],
+[
+"addSpecialty",
+"ExtraBees",
+55,
+0.25
+]
+],
+"mutations": [
+[
+"extrabees.species.red",
+"extrabees.species.white",
+5,
+null
+]
+]
+},
+"extrabees.species.limegreen": {
+"enum": "LIMEGREEN",
+"name": "Лаймовая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.75
+],
+[
+"addSpecialty",
+"ExtraBees",
+56,
+0.25
+]
+],
+"mutations": [
+[
+"extrabees.species.green",
+"extrabees.species.white",
+5,
+null
+]
+]
+},
+"extrabees.species.magenta": {
+"enum": "MAGENTA",
+"name": "Пурпурная",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.75
+],
+[
+"addSpecialty",
+"ExtraBees",
+57,
+0.25
+]
+],
+"mutations": [
+[
+"extrabees.species.purple",
+"extrabees.species.pink",
+5,
+null
+]
+]
+},
+"extrabees.species.lightgray": {
+"enum": "LIGHTGRAY",
+"name": "Светло-серая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.75
+],
+[
+"addSpecialty",
+"ExtraBees",
+58,
+0.25
+]
+],
+"mutations": [
+[
+"extrabees.species.gray",
+"extrabees.species.white",
+5,
+null
+]
+]
+},
+"extrabees.species.celebratory": {
+"enum": "CELEBRATORY",
+"name": "Праздничная",
+"products": [],
+"mutations": [
+[
+"forestry.speciesAustere",
+"extrabees.species.excited",
+5,
+null
+]
+]
+},
+"extrabees.species.jaded": {
+"enum": "JADED",
+"name": "Изнурённая",
+"products": [
+[
+"addProduct",
+"Forestry",
+0,
+0.3
+],
+[
+"addSpecialty",
+"ExtraBees",
+52,
+0.15
+]
+],
+"mutations": [
+[
+"forestry.speciesEnded",
+"extrabees.species.relic",
+2,
+"restrictPerson"
+]
+]
+},
+"extrabees.species.hazardous": {
+"enum": "HAZARDOUS",
+"name": "Опасная",
+"products": [
+[
+"addProduct",
+"ExtraBees",
+61,
+0.12
+]
+],
+"mutations": [
+[
+"forestry.speciesAustere",
+"extrabees.species.desolate",
+5,
+null
+]
+]
+},
+"extrabees.species.quantum": {
+"enum": "QUANTUM",
+"name": "Квантовая",
+"products": [
+[
+"addProduct",
+"Forestry",
+16,
+0.25
+],
+[
+"addSpecialty",
+"ExtraBees",
+64,
+0.15
+],
+[
+"addSpecialty",
+"ExtraBees",
+65,
+0.15
+]
+],
+"mutations": [
+[
+"forestry.speciesSpectral",
+"extrabees.species.spatial",
+5,
+null
+]
+]
+},
+"extrabees.species.unusual": {
+"enum": "UNUSUAL",
+"name": "Аномальная",
+"products": [
+[
+"addProduct",
+"Forestry",
+16,
+0.25
+]
+],
+"mutations": [
+[
+"forestry.speciesSecluded",
+"forestry.speciesEnded",
+5,
+null
+]
+]
+},
+"extrabees.species.spatial": {
+"enum": "SPATIAL",
+"name": "Пространственная",
+"products": [
+[
+"addProduct",
+"Forestry",
+16,
+0.25
+],
+[
+"addSpecialty",
+"ExtraBees",
+64,
+0.05
+]
+],
+"mutations": [
+[
+"forestry.speciesHermitic",
+"extrabees.species.unusual",
+5,
+null
+]
+]
+},
+"extrabees.species.mystical": {
+"enum": "MYSTICAL",
+"name": "Мистическая",
+"products": [],
+"mutations": [
+[
+"forestry.speciesNoble",
+"forestry.speciesMonastic",
+5,
+null
+]
+]
+}
+}
+}
