@@ -30,6 +30,7 @@
 - `tools/patterns.py` — пересобирает `data/patterns.md`.
 - `tools/bees.py` — пересобирает `data/bees.md`: спрос на соты, набор пчёл, раскладка по пасекам.
 - `tools/extract_forestry_bees.py`, `tools/extract_extrabees.py` — достают пчёл из jar Forestry и binnie-mods в `data/bees/`.
-- `tools/tree.py` — собирает `data/tree.json` из `plan.md`, `subtasks.json`, пчёл и материи, и вшивает его в `web/dashboard.html`.
+- `tools/tree.py` — собирает `data/tree.json` из `plan.md`, `subtasks.json`, пчёл и материи, и вшивает его в `web/dashboard.html` вместе с иконками.
+- `tools/icons.py` — достаёт иконки предметов из jar клиента в `web/icons.json` (какие иконки у каких задач, задано в `tools/tree.py`).
 - `tools/subtasks.py` — пересобирает `data/subtasks.md` из шаблонов и мелких вех.
-- `web/dashboard.src.html` — шаблон дашборда; `web/dashboard.html` — собранная страница (опубликована: https://claude.ai/artifact/296woLFrb3djqyC6aRbmCQ). Отметки команды хранятся в базе страницы, не в git.
+- `web/dashboard.src.html` — шаблон дашборда (граф карты прохождения и граф квестов); `web/dashboard.html` — собранная страница (опубликована: https://claude.ai/artifact/296woLFrb3djqyC6aRbmCQ). Отметки команды хранятся в базе страницы, не в git.
