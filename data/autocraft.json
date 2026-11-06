@@ -1,0 +1,1351 @@
+{
+ "Верстак": {
+  "recipes": 323,
+  "max_slots": 9,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 217,
+  "examples": [
+   "Катализатор призыва дракона Края",
+   "DraconicEvolution:wyvernCore",
+   "Укреплённая иридиевая пластина",
+   "Слиток (композит)"
+  ],
+  "interleaved_examples": [
+   "Катализатор призыва дракона Края",
+   "DraconicEvolution:wyvernCore",
+   "Укреплённая иридиевая пластина",
+   "DraconicEvolution:draconiumEnergyCore"
+  ],
+  "over_9_examples": []
+ },
+ "Экстремальный верстак": {
+  "recipes": 176,
+  "max_slots": 81,
+  "over_9": 176,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 175,
+  "examples": [
+   "Катализатор призыва дракона Хаоса",
+   "Теневой кластер",
+   "Космические фрикадельки",
+   "Ультимативное рагу"
+  ],
+  "interleaved_examples": [
+   "Катализатор призыва дракона Хаоса",
+   "Теневой кластер",
+   "Космические фрикадельки",
+   "Ультимативное рагу"
+  ],
+  "over_9_examples": [
+   "Катализатор призыва дракона Хаоса",
+   "Теневой кластер",
+   "Космические фрикадельки",
+   "Ультимативное рагу"
+  ]
+ },
+ "Нейтронный компрессор": {
+  "recipes": 63,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Теневая сингулярность",
+   "Глиняная сингулярность",
+   "Астральная сингулярность",
+   "Звёздная сингулярность"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Словарь руд": {
+  "recipes": 61,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Diamond",
+   "ore:ingotIron",
+   "ore:dustRedstone",
+   "ore:gearPlatinum"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Дробитель": {
+  "recipes": 53,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Diamond",
+   "lolidimensions:salt_crystal",
+   "Пыль (редстоун)",
+   "Сера"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Печь": {
+  "recipes": 49,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Слиток (войдит)",
+   "Дракониевый слиток",
+   "Свинцовый слиток",
+   "Charcoal"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Плавильный завод": {
+  "recipes": 31,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 31,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "liquid:silver.molten",
+   "liquid:gold.molten",
+   "Питательное вещество",
+   "Расплавленный Слиток Бесконечности"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Металлоформовщик": {
+  "recipes": 26,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Пластина (олово)",
+   "Пластина (бронза)",
+   "Пластина (железо)",
+   "Пластина (свинец)"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Термальная центрифуга": {
+  "recipes": 23,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Уран-238",
+   "hielements:terranShards",
+   "hielements:health_shard",
+   "hielements:enderShards"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Реакционная камера": {
+  "recipes": 20,
+  "max_slots": 3,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 20,
+  "gas_in": 10,
+  "fluid_out": 4,
+  "gas_out": 3,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Кусочек урана-235",
+   "Слиток (очищенный обсидиан)",
+   "Пыль (очищенный обсидиан)",
+   "lolienergistics:substrate"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Компрессор IC2": {
+  "recipes": 19,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Композит",
+   "Углепластик",
+   "Самородок нейтрония",
+   "IC2:itemDensePlates:7"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Сборочный стол": {
+  "recipes": 19,
+  "max_slots": 5,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Слиток ВОП-графита",
+   "hielements:shadow_ingot",
+   "Эссенция дракония",
+   "hielements:sparkling_matter_clump"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Двойной молекулярный преобразователь": {
+  "recipes": 18,
+  "max_slots": 2,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Слиток (уран)",
+   "Слиток огненного дракония",
+   "Слиток хаотического дракония",
+   "Слиток ледяного дракония"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Молекулярный преобразователь": {
+  "recipes": 15,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Оловянный слиток",
+   "Медный слиток",
+   "Iron Ingot",
+   "lolidimensions:terra_clay"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Плотник": {
+  "recipes": 15,
+  "max_slots": 10,
+  "over_9": 7,
+  "over_3_out": 0,
+  "fluid_in": 15,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 7,
+  "examples": [
+   "Пластина из скопления сот",
+   "Переливающийся кристалл из янтарных сот",
+   "Спрессованные янтарные переливающиеся соты",
+   "Переливающийся кристалл из голубых сот"
+  ],
+  "interleaved_examples": [
+   "Пластина из скопления сот",
+   "ExtraTrees:databaseMoth",
+   "ExtraBees:dictionary",
+   "Вагонетка с пасекой"
+  ],
+  "over_9_examples": [
+   "Пластина из скопления сот",
+   "ExtraTrees:databaseMoth",
+   "ExtraBees:dictionary",
+   "Вагонетка с пасекой"
+  ]
+ },
+ "Жидкий нейтроний": {
+  "recipes": 14,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 14,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Жидкостная сингулярность из Слитков Бесконечности",
+   "Жидкостная Бедрокиевая сингулярность",
+   "Жидкостная Скайфариевая сингулярность",
+   "Жидкостная Радвириумовая сингулярность"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Промышленный смеситель": {
+  "recipes": 13,
+  "max_slots": 4,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 13,
+  "gas_in": 0,
+  "fluid_out": 13,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "liquid:electrum.molten",
+   "liquid:hemolymph",
+   "liquid:alumite.molten",
+   "liquid:obsidian.molten"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Сборочный комплекс": {
+  "recipes": 11,
+  "max_slots": 7,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 6,
+  "gas_in": 10,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "lolienergistics:crystal_primordial_chaos",
+   "lolienergistics:conductive_contour:2",
+   "lolienergistics:transistor:2",
+   "lolienergistics:capacitor:2"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Центрифуга Forestry": {
+  "recipes": 10,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 9,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "minecraft:fish:3",
+   "minecraft:fish",
+   "Слиток красного аурума",
+   "Скопление нейтрония"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Гемонтрансмутатор": {
+  "recipes": 10,
+  "max_slots": 3,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 10,
+  "gas_in": 0,
+  "fluid_out": 5,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Кровь дракона Хаоса",
+   "liquid:dragon_chaos_blood",
+   "Кровь дракона Огня",
+   "liquid:fire_dragon_blood"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Термоионный фабрикатор": {
+  "recipes": 9,
+  "max_slots": 9,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 9,
+  "examples": [
+   "Forestry:thermionicTubes:8",
+   "Forestry:thermionicTubes:7",
+   "Forestry:thermionicTubes:11",
+   "Forestry:thermionicTubes:4"
+  ],
+  "interleaved_examples": [
+   "Forestry:thermionicTubes:8",
+   "Forestry:thermionicTubes:7",
+   "Forestry:thermionicTubes:11",
+   "Forestry:thermionicTubes:4"
+  ],
+  "over_9_examples": []
+ },
+ "Реакционная камера Techguns": {
+  "recipes": 9,
+  "max_slots": 2,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 9,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 9,
+  "distinct_catalysts": 2,
+  "interleaved": 0,
+  "examples": [
+   "lolidimensions:pineapple_seeds",
+   "lolidimensions:pitaya_seeds",
+   "Семя спиралюма",
+   "lolidimensions:knowledge_berry_bush"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Экстрактор": {
+  "recipes": 9,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "lolidimensions:terra_clay_ball",
+   "hielements:raw_matter_clump",
+   "String",
+   "lolidimensions:dye_purple"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Химический окислитель": {
+  "recipes": 8,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 6,
+  "gas_out": 2,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "gas:sulfur_dioxide",
+   "Рапа",
+   "liquid:osmium_slurry",
+   "liquid:diamond_slurry"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Преобразователь душ": {
+  "recipes": 6,
+  "max_slots": 22,
+  "over_9": 6,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 6,
+  "examples": [
+   "Душа: Дракон Края",
+   "Душа: Дракон Хаоса",
+   "Душа: Дракон Пламени",
+   "Душа: Дракон Холода"
+  ],
+  "interleaved_examples": [
+   "Душа: Дракон Края",
+   "Душа: Дракон Хаоса",
+   "Душа: Дракон Пламени",
+   "Душа: Дракон Холода"
+  ],
+  "over_9_examples": [
+   "Душа: Дракон Края",
+   "Душа: Дракон Хаоса",
+   "Душа: Дракон Пламени",
+   "Душа: Дракон Холода"
+  ]
+ },
+ "Синтез (тир 4)": {
+  "recipes": 6,
+  "max_slots": 10,
+  "over_9": 6,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 6,
+  "distinct_catalysts": 6,
+  "interleaved": 2,
+  "examples": [
+   "Слиток демонического дракония бесконечности",
+   "Посох Хаоса",
+   "Шлем Хаоса",
+   "Нагрудник Хаоса"
+  ],
+  "interleaved_examples": [
+   "Слиток демонического дракония бесконечности",
+   "Посох Хаоса"
+  ],
+  "over_9_examples": [
+   "Слиток демонического дракония бесконечности",
+   "Посох Хаоса",
+   "Шлем Хаоса",
+   "Нагрудник Хаоса"
+  ]
+ },
+ "Процедурный сборщик": {
+  "recipes": 6,
+  "max_slots": 7,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 5,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "hielements:radioactive_matter_clump",
+   "lolienergistics:carbon_sheet",
+   "lolienergistics:carbon_thread",
+   "lolienergistics:microchip:2"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Электролитический сепаратор": {
+  "recipes": 5,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 3,
+  "gas_in": 2,
+  "fluid_out": 0,
+  "gas_out": 5,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Жидкий кислород",
+   "Жидкий тритий",
+   "Жидкий хлор",
+   "Жидкий водород"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Обогатитель": {
+  "recipes": 5,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "lolienergistics:compressed_obsidian",
+   "lolienergistics:compressed_diamond",
+   "lolienergistics:hdpe_sheet",
+   "hielements:compressed_coal"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Пчелиная фабрика": {
+  "recipes": 5,
+  "max_slots": 18,
+  "over_9": 5,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 5,
+  "examples": [
+   "Улучшенная голубая панель пчеловода",
+   "Улучшенная янтарная панель пчеловода",
+   "Улучшенная зеленая панель пчеловода",
+   "Улучшенная фиолетовая панель пчеловода"
+  ],
+  "interleaved_examples": [
+   "Улучшенная голубая панель пчеловода",
+   "Улучшенная янтарная панель пчеловода",
+   "Улучшенная зеленая панель пчеловода",
+   "Улучшенная фиолетовая панель пчеловода"
+  ],
+  "over_9_examples": [
+   "Улучшенная голубая панель пчеловода",
+   "Улучшенная янтарная панель пчеловода",
+   "Улучшенная зеленая панель пчеловода",
+   "Улучшенная фиолетовая панель пчеловода"
+  ]
+ },
+ "Синтез (тир 1)": {
+  "recipes": 5,
+  "max_slots": 10,
+  "over_9": 5,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 5,
+  "distinct_catalysts": 5,
+  "interleaved": 5,
+  "examples": [
+   "Панель Дракона Холода",
+   "Панель Дракона Бесконечности",
+   "Панель Демонического дракона Бесконечности",
+   "Панель Дракона Хаоса"
+  ],
+  "interleaved_examples": [
+   "Панель Дракона Холода",
+   "Панель Дракона Бесконечности",
+   "Панель Демонического дракона Бесконечности",
+   "Панель Дракона Хаоса"
+  ],
+  "over_9_examples": [
+   "Панель Дракона Холода",
+   "Панель Дракона Бесконечности",
+   "Панель Демонического дракона Бесконечности",
+   "Панель Дракона Хаоса"
+  ]
+ },
+ "Химический наполнитель": {
+  "recipes": 4,
+  "max_slots": 2,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 4,
+  "fluid_out": 1,
+  "gas_out": 3,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "liquid:sulfuric_acid",
+   "gas:sulfur_trioxide",
+   "gas:ypsilonium",
+   "gas:hydrogen_chloride"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Капиллярный наполнитель": {
+  "recipes": 4,
+  "max_slots": 2,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 4,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Коксовый уголь",
+   "lolienergistics:osmiridium_ingot",
+   "Слиток (очищенный светокамень)",
+   "redpower:part:4"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Печь сплавов": {
+  "recipes": 4,
+  "max_slots": 2,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Самородок (чугун)",
+   "Techguns:TechgunsAmmo:40",
+   "Слиток (алюминиевая латунь)",
+   "Слиток (Orichalcum)"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Легендарный сборочный комплекс": {
+  "recipes": 4,
+  "max_slots": 20,
+  "over_9": 4,
+  "over_3_out": 0,
+  "fluid_in": 3,
+  "gas_in": 3,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 4,
+  "examples": [
+   "hielements:quantum_sediment",
+   "hielements:sparkling_singularity",
+   "Легендарное сердце повелителя драконов",
+   "Легендарный спавнер Хаоса"
+  ],
+  "interleaved_examples": [
+   "hielements:quantum_sediment",
+   "hielements:sparkling_singularity",
+   "Легендарное сердце повелителя драконов",
+   "Легендарный спавнер Хаоса"
+  ],
+  "over_9_examples": [
+   "hielements:quantum_sediment",
+   "hielements:sparkling_singularity",
+   "Легендарное сердце повелителя драконов",
+   "Легендарный спавнер Хаоса"
+  ]
+ },
+ "Закалочная ванна": {
+  "recipes": 2,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Слиток (сталь)",
+   "Блок (сталь)"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Доменная печь": {
+  "recipes": 2,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Слиток раскалённого железа",
+   "Блок раскалённого железа"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Камера сплавов": {
+  "recipes": 2,
+  "max_slots": 2,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Слиток (манулин)",
+   "Блок (инвар)"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Кристаллизационное охлаждение": {
+  "recipes": 2,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 2,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Блок (электрум)",
+   "Блок (алюмит)"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Иномировой обмен": {
+  "recipes": 2,
+  "max_slots": 2,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "hielements:sparkling_nugget",
+   "Сердце Визер-скелета"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Паровой котёл": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 1,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 1,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Пар"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Твёрдая материя (тир 5)": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Фиолетовая материя"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Твёрдая материя (тир 4)": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Бирюзовая материя"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Твёрдая материя (тир 3)": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Мутировавшая фиолетово-бирюзовая материя"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Твёрдая материя (тир 2)": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Светящаяся розовая материя"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Твёрдая материя (тир 1)": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Сыпучая светло-розовая материя"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Твёрдая материя (тир 0)": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Материя"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Продвинутый QED": {
+  "recipes": 1,
+  "max_slots": 9,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 1,
+  "examples": [
+   "Хроматический слиток"
+  ],
+  "interleaved_examples": [
+   "Хроматический слиток"
+  ],
+  "over_9_examples": []
+ },
+ "Рудопромывочная машина": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Очищенная хроматическая руда"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Твёрдая материя (тир 6)": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Светящаяся бирюзовая материя"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Сушилка": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Звёздное топливо"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Камера роста кристаллов": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "appliedenergistics2:item.ItemMultiMaterial:10"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Твёрдая материя (тир 9)": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Искрящаяся материя"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Твёрдая материя (тир 8)": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Сыпучая светло-голубая материя"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Твёрдая материя (тир 7)": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Светящаяся красная материя"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Синтезатор энергона": {
+  "recipes": 1,
+  "max_slots": 2,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 0,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "Энергонный пульсирующий кристалл"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Энтропийный реактор": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 1,
+  "gas_in": 0,
+  "fluid_out": 1,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "liquid:ic2hotcoolant"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Ротационный конденсатор": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 1,
+  "fluid_out": 1,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "liquid:ethylene_gas"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Сжиматель": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 0,
+  "gas_in": 0,
+  "fluid_out": 1,
+  "gas_out": 0,
+  "chance": 1,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "liquid:fluidslime"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Дистилляционная колонна": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 1,
+  "gas_in": 0,
+  "fluid_out": 1,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "liquid:fuel_oil"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ },
+ "Перегонный куб": {
+  "recipes": 1,
+  "max_slots": 1,
+  "over_9": 0,
+  "over_3_out": 0,
+  "fluid_in": 1,
+  "gas_in": 0,
+  "fluid_out": 1,
+  "gas_out": 0,
+  "chance": 0,
+  "catalysts": 0,
+  "distinct_catalysts": 0,
+  "interleaved": 0,
+  "examples": [
+   "liquid:ic2hotwater"
+  ],
+  "interleaved_examples": [],
+  "over_9_examples": []
+ }
+}

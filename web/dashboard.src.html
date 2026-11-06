@@ -1,0 +1,632 @@
+<title>Испытания HiTech</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Две вкладки-графа: карта прохождения (колонки = контрольные точки, полосы = потоки) и граф квестов.
+   Узлы с иконками предметов, описание во всплывашке при наведении и в панели по клику. */
+:root {
+  --bg: #e9edf2; --canvas: #f4f6f9; --panel: #ffffff; --ink: #18202c; --muted: #5d6878; --line: #d3d9e2; --grid: #e1e6ed;
+  --accent: #a8631a; --accent-soft: #f6e7d3; --tile: #2b3240; --tile-hi: #39424f;
+  --s1: #1f7a8c; --s2: #b2324b; --s3: #8a6a12;
+  --ok: #2f7d3c; --ok-soft: #dcefdf; --work: #b07a00; --work-soft: #f7ecc9;
+  --d1: #3d7a4a; --d2: #8a6d1d; --d3: #b0502e; --d4: #8e2a63;
+  --f-display: "Russo One", "Arial Black", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #10151c; --canvas: #151c25; --panel: #1b232e; --ink: #e4e9f0; --muted: #94a0b2; --line: #2c3746; --grid: #1f2833;
+  --accent: #e3a457; --accent-soft: #3a2c1b; --tile: #262f3c; --tile-hi: #323d4d;
+  --s1: #5cc0d2; --s2: #ef7d92; --s3: #d9b35a;
+  --ok: #6fcf7f; --ok-soft: #1f3a25; --work: #e8bf52; --work-soft: #3a3019;
+  --d1: #79c78a; --d2: #d9bb5c; --d3: #ef8a64; --d4: #e07ab3; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #10151c; --canvas: #151c25; --panel: #1b232e; --ink: #e4e9f0; --muted: #94a0b2; --line: #2c3746; --grid: #1f2833;
+  --accent: #e3a457; --accent-soft: #3a2c1b; --tile: #262f3c; --tile-hi: #323d4d;
+  --s1: #5cc0d2; --s2: #ef7d92; --s3: #d9b35a;
+  --ok: #6fcf7f; --ok-soft: #1f3a25; --work: #e8bf52; --work-soft: #3a3019;
+  --d1: #79c78a; --d2: #d9bb5c; --d3: #ef8a64; --d4: #e07ab3; color-scheme: dark }
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--f-body); margin: 0 }
+.wrap { max-width: 1600px; margin: 0 auto; padding-block: 20px 32px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 400; text-wrap: balance; margin: 0 }
+h1 { font-size: clamp(26px, 4vw, 36px); letter-spacing: .01em }
+code { font: 12.5px var(--f-mono); background: var(--accent-soft); padding: 0 4px; border-radius: 3px }
+button { font: inherit; color: inherit }
+.top { display: flex; flex-wrap: wrap; gap: 12px 32px; align-items: end; justify-content: space-between }
+.sub { color: var(--muted); max-width: 72ch; margin: 4px 0 0 }
+.totals { display: flex; gap: 24px; flex-wrap: wrap }
+.total b { display: block; font: 600 26px/1 var(--f-mono); font-variant-numeric: tabular-nums }
+.total span { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em }
+.note { font-size: 13px; color: var(--muted); margin: 8px 0 0; min-height: 1.5em }
+.note.warn { color: var(--d3) }
+
+.bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 14px 0 10px }
+.tabs { display: flex; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 3px; gap: 2px }
+.tab { border: 0; background: none; padding: 6px 14px; border-radius: 7px; cursor: pointer; font-weight: 600; font-size: 14px }
+.tab[aria-selected="true"] { background: var(--ink); color: var(--bg) }
+.chip { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 5px 12px; cursor: pointer; font-size: 13px;
+  display: inline-flex; align-items: center; gap: 6px; min-height: 32px }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink) }
+.chip .dot { width: 9px; height: 9px; border-radius: 50% }
+.spacer { flex: 1 }
+.zoom { display: flex; gap: 4px }
+.zoom button { width: 34px; height: 32px; border: 1px solid var(--line); background: var(--panel); border-radius: 8px; cursor: pointer; font: 600 15px var(--f-mono) }
+.zoom button.fit { width: auto; padding: 0 10px; font: 13px var(--f-body) }
+.only-map, .only-q { display: contents }
+body[data-view="q"] .only-map, body[data-view="map"] .only-q { display: none }
+
+.viewport { position: relative; height: min(76vh, 900px); min-height: 420px; overflow: auto; background: var(--canvas);
+  border: 1px solid var(--line); border-radius: 12px; cursor: grab; overscroll-behavior: contain }
+.viewport.drag { cursor: grabbing; user-select: none }
+.sizer { position: relative }
+.stage { position: absolute; left: 0; top: 0; transform-origin: 0 0 }
+svg.edges { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: var(--muted); margin-top: 10px }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px }
+
+/* полосы и колонки карты */
+.lane { position: absolute; left: 0; border-top: 1px solid var(--line) }
+.lane .lname { position: sticky; left: 0; display: flex; flex-direction: column; justify-content: center; height: 100%;
+  width: 132px; padding: 0 12px 0 14px; background: var(--canvas); border-right: 1px solid var(--line); z-index: 2 }
+.lane .lname b { font: 400 14px/1.2 var(--f-display) }
+.lane .lname small { color: var(--muted); font-size: 11.5px; line-height: 1.35; margin-top: 4px }
+.colbg { position: absolute; top: 0; border-left: 1px dashed var(--grid) }
+
+.cpn { position: absolute; width: 232px; display: flex; flex-direction: column; align-items: center; text-align: center;
+  background: none; border: 0; cursor: pointer; padding: 0; transition: opacity .15s }
+.cpn .disc { width: 58px; height: 58px; border-radius: 50%; background: var(--tile); display: grid; place-items: center;
+  border: 3px solid var(--line); box-shadow: 0 2px 0 rgb(0 0 0 / .12); position: relative; z-index: 1 }
+.cpn .disc img { width: 36px; height: 36px; image-rendering: pixelated }
+.cpn.done .disc { border-color: var(--ok) }
+.cpn .ct { font: 600 13px/1.25 var(--f-body); margin-top: 3px; max-width: 220px }
+.cpn .cn { font: 600 11px var(--f-mono); color: var(--muted); margin-top: 5px }
+.cpn .pb { width: 120px; height: 4px; border-radius: 2px; background: var(--grid); margin-top: 5px; overflow: hidden }
+.cpn .pb i { display: block; height: 100%; background: var(--ok) }
+.cpn:hover .disc, .cpn:focus-visible .disc, .cpn.sel .disc { border-color: var(--accent) }
+.cpn:focus-visible { outline: none }
+
+/* узлы */
+.node { position: absolute; width: 78px; display: flex; flex-direction: column; align-items: center; background: none; border: 0;
+  padding: 0; cursor: pointer; transition: opacity .15s }
+.node .sq { width: 50px; height: 50px; border-radius: 9px; background: var(--tile); display: grid; place-items: center; position: relative;
+  border: 2px solid color-mix(in srgb, var(--sc) 55%, transparent); box-shadow: inset 0 -3px 0 rgb(0 0 0 / .25) }
+.node .sq img { width: 32px; height: 32px; image-rendering: pixelated }
+.node.stage .sq { border-width: 3px; border-color: var(--sc); border-radius: 50% }
+.node .lb { font-size: 11px; line-height: 1.2; margin-top: 4px; max-width: 78px; text-align: center; color: var(--ink);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden }
+.node .df { position: absolute; left: -4px; top: -4px; width: 11px; height: 11px; border-radius: 50%; background: var(--dc, transparent);
+  border: 2px solid var(--canvas) }
+.node .bd { position: absolute; right: -6px; bottom: -6px; min-width: 18px; height: 18px; border-radius: 9px; display: none;
+  place-items: center; font: 700 11px/1 var(--f-body); border: 2px solid var(--canvas); overflow: hidden; color: #fff }
+.node .bd img { width: 100%; height: 100%; object-fit: cover; image-rendering: auto }
+.node.done .sq { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 22%, var(--tile)) }
+.node.done .bd { display: grid; background: var(--ok) }
+.node.work .sq { border-color: var(--work); box-shadow: 0 0 0 3px color-mix(in srgb, var(--work) 35%, transparent) }
+.node.work .bd { display: grid; background: var(--work); width: 18px }
+.node.key .sq { outline: 2px solid var(--accent); outline-offset: 3px }
+.node.final .lb { font-weight: 600 }
+.node:hover .sq, .node:focus-visible .sq { background: var(--tile-hi) }
+.node:focus-visible { outline: none }
+.node:focus-visible .sq { outline: 2px solid var(--accent); outline-offset: 2px }
+.node.sel .sq { outline: 3px solid var(--accent); outline-offset: 3px }
+.dim .node:not(.hl), .dim .cpn:not(.hl) { opacity: .22 }
+.node.faded { opacity: .3 }
+.node.off { opacity: .12; pointer-events: none }
+.ext { position: absolute; font-size: 11.5px; line-height: 1.25; color: var(--muted); border: 1px dashed var(--muted);
+  background: var(--panel); border-radius: 7px; padding: 4px 8px; text-align: center; transition: opacity .15s }
+.dim .ext:not(.hl) { opacity: .22 }
+
+path.e { fill: none; stroke-width: 2 }
+path.e.spine { stroke: var(--line); stroke-width: 4 }
+path.e.chain { stroke-opacity: .38 }
+path.e.req { stroke: var(--muted); stroke-opacity: .45; stroke-width: 1.6 }
+path.e.hl { stroke-opacity: 1; stroke-width: 3 }
+.dim path.e.req:not(.hl), .dim path.e.chain:not(.hl) { stroke-opacity: .08 }
+
+/* подсказка и панель */
+.tip { position: fixed; z-index: 30; max-width: 320px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+  padding: 10px 12px; box-shadow: 0 10px 30px rgb(0 0 0 / .18); pointer-events: none; font-size: 13px; line-height: 1.45; display: none }
+.tip b { display: block; font-size: 14px; margin-bottom: 3px }
+.tip .what { color: var(--muted) }
+.pill { display: inline-block; font-size: 11.5px; font-weight: 600; border: 1px solid currentColor; border-radius: 999px; padding: 0 7px; line-height: 18px }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin-top: 6px; font-size: 12.5px; color: var(--muted) }
+.who { display: inline-flex; align-items: center; gap: 5px; color: var(--ink) }
+.who img { width: 18px; height: 18px; border-radius: 50% }
+
+.drawer { position: fixed; z-index: 40; right: 16px; top: 16px; bottom: 16px; width: 380px; background: var(--panel); border: 1px solid var(--line);
+  border-radius: 14px; box-shadow: 0 20px 50px rgb(0 0 0 / .25); display: none; flex-direction: column; overflow: hidden }
+.drawer.open { display: flex }
+.drawer .dh { display: flex; gap: 12px; align-items: center; padding: 16px 16px 12px; border-bottom: 1px solid var(--line) }
+.drawer .big { flex: 0 0 auto; width: 64px; height: 64px; border-radius: 12px; background: var(--tile); display: grid; place-items: center }
+.drawer .big img { width: 44px; height: 44px; image-rendering: pixelated }
+.drawer .dh h2 { font-size: 18px; line-height: 1.2 }
+.drawer .dh .ctx { font-size: 12.5px; color: var(--muted); margin-top: 3px }
+.drawer .x { margin-left: auto; align-self: start; border: 0; background: none; font-size: 22px; line-height: 1; cursor: pointer; color: var(--muted); padding: 4px 6px }
+.drawer .db { padding: 14px 16px 18px; overflow: auto }
+.drawer .db p { margin: 0 0 10px }
+.seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; background: var(--bg); padding: 3px; border-radius: 10px; margin: 0 0 8px }
+.seg button { border: 0; background: none; border-radius: 7px; padding: 7px 4px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--muted) }
+.seg button[aria-pressed="true"][data-v=""] { background: var(--panel); color: var(--ink) }
+.seg button[aria-pressed="true"][data-v="work"] { background: var(--work); color: #fff }
+.seg button[aria-pressed="true"][data-v="done"] { background: var(--ok); color: #fff }
+.seg button:disabled { cursor: default }
+.lst { list-style: none; padding: 0; margin: 4px 0 12px; display: flex; flex-direction: column; gap: 4px }
+.lst button { width: 100%; display: flex; gap: 8px; align-items: center; text-align: left; border: 1px solid var(--line); background: var(--bg);
+  border-radius: 8px; padding: 5px 8px; cursor: pointer; font-size: 13px }
+.lst button img { width: 20px; height: 20px; image-rendering: pixelated; flex: 0 0 auto }
+.lst button .s { margin-left: auto; font-size: 11.5px; color: var(--muted); white-space: nowrap }
+.lst button .s.done { color: var(--ok) } .lst button .s.work { color: var(--work) }
+.lst .plain { font-size: 13px; color: var(--muted); padding: 2px 0 }
+.dsec { font: 600 11.5px var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 12px 0 2px }
+
+@media (max-width: 760px) {
+  .drawer { left: 8px; right: 8px; top: auto; bottom: 8px; width: auto; max-height: 72vh }
+  .viewport { height: 68vh }
+  .lane .lname { width: 96px; padding: 0 8px }
+  .lane .lname small { display: none }
+}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1>Испытания HiTech</h1>
+      <p class="sub">Карта прохождения по драконам: колонки идут по контрольным точкам, полосы по трём потокам. Наведи на узел, чтобы прочитать задачу, нажми, чтобы открыть её и поставить отметку. Отметки видит вся команда.</p>
+    </div>
+    <div class="totals">
+      <div class="total"><b id="tDone">0/0</b><span>задач готово</span></div>
+      <div class="total"><b id="tWork">0</b><span>в работе</span></div>
+      <div class="total"><b id="tQuests">0/0</b><span>квестов закрыто</span></div>
+    </div>
+  </div>
+  <p class="note" id="note" role="status"></p>
+
+  <div class="bar">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-view="map" aria-selected="true">Карта прохождения</button>
+      <button class="tab" role="tab" data-view="q" aria-selected="false">Квесты вкладки</button>
+    </div>
+    <span class="only-map">
+      <button class="chip" data-stream="0" aria-pressed="true">Все потоки</button>
+      <button class="chip" data-stream="1" aria-pressed="false"><span class="dot" style="background:var(--s1)"></span>База и конвейер</button>
+      <button class="chip" data-stream="2" aria-pressed="false"><span class="dot" style="background:var(--s2)"></span>Души и драконы</button>
+      <button class="chip" data-stream="3" aria-pressed="false"><span class="dot" style="background:var(--s3)"></span>Энергия, руда и материя</button>
+    </span>
+    <button class="chip" id="fHide" aria-pressed="false">Приглушить готовые</button>
+    <span class="spacer"></span>
+    <div class="zoom"><button data-z="-1" aria-label="Отдалить">−</button><button data-z="1" aria-label="Приблизить">+</button><button class="fit" data-z="0">Вписать</button></div>
+  </div>
+
+  <div class="viewport" id="vp"><div class="sizer" id="sizer"><div class="stage" id="stage"></div></div></div>
+
+  <div class="legend">
+    <span class="only-map"><span><i style="background:var(--tile);border:3px solid var(--s1);border-radius:50%"></i>этап плана</span>
+    <span><i style="background:var(--tile);border:2px solid var(--s1)"></i>подзадача: линия автокрафта, шаблоны, сборщики, пчёлы</span>
+    <span>линии соединяют этапы потока, при наведении подсвечивается вся линия задачи по точкам</span></span>
+    <span class="only-q"><span><i style="background:var(--tile);outline:2px solid var(--accent);outline-offset:1px"></i>ключевая веха</span>
+    <span><i style="border:1px dashed var(--muted)"></i>условие из другой вкладки</span>
+    <span>при наведении подсвечивается всё, что нужно для квеста и что он открывает</span></span>
+    <span><i style="background:var(--work)"></i>в работе</span><span><i style="background:var(--ok)"></i>готово</span>
+    <span>точка в углу: сложность (<b style="color:var(--d1)">лёгкая</b>, <b style="color:var(--d2)">средняя</b>, <b style="color:var(--d3)">сложная</b>, <b style="color:var(--d4)">суперсложная</b>)</span>
+  </div>
+</div>
+
+<div class="tip" id="tip"></div>
+<aside class="drawer" id="drawer" aria-live="polite"></aside>
+
+<script id="tree" type="application/json">/*TREE*/</script>
+<script>
+(() => {
+  const T = JSON.parse(document.getElementById('tree').textContent);
+  const IC = T.icons;
+  const SC = { 1: 'var(--s1)', 2: 'var(--s2)', 3: 'var(--s3)' };
+  const DC = { 'лёгкая': 'var(--d1)', 'средняя': 'var(--d2)', 'сложная': 'var(--d3)', 'суперсложная': 'var(--d4)' };
+  const LABEL = { '': 'Не начато', work: 'В работе', done: 'Готово' };
+  const STREAM = Object.fromEntries(T.streams.map(s => [s.id, s]));
+  const CP = Object.fromEntries(T.checkpoints.map(c => [c.id, c]));
+  const TASK = Object.fromEntries(T.tasks.map(t => [t.id, t]));
+  const QUEST = Object.fromEntries(T.quests.map(q => ['q' + q.id, q]));
+  const QBYNAME = Object.fromEntries(T.quests.map(q => [q.name, 'q' + q.id]));
+
+  let marks = {}, names = {};
+  let view = 'map', stream = 0, fadeDone = false, zoom = 1, sel = null, hover = null, hlSet = null;
+  let db = null, user = null, me = null, canWrite = false;
+  const pos = {};       // id -> {x, y}: центр квадрата узла
+  const size = { map: [0, 0], q: [0, 0] };
+
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const md = s => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+  const st = id => (marks[id] && marks[id].s) || '';
+  const img = k => IC[k] ? `<img alt="" src="${IC[k]}">` : '';
+
+  function shortLabel(t) {
+    if (t.kind === 'этап') return t.title.replace(/^([^.]+)\.\s*/, 'Этап $1. ');
+    let m = t.title.match(/^Линия «([^»]+)» \((\d+)\)/);
+    if (m) return `${m[1]} · ${m[2]}`;
+    m = t.title.match(/^Закодировать шаблоны \((\d+)\)/);
+    if (m) return `Шаблоны · ${m[1]}`;
+    return t.title;
+  }
+
+  /* ---------- раскладка карты ---------- */
+  const GUT = 140, COLW = 252, TOP = 136, PER = 3, SW = 80, SH = 88;
+  const byCell = {};
+  T.tasks.forEach(t => { (byCell[t.checkpoint + '|' + t.stream] ||= []).push(t); });
+  Object.values(byCell).forEach(l => l.sort((a, b) => (b.kind === 'этап') - (a.kind === 'этап') || a.id.localeCompare(b.id)));
+  const lanes = [];
+  (() => {
+    let y = TOP;
+    T.streams.forEach(s => {
+      const rows = Math.max(1, ...T.checkpoints.map(c => Math.ceil((byCell[c.id + '|' + s.id] || []).length / PER)));
+      const h = rows * SH + 30;
+      lanes.push({ s, y, h });
+      T.checkpoints.forEach((c, ci) => {
+        (byCell[c.id + '|' + s.id] || []).forEach((t, i) => {
+          const x0 = GUT + ci * COLW + (COLW - PER * SW) / 2;
+          pos[t.id] = { x: x0 + (i % PER) * SW + SW / 2, y: y + 20 + Math.floor(i / PER) * SH + 25 };
+        });
+      });
+      y += h;
+    });
+    T.checkpoints.forEach((c, ci) => { pos[c.id] = { x: GUT + ci * COLW + COLW / 2, y: 44 }; });
+    size.map = [GUT + T.checkpoints.length * COLW + 20, y + 10];
+  })();
+
+  // цепочки: задачи одной линии одного потока по порядку точек
+  const chains = {};
+  T.tasks.forEach(t => { if (t.line) (chains[t.stream + '|' + t.line] ||= []).push(t); });
+  Object.values(chains).forEach(l => l.sort((a, b) => CP[a.checkpoint].order - CP[b.checkpoint].order || a.id.localeCompare(b.id)));
+  const chainOf = t => t.line ? chains[t.stream + '|' + t.line] : [t];
+
+  /* ---------- раскладка квестов ---------- */
+  const QL = {};       // id -> {deps, kind: 'q' | 'x', label}
+  const extId = n => 'x:' + n;
+  T.quests.forEach(q => { QL['q' + q.id] = { deps: q.requires.map(n => QBYNAME[n] || extId(n)), kind: 'q' }; });
+  T.external.forEach(n => { QL[extId(n)] = { deps: [], kind: 'x', label: n }; });
+  const usedBy = {};
+  Object.entries(QL).forEach(([id, v]) => v.deps.forEach(d => (usedBy[d] ||= []).push(id)));
+  (() => {
+    const depth = {};
+    const dq = id => {
+      if (depth[id] !== undefined) return depth[id];
+      const v = QL[id];
+      return depth[id] = v.kind === 'x' ? 0 : 1 + Math.max(0, ...v.deps.filter(d => QL[d].kind === 'q').map(dq));
+    };
+    Object.keys(QL).filter(id => QL[id].kind === 'q').forEach(dq);
+    // условие ставим в колонку левее первого квеста, которому оно нужно
+    Object.keys(QL).filter(id => QL[id].kind === 'x').forEach(id => { depth[id] = Math.min(...(usedBy[id] || [1]).map(u => depth[u] ?? 1)) - 1; });
+    const cols = {};
+    Object.keys(QL).forEach(id => (cols[depth[id]] ||= []).push(id));
+    const ks = Object.keys(cols).map(Number).sort((a, b) => a - b);
+    const tallest = Math.max(...ks.map(k => cols[k].length));
+    const ROW = 94, CW = 184, X0 = 96, Y0 = 56;
+    const yOf = {};
+    const place = k => cols[k].forEach((id, i) => { yOf[id] = i + (tallest - cols[k].length) / 2; });
+    ks.forEach(place);
+    for (let pass = 0; pass < 8; pass++) {     // барицентры по соседям, туда и обратно
+      (pass % 2 ? [...ks].reverse() : ks).forEach(k => {
+        const bc = id => { const nb = [...QL[id].deps, ...(usedBy[id] || [])]; return nb.length ? nb.reduce((s, n) => s + yOf[n], 0) / nb.length : yOf[id]; };
+        const b = Object.fromEntries(cols[k].map(id => [id, bc(id)]));
+        cols[k].sort((x, y) => b[x] - b[y]);
+        place(k);
+      });
+    }
+    let maxY = 0;
+    ks.forEach((k, ci) => cols[k].forEach(id => {
+      pos[id] = { x: X0 + ci * CW, y: Y0 + yOf[id] * ROW };
+      maxY = Math.max(maxY, pos[id].y);
+    }));
+    size.q = [X0 + (ks.length - 1) * CW + 110, maxY + 80];
+  })();
+
+  /* ---------- отрисовка ---------- */
+  const curve = (a, b) => {
+    const m = Math.max(24, (b.x - a.x) / 2);
+    return `M${a.x},${a.y} C${a.x + m},${a.y} ${b.x - m},${b.y} ${b.x},${b.y}`;
+  };
+
+  function nodeHtml(id, t, o) {
+    const s = st(id), m = marks[id];
+    const p = m && m.by && names[m.by];
+    const badge = s === 'done' ? '✓' : s === 'work' ? (p && p.avatarUrl ? `<img alt="" src="${esc(p.avatarUrl)}">` : '•') : '';
+    const cls = ['node', o.stage && 'stage', s, o.key && 'key', o.final && 'final', sel === id && 'sel', o.off && 'off',
+      fadeDone && s === 'done' && 'faded', hlSet && hlSet.has(id) && 'hl'].filter(Boolean).join(' ');
+    return `<button class="${cls}" data-node="${id}" style="left:${pos[id].x - 39}px;top:${pos[id].y - 25}px;--sc:${o.color};--dc:${DC[t.difficulty] || 'transparent'}" aria-label="${esc(o.label)}: ${LABEL[s]}">` +
+      `<span class="sq">${img(t.icon)}<span class="df"></span><span class="bd">${badge}</span></span><span class="lb">${esc(o.label)}</span></button>`;
+  }
+
+  function renderMap() {
+    const [W, H] = size.map;
+    let svg = '', html = '';
+    T.checkpoints.forEach((c, ci) => { html += `<div class="colbg" style="left:${GUT + ci * COLW}px;height:${H}px"></div>`; });
+    lanes.forEach(l => {
+      html += `<div class="lane" style="top:${l.y}px;height:${l.h}px;width:${W}px"><div class="lname" style="color:${SC[l.s.id]}"><b>${esc(l.s.title)}</b><small>${esc(l.s.desc)}</small></div></div>`;
+    });
+    for (let i = 1; i < T.checkpoints.length; i++) {
+      const a = pos[T.checkpoints[i - 1].id], b = pos[T.checkpoints[i].id];
+      svg += `<path class="e spine" d="M${a.x},${a.y} L${b.x},${b.y}"/>`;
+    }
+    Object.values(chains).forEach(l => {
+      const stage = l[0].kind === 'этап';
+      for (let i = 1; i < l.length; i++) {
+        const a = l[i - 1], b = l[i];
+        const on = hlSet && hlSet.has(a.id) && hlSet.has(b.id);
+        if (!stage && !on) continue;
+        const pa = pos[a.id], pb = pos[b.id];
+        const d = pa.x === pb.x ? `M${pa.x},${pa.y + 25} L${pb.x},${pb.y - 25}` : curve({ x: pa.x + 27, y: pa.y }, { x: pb.x - 27, y: pb.y });
+        svg += `<path class="e chain${on ? ' hl' : ''}" stroke="${SC[a.stream]}" d="${d}"/>`;
+      }
+    });
+    T.checkpoints.forEach(c => {
+      const ts = T.tasks.filter(t => t.checkpoint === c.id), d = ts.filter(t => st(t.id) === 'done').length;
+      const cls = ['cpn', d === ts.length && 'done', sel === c.id && 'sel', hlSet && hlSet.has(c.id) && 'hl'].filter(Boolean).join(' ');
+      html += `<button class="${cls}" data-node="${c.id}" style="left:${pos[c.id].x - 116}px;top:${pos[c.id].y - 29}px">` +
+        `<span class="disc">${img(c.icon)}</span><span class="cn">${String(c.order).padStart(2, '0')} · ${d}/${ts.length}</span>` +
+        `<span class="ct">${esc(c.title)}</span><span class="pb"><i style="width:${ts.length ? d / ts.length * 100 : 0}%"></i></span></button>`;
+    });
+    T.tasks.forEach(t => {
+      html += nodeHtml(t.id, t, { stage: t.kind === 'этап', color: SC[t.stream], label: shortLabel(t), off: stream && stream !== t.stream });
+    });
+    return { W, H, html, svg };
+  }
+
+  function renderQuests() {
+    const [W, H] = size.q;
+    let svg = '', html = '';
+    Object.entries(QL).forEach(([id, v]) => v.deps.forEach(d => {
+      const on = hlSet && hlSet.has(id) && hlSet.has(d);
+      const a = { x: pos[d].x + (QL[d].kind === 'x' ? 72 : 27), y: pos[d].y };
+      svg += `<path class="e req${on ? ' hl' : ''}"${on ? ' stroke="var(--accent)"' : ''} d="${curve(a, { x: pos[id].x - 27, y: pos[id].y })}"/>`;
+    }));
+    Object.entries(QL).forEach(([id, v]) => {
+      if (v.kind === 'x') {
+        html += `<div class="ext${hlSet && hlSet.has(id) ? ' hl' : ''}" style="left:${pos[id].x - 72}px;top:${pos[id].y - 16}px;width:144px">${esc(v.label)}</div>`;
+      } else {
+        const q = QUEST[id];
+        html += nodeHtml(id, q, { color: 'var(--accent)', label: q.name, key: !!q.key, final: q.final });
+      }
+    });
+    return { W, H, html, svg };
+  }
+
+  function computeHl(id) {
+    if (!id) return null;
+    const s = new Set([id]);
+    if (TASK[id]) chainOf(TASK[id]).forEach(t => s.add(t.id));
+    else if (CP[id]) T.tasks.filter(t => t.checkpoint === id).forEach(t => s.add(t.id));
+    else if (QL[id]) {
+      const up = n => QL[n].deps.forEach(d => { if (!s.has(d)) { s.add(d); up(d); } });
+      const down = n => (usedBy[n] || []).forEach(d => { if (!s.has(d)) { s.add(d); down(d); } });
+      up(id); down(id);
+    }
+    return s;
+  }
+
+  function render() {
+    hlSet = computeHl(hover || sel);
+    const r = view === 'map' ? renderMap() : renderQuests();
+    const stage = $('stage');
+    stage.className = 'stage' + (hlSet ? ' dim' : '');
+    stage.style.width = r.W + 'px'; stage.style.height = r.H + 'px';
+    stage.style.transform = `scale(${zoom})`;
+    $('sizer').style.width = r.W * zoom + 'px'; $('sizer').style.height = r.H * zoom + 'px';
+    stage.innerHTML = `<svg class="edges" width="${r.W}" height="${r.H}" aria-hidden="true">${r.svg}</svg>${r.html}`;
+    renderTotals();
+    if (sel) renderDrawer();
+  }
+
+  function renderTotals() {
+    const all = T.tasks.map(t => st(t.id));
+    $('tDone').textContent = `${all.filter(s => s === 'done').length}/${all.length}`;
+    $('tWork').textContent = all.filter(s => s === 'work').length;
+    $('tQuests').textContent = `${T.quests.filter(q => st('q' + q.id) === 'done').length}/${T.quests.length}`;
+  }
+
+  /* ---------- подсказка и панель ---------- */
+  function whoHtml(id) {
+    const m = marks[id];
+    if (!m || !m.by) return '';
+    const p = names[m.by];
+    const when = m.at ? new Date(m.at).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' }) : '';
+    return `<span class="who">${p && p.avatarUrl ? `<img alt="" src="${esc(p.avatarUrl)}">` : ''}${esc((p && p.name) || 'кто-то')}${when ? ', ' + esc(when) : ''}</span>`;
+  }
+  const diffPill = d => d ? `<span class="pill" style="color:${DC[d] || 'var(--muted)'}">${esc(d)}</span>` : '';
+
+  function info(id) {
+    if (TASK[id]) {
+      const t = TASK[id];
+      return { icon: t.icon, title: t.kind === 'этап' ? 'Этап ' + t.title : t.title, what: t.what, diff: t.difficulty,
+        ctx: `${CP[t.checkpoint].title} · ${STREAM[t.stream].title}`, kind: t.kind === 'этап' ? 'этап плана' : t.kind, task: true };
+    }
+    if (QUEST[id]) {
+      const q = QUEST[id];
+      return { icon: q.icon, title: q.name, what: q.note || '', diff: q.difficulty, ctx: 'Квест вкладки «Испытания»' + (q.final ? ', финальный' : ''),
+        kind: q.key ? 'веха: ' + q.key : 'квест', task: true };
+    }
+    if (CP[id]) {
+      const c = CP[id];
+      return { icon: c.icon, title: c.title, what: '', ctx: `Контрольная точка ${String(c.order).padStart(2, '0')}`, task: false };
+    }
+    return null;
+  }
+
+  const tip = $('tip');
+  function showTip(id, ev) {
+    const i = info(id);
+    if (!i) { tip.style.display = 'none'; return; }
+    let body = i.what ? `<div class="what">${md(i.what)}</div>` : '';
+    if (CP[id]) {
+      const ts = T.tasks.filter(t => t.checkpoint === id);
+      body = `<div class="what">Задач: ${ts.length}, готово ${ts.filter(t => st(t.id) === 'done').length}. Нажми, чтобы открыть список.</div>`;
+    }
+    tip.innerHTML = `<b>${esc(i.title)}</b><div class="meta" style="margin:0 0 6px">${esc(i.ctx)}</div>${body}` +
+      (i.task ? `<div class="meta">${diffPill(i.diff)}<span>${esc(i.kind)}</span><span>${LABEL[st(id)]}</span>${whoHtml(id)}</div>` : '');
+    tip.style.display = 'block';
+    const r = tip.getBoundingClientRect();
+    let x = ev.clientX + 16, y = ev.clientY + 16;
+    if (x + r.width > innerWidth - 8) x = ev.clientX - r.width - 16;
+    if (y + r.height > innerHeight - 8) y = innerHeight - r.height - 8;
+    tip.style.left = Math.max(8, x) + 'px'; tip.style.top = Math.max(8, y) + 'px';
+  }
+
+  function itemBtn(id) {
+    const t = TASK[id] || QUEST[id], s = st(id);
+    const where = TASK[id] ? ` <small style="color:var(--muted)">${esc(CP[t.checkpoint].title)}</small>` : '';
+    return `<li><button data-go="${id}">${img(t.icon)}<span>${esc(TASK[id] ? shortLabel(t) : t.name)}${where}</span><span class="s ${s}">${LABEL[s]}</span></button></li>`;
+  }
+
+  function renderDrawer() {
+    const d = $('drawer'), i = info(sel);
+    if (!i) { d.classList.remove('open'); return; }
+    let body = '';
+    if (i.task) {
+      const s = st(sel);
+      body += `<div class="seg" role="group" aria-label="Статус">${['', 'work', 'done'].map(v =>
+        `<button data-set="${v}" data-v="${v}" aria-pressed="${s === v}" ${canWrite ? '' : 'disabled'}>${LABEL[v]}</button>`).join('')}</div>`;
+      body += `<div class="meta" style="margin:0 0 12px">${whoHtml(sel) || (canWrite ? 'Отметки пока нет.' : 'Отметки ставятся на странице в claude.ai.')}</div>`;
+      if (i.what) body += `<p>${md(i.what)}</p>`;
+      body += `<div class="meta">${diffPill(i.diff)}<span>${esc(i.kind)}</span>${TASK[sel] ? `<span>источник: <code>${esc(TASK[sel].source)}</code></span>` : ''}</div>`;
+    }
+    if (TASK[sel]) {
+      const ch = chainOf(TASK[sel]);
+      if (ch.length > 1) body += `<div class="dsec">Вся линия по точкам</div><ul class="lst">${ch.map(t => itemBtn(t.id)).join('')}</ul>`;
+    }
+    if (QUEST[sel]) {
+      const deps = QL[sel].deps, ups = usedBy[sel] || [];
+      body += `<div class="dsec">Нужно</div><ul class="lst">${deps.map(x => QL[x].kind === 'q' ? itemBtn(x) : `<li class="plain">${esc(QL[x].label)} (условие из другой вкладки)</li>`).join('') || '<li class="plain">ничего</li>'}</ul>`;
+      if (ups.length) body += `<div class="dsec">Открывает</div><ul class="lst">${ups.map(itemBtn).join('')}</ul>`;
+    }
+    if (CP[sel]) {
+      T.streams.forEach(s => {
+        const ts = byCell[sel + '|' + s.id] || [];
+        if (ts.length) body += `<div class="dsec" style="color:${SC[s.id]}">${esc(s.title)}</div><ul class="lst">${ts.map(t => itemBtn(t.id)).join('')}</ul>`;
+      });
+    }
+    d.innerHTML = `<div class="dh"><div class="big">${img(i.icon)}</div><div><h2>${esc(i.title)}</h2><div class="ctx">${esc(i.ctx)}</div></div>` +
+      `<button class="x" data-close aria-label="Закрыть">×</button></div><div class="db">${body}</div>`;
+    d.classList.add('open');
+  }
+
+  function closeDrawer() { sel = null; $('drawer').classList.remove('open'); render(); }
+
+  function select(id, scroll) {
+    sel = id; hover = null; tip.style.display = 'none';
+    const want = QUEST[id] ? 'q' : 'map';
+    if (want !== view) { setView(want); if (view === 'q') fit(); else zoom = 1; }
+    render();
+    if (scroll && pos[id]) {
+      const vp = $('vp');
+      vp.scrollTo({ left: pos[id].x * zoom - vp.clientWidth / 2, top: pos[id].y * zoom - vp.clientHeight / 2, behavior: 'smooth' });
+    }
+  }
+
+  function setView(v) {
+    view = v; document.body.dataset.view = v;
+    document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', String(b.dataset.view === v)));
+  }
+
+  function fit() {
+    const vp = $('vp'), [W, H] = size[view];
+    zoom = view === 'q' ? Math.max(.4, Math.min(1, (vp.clientWidth - 4) / W, (vp.clientHeight - 4) / H)) : Math.max(.5, Math.min(1, (vp.clientWidth - 4) / W));
+  }
+
+  /* ---------- события ---------- */
+  const stageEl = $('stage');
+  stageEl.addEventListener('pointerover', e => {
+    if (e.pointerType !== 'mouse' || drag) return;
+    const n = e.target.closest('[data-node]');
+    const id = n ? n.dataset.node : null;
+    if (id !== hover) { hover = id; render(); }
+    if (id && id !== sel) showTip(id, e); else tip.style.display = 'none';
+  });
+  stageEl.addEventListener('pointermove', e => { if (hover && hover !== sel && e.pointerType === 'mouse' && !dragged) showTip(hover, e); });
+  stageEl.addEventListener('pointerleave', () => { if (hover) { hover = null; render(); } tip.style.display = 'none'; });
+
+  let drag = null, dragged = false;
+  document.addEventListener('click', async e => {
+    if (dragged) { dragged = false; return; }
+    const tab = e.target.closest('.tab');
+    if (tab) { setView(tab.dataset.view); sel = null; $('drawer').classList.remove('open'); if (view === 'q') fit(); else zoom = 1; render(); $('vp').scrollTo(0, 0); return; }
+    const chip = e.target.closest('[data-stream]');
+    if (chip) {
+      stream = +chip.dataset.stream;
+      document.querySelectorAll('[data-stream]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.stream === stream)));
+      render(); return;
+    }
+    if (e.target.closest('#fHide')) { fadeDone = !fadeDone; $('fHide').setAttribute('aria-pressed', String(fadeDone)); render(); return; }
+    const z = e.target.closest('[data-z]');
+    if (z) {
+      const vp = $('vp'), cx = (vp.scrollLeft + vp.clientWidth / 2) / zoom, cy = (vp.scrollTop + vp.clientHeight / 2) / zoom;
+      if (+z.dataset.z === 0) fit(); else zoom = Math.max(.35, Math.min(1.8, zoom * (+z.dataset.z > 0 ? 1.25 : .8)));
+      render(); vp.scrollTo(cx * zoom - vp.clientWidth / 2, cy * zoom - vp.clientHeight / 2); return;
+    }
+    if (e.target.closest('[data-close]')) { closeDrawer(); return; }
+    const go = e.target.closest('[data-go]');
+    if (go) { select(go.dataset.go, true); return; }
+    const n = e.target.closest('[data-node]');
+    if (n) { if (sel === n.dataset.node) closeDrawer(); else select(n.dataset.node); return; }
+    const b = e.target.closest('[data-set]');
+    if (b && db && canWrite && sel) {
+      const v = b.dataset.set, id = sel;
+      if (v === st(id)) return;
+      b.disabled = true;
+      try {
+        const ref = db.collection('progress').doc(id);
+        if (v) await ref.set({ s: v, by: me, at: new Date().toISOString() });
+        else await ref.delete();
+      } catch (err) {
+        setNote('Отметка не сохранилась: ' + (err && err.code === 'permission_denied' ? 'у тебя доступ только на просмотр.' : 'нет связи с хранилищем, попробуй ещё раз.'), true);
+        b.disabled = false;
+      }
+    }
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && sel) closeDrawer(); });
+
+  // перетаскивание карты мышью
+  const vp = $('vp');
+  vp.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    drag = { x: e.clientX, y: e.clientY, l: vp.scrollLeft, t: vp.scrollTop };
+  });
+  addEventListener('pointermove', e => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (!dragged && Math.hypot(dx, dy) > 5) { dragged = true; vp.classList.add('drag'); tip.style.display = 'none'; }
+    if (dragged) { vp.scrollLeft = drag.l - dx; vp.scrollTop = drag.t - dy; }
+  });
+  addEventListener('pointerup', () => { if (drag) { drag = null; vp.classList.remove('drag'); setTimeout(() => { dragged = false; }, 0); } });
+
+  function setNote(text, warn) { const n = $('note'); n.textContent = text; n.className = 'note' + (warn ? ' warn' : ''); }
+
+  setView('map'); render();
+
+  (async () => {
+    if (!window.claude || !window.claude.use) { setNote('Отметки команды видны только на странице в claude.ai.', true); return; }
+    user = await window.claude.use('user');
+    db = await window.claude.use('db');
+    if (!db) { setNote('Отметки команды видны после входа в claude.ai. Карта доступна и так.', true); return; }
+    me = user ? await user.id() : null;
+    canWrite = !!me;
+    let loaded = false;
+    const timer = setTimeout(() => { if (!loaded) setNote('Отметки пока не загрузились, показана карта без них.', true); }, 10000);
+    db.collection('progress').onSnapshot(async snap => {
+      const m = {};
+      snap.docs.forEach(d => { if (d.exists) m[d.id] = d.data(); });
+      marks = m;
+      if (!snap.metadata.fromCache) { loaded = true; clearTimeout(timer); setNote(canWrite ? 'Отметки общие для всей команды и обновляются сами.' : 'Отметки только для просмотра.'); }
+      if (user) {
+        const ids = [...new Set(Object.values(marks).map(x => x.by).filter(Boolean))];
+        if (ids.length) { try { names = await user.profiles(ids); } catch (e) { /* имена не обязательны */ } }
+      }
+      render();
+    }, err => {
+      loaded = true; clearTimeout(timer);
+      setNote('Отметки не загрузились: ' + (err && err.message ? err.message : 'ошибка хранилища') + '.', true);
+    });
+  })();
+})();
+</script>

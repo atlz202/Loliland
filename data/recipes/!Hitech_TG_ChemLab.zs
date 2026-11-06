@@ -1,0 +1,2 @@
+ChemLabTweaker.addRecipe(<lolidimensions:soul_sand>, 64, <lolidimensions:void_quartz>, 32, <liquid:fresh_water>.withAmount(1000), 0, <lolidimensions:astral_pearl>, <liquid:fresh_water>.withAmount(0), 20)
+ChemLabTweaker.addRecipe(<lolidimensions:living_ember>, 64, <lolidimensions:living_flame>, 32, <liquid:liquid_magma>.withAmount(1000), 0, <lolidimensions:watcher_tear>, <liquid:fresh_water>.withAmount(0), 20)

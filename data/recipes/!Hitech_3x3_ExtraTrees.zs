@@ -1,0 +1,2 @@
+minetweaker/MineTweakerAPI.recipes.addShaped(<ExtraTrees:misc>.withAmount(4), [[<ore:logWood>, <ore:craftingToolForgeHammer>]], null, null)
+minetweaker/MineTweakerAPI.recipes.addShaped(<ExtraTrees:machine>, [[<ExtraTrees:misc:2>, <minecraft:iron_axe>, <ExtraTrees:misc:2>], [<ore:blockGlass>, <Forestry:sturdyMachine>, <ore:blockGlass>], [<ExtraTrees:misc:2>, <ore:gearBronze>, <ExtraTrees:misc:2>]], null, null)

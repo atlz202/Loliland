@@ -1,0 +1,5 @@
+MTElectrolyticSeparator.addRecipeSplitFluid(GasBracketHandler.getGas('hydrogen').withAmount(100), GasBracketHandler.getGas('oxygen').withAmount(50), <liquid:fresh_water>.withAmount(100))
+MTElectrolyticSeparator.addRecipeSplitGas(GasBracketHandler.getGas('oxygen').withAmount(20), GasBracketHandler.getGas('nitrogen').withAmount(80), GasBracketHandler.getGas('ambient').withAmount(100))
+MTElectrolyticSeparator.addRecipeSplitFluid(GasBracketHandler.getGas('sodium').withAmount(100), GasBracketHandler.getGas('chlorine').withAmount(100), <liquid:brine>.withAmount(1000))
+MTElectrolyticSeparator.addRecipeSplitFluid(GasBracketHandler.getGas('deuterium').withAmount(100), GasBracketHandler.getGas('oxygen').withAmount(50), <liquid:ic2distilledwater>.withAmount(1000))
+MTElectrolyticSeparator.addRecipeConvertGas(GasBracketHandler.getGas('tritium').withAmount(100), GasBracketHandler.getGas('lithium').withAmount(100))
