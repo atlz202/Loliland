@@ -18,7 +18,7 @@
 - `data/bees.md`, `data/bees.json` — соты под вехи и 32 совершенные пасеки, наименьший набор пчёл, раскладка пчёл на старте (4 пасеки) и в лейте (32).
 - `data/bees/` — продукты и мутации пчёл Forestry и ExtraBees, вытащенные из байткода модов.
 - `data/autocraft.json` — профиль каждого механизма: слоты, жидкости и газы, катализаторы, выходы с шансом.
-- `data/tree.json` — дерево контрольных точек и задач (будет).
+- `data/tree.json` — дерево: 12 контрольных точек по драконам, задачи по трём потокам, квесты «Испытаний».
 - `data/milestones.md`, `data/milestones.json` — из чего состоят шесть ключевых вех: общий ствол, свои ветки, драконы, базовые ресурсы.
 - `tools/scripts_cache/` — скрипт, который заново достаёт крафты из `scripts_cache.dat` после вайпа.
 - `tools/recipe_graph.py` — граф всех серверных рецептов: дерево крафта предмета, базовые ресурсы, где предмет используется.
@@ -30,5 +30,6 @@
 - `tools/patterns.py` — пересобирает `data/patterns.md`.
 - `tools/bees.py` — пересобирает `data/bees.md`: спрос на соты, набор пчёл, раскладка по пасекам.
 - `tools/extract_forestry_bees.py`, `tools/extract_extrabees.py` — достают пчёл из jar Forestry и binnie-mods в `data/bees/`.
+- `tools/tree.py` — собирает `data/tree.json` из `plan.md`, `subtasks.json`, пчёл и материи, и вшивает его в `web/dashboard.html`.
 - `tools/subtasks.py` — пересобирает `data/subtasks.md` из шаблонов и мелких вех.
-- `web/` — дашборд (будет).
+- `web/dashboard.src.html` — шаблон дашборда; `web/dashboard.html` — собранная страница (опубликована: https://claude.ai/artifact/296woLFrb3djqyC6aRbmCQ). Отметки команды хранятся в базе страницы, не в git.
