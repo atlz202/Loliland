@@ -1,0 +1,121 @@
+rules_version = '2';
+
+// Правила доступа к базе. Всё, что здесь не разрешено явно, запрещено.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function uid() {
+      return request.auth.uid;
+    }
+
+    // Ник как в Minecraft: 3–16 символов, латиница, цифры и подчёркивание.
+    function validNick(n) {
+      return n is string && n.matches('^[A-Za-z0-9_]{3,16}$');
+    }
+
+    function validTeamName(n) {
+      return n is string && n.size() >= 2 && n.size() <= 32;
+    }
+
+    // Должен совпадать со списком в src/lib/servers.ts
+    function knownServer(s) {
+      return s in ['hitech'];
+    }
+
+    function myNick() {
+      return get(/databases/$(database)/documents/users/$(uid())).data.nickname;
+    }
+
+    // Ник → uid. Нужен, чтобы два человека не заняли один ник.
+    // Читать можно без входа: при регистрации проверяем, свободен ли ник.
+    match /nicknames/{nick} {
+      allow get: if true;
+      allow list: if false;
+      // Создаётся одной пачкой вместе с users/{uid}, только при регистрации.
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['uid'])
+        && request.resource.data.uid == uid()
+        && !exists(/databases/$(database)/documents/users/$(uid()))
+        && getAfter(/databases/$(database)/documents/users/$(uid())).data.nicknameLower == nick;
+      allow update, delete: if false;
+    }
+
+    match /users/{userId} {
+      allow get: if signedIn();
+      allow list: if false;
+      allow create: if signedIn()
+        && userId == uid()
+        && request.resource.data.keys().hasOnly(['nickname', 'nicknameLower', 'createdAt'])
+        && validNick(request.resource.data.nickname)
+        && request.resource.data.nicknameLower == request.resource.data.nickname.lower()
+        && request.resource.data.createdAt == request.time
+        && getAfter(/databases/$(database)/documents/nicknames/$(request.resource.data.nicknameLower)).data.uid == uid();
+      // Ник пока менять нельзя.
+      allow update, delete: if false;
+    }
+
+    match /teams/{teamId} {
+      // Открыть команду по ID может любой вошедший (так работает вход по ID).
+      allow get: if signedIn();
+      // Список — только своих команд (запрос с members array-contains uid).
+      allow list: if signedIn() && uid() in resource.data.members;
+
+      // Создание: создатель становится капитаном и единственным участником.
+      allow create: if signedIn()
+        && teamId.matches('^[A-HJ-NP-Z2-9]{6}$')
+        && request.resource.data.keys().hasOnly(['name', 'server', 'captainUid', 'members', 'memberNicks', 'open', 'createdAt'])
+        && validTeamName(request.resource.data.name)
+        && knownServer(request.resource.data.server)
+        && request.resource.data.captainUid == uid()
+        && request.resource.data.members == [uid()]
+        && request.resource.data.memberNicks.keys().hasOnly([uid()])
+        && request.resource.data.memberNicks[uid()] == myNick()
+        && request.resource.data.open == true
+        && request.resource.data.createdAt == request.time;
+
+      function changed() {
+        return request.resource.data.diff(resource.data).affectedKeys();
+      }
+
+      function nicksChanged() {
+        return request.resource.data.memberNicks.diff(resource.data.memberNicks).affectedKeys();
+      }
+
+      // Вход по ID: команда открыта, человек добавляет только себя.
+      function isJoin() {
+        return resource.data.open == true
+          && !(uid() in resource.data.members)
+          && resource.data.members.size() < 20
+          && changed().hasOnly(['members', 'memberNicks'])
+          && request.resource.data.members == resource.data.members.concat([uid()])
+          && nicksChanged().hasOnly([uid()])
+          && request.resource.data.memberNicks[uid()] == myNick();
+      }
+
+      // Выход: участник, кроме капитана, убирает только себя.
+      function isLeave() {
+        return uid() in resource.data.members
+          && uid() != resource.data.captainUid
+          && changed().hasOnly(['members', 'memberNicks'])
+          && request.resource.data.members == resource.data.members.removeAll([uid()])
+          && nicksChanged().hasOnly([uid()])
+          && !(uid() in request.resource.data.memberNicks);
+      }
+
+      // Капитан: переименовать, закрыть или открыть команду.
+      function isCaptainEdit() {
+        return uid() == resource.data.captainUid
+          && changed().hasOnly(['name', 'open'])
+          && validTeamName(request.resource.data.name)
+          && request.resource.data.open is bool;
+      }
+
+      allow update: if signedIn() && (isJoin() || isLeave() || isCaptainEdit());
+      allow delete: if false;
+    }
+  }
+}
