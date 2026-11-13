@@ -1,0 +1,404 @@
+rules_version = '2';
+
+// Правила доступа к базе. Всё, что здесь не разрешено явно, запрещено.
+//
+// Что где лежит:
+//   users/{uid}                       профиль: ник
+//   nicknames/{ник}                   ник → uid, чтобы ник не заняли дважды
+//   teams/{id}                        команда: участники, роли, этап, приглашённые
+//   teams/{id}/state/plan             кому какое задание досталось (пишет капитан)
+//   teams/{id}/state/progress         статусы заданий и квестов (пишут исполнители)
+//   teams/{id}/invites/{токен}        ссылки-приглашения
+//   teams/{id}/joins/{uid}            отметка «вошёл по такой-то ссылке»
+//   invitations/{id команды}_{uid}    личное приглашение, чтобы игрок увидел его в кабинете
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function uid() {
+      return request.auth.uid;
+    }
+
+    // Ник как в Minecraft: 3–16 символов, латиница, цифры и подчёркивание.
+    function validNick(n) {
+      return n is string && n.matches('^[A-Za-z0-9_]{3,16}$');
+    }
+
+    function validTeamName(n) {
+      return n is string && n.size() >= 2 && n.size() <= 32;
+    }
+
+    // Должен совпадать со списком в src/lib/servers.ts
+    function knownServer(s) {
+      return s in ['hitech'];
+    }
+
+    // Рабочие роли. Должны совпадать с src/data/roles.ts (без квестовика: он хранится отдельно).
+    function validRoleList(l) {
+      return l is list
+        && l.size() <= 11
+        && l.toSet().size() == l.size()
+        && l.toSet().hasOnly(['ae', 'coder', 'ind1', 'ind2', 'meka', 'beekeeper', 'beemech', 'ragu', 'misc', 'dragon', 'multi']);
+    }
+
+    function myNick() {
+      return get(/databases/$(database)/documents/users/$(uid())).data.nickname;
+    }
+
+    function teamDoc(teamId) {
+      return get(/databases/$(database)/documents/teams/$(teamId)).data;
+    }
+
+    function teamAfter(teamId) {
+      return getAfter(/databases/$(database)/documents/teams/$(teamId)).data;
+    }
+
+    // Поля, которых может не быть у команд, созданных до этих правил.
+    function phaseOf(t) { return t.get('phase', 'gathering'); }
+    function rolesOf(t) { return t.get('roles', {}); }
+    function questOf(t) { return t.get('questRunner', null); }
+    function invitedOf(t) { return t.get('invited', {}); }
+    function openedAtOf(t) { return t.get('openedAt', t.createdAt); }
+    function autoCloseOf(t) { return t.get('autoCloseHours', 24); }
+
+    // Ник → uid. Читать можно без входа: при регистрации проверяем, свободен ли ник.
+    match /nicknames/{nick} {
+      allow get: if true;
+      allow list: if false;
+      // Создаётся одной пачкой вместе с users/{uid}, только при регистрации.
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['uid'])
+        && request.resource.data.uid == uid()
+        && !exists(/databases/$(database)/documents/users/$(uid()))
+        && getAfter(/databases/$(database)/documents/users/$(uid())).data.nicknameLower == nick;
+      allow update, delete: if false;
+    }
+
+    match /users/{userId} {
+      allow get: if signedIn();
+      // Поиск игрока по началу ника, чтобы пригласить его в команду.
+      allow list: if signedIn() && request.query.limit <= 10;
+      allow create: if signedIn()
+        && userId == uid()
+        && request.resource.data.keys().hasOnly(['nickname', 'nicknameLower', 'createdAt'])
+        && validNick(request.resource.data.nickname)
+        && request.resource.data.nicknameLower == request.resource.data.nickname.lower()
+        && request.resource.data.createdAt == request.time
+        && getAfter(/databases/$(database)/documents/nicknames/$(request.resource.data.nicknameLower)).data.uid == uid();
+      // Ник пока менять нельзя.
+      allow update, delete: if false;
+    }
+
+    match /teams/{teamId} {
+      function now() { return request.resource.data; }
+
+      // Открыть команду по ID может любой вошедший (так работает вход по ID и по ссылке).
+      allow get: if signedIn();
+      // Список — только своих команд (запрос с members array-contains uid).
+      allow list: if signedIn() && uid() in resource.data.members;
+
+      // Создание: создатель становится капитаном и единственным участником.
+      allow create: if signedIn()
+        && teamId.matches('^[A-HJ-NP-Z2-9]{6}$')
+        && now().keys().hasOnly(['name', 'server', 'captainUid', 'members', 'memberNicks', 'open', 'createdAt',
+                                 'openedAt', 'autoCloseHours', 'phase', 'roles', 'questRunner', 'invited', 'planVersion'])
+        && validTeamName(now().name)
+        && knownServer(now().server)
+        && now().captainUid == uid()
+        && now().members == [uid()]
+        && now().memberNicks.keys().hasOnly([uid()])
+        && now().memberNicks[uid()] == myNick()
+        && now().open == true
+        && now().createdAt == request.time
+        && now().openedAt == request.time
+        && now().autoCloseHours == 24
+        && now().phase == 'gathering'
+        && now().roles.size() == 0
+        && now().questRunner == null
+        && now().invited.size() == 0
+        && now().planVersion == 0;
+
+      // Человек добавляет в участники только себя, со своим ником.
+      function addsOnlyMe(w, n) {
+        return w.members.size() < 20
+          && n.members == w.members.concat([uid()])
+          && n.memberNicks.diff(w.memberNicks).affectedKeys().hasOnly([uid()])
+          && n.memberNicks[uid()] == myNick();
+      }
+
+      // Вступление. Три пути:
+      //  по ID: команда открыта и не закрылась сама (N часов с последнего входа), вход продлевает срок;
+      //  по ссылке: работает и в закрытой команде, ссылку проверяет правило joins/{uid};
+      //  по личному приглашению: капитан внёс человека в invited, при входе запись убирается.
+      function isJoin() {
+        let w = resource.data;
+        let n = request.resource.data;
+        let ch = n.diff(w).affectedKeys();
+        let invited = invitedOf(w);
+        return addsOnlyMe(w, n)
+          && ((w.open == true
+                && request.time < openedAtOf(w) + duration.value(autoCloseOf(w), 'h')
+                && ch.hasOnly(['members', 'memberNicks', 'openedAt'])
+                && n.openedAt == request.time)
+              || (uid() in invited
+                && ch.hasOnly(['members', 'memberNicks', 'invited'])
+                && n.invited.diff(invited).affectedKeys().hasOnly([uid()])
+                && !(uid() in n.invited))
+              || (ch.hasOnly(['members', 'memberNicks'])
+                && getAfter(/databases/$(database)/documents/teams/$(teamId)/joins/$(uid())).data.at == request.time));
+      }
+
+      // Отказ от личного приглашения.
+      function isDeclineInvitation() {
+        let w = resource.data;
+        let n = request.resource.data;
+        let invited = invitedOf(w);
+        return uid() in invited
+          && n.diff(w).affectedKeys().hasOnly(['invited'])
+          && n.invited.diff(invited).affectedKeys().hasOnly([uid()])
+          && !(uid() in n.invited);
+      }
+
+      // Выход: участник убирает только себя, вместе со своими ролями и квестовиком.
+      function isLeave() {
+        let w = resource.data;
+        let n = request.resource.data;
+        let rolesAfter = rolesOf(n);
+        let questAfter = questOf(n);
+        let questBefore = questOf(w);
+        return n.diff(w).affectedKeys().hasOnly(['members', 'memberNicks', 'roles', 'questRunner'])
+          && n.members == w.members.removeAll([uid()])
+          && n.memberNicks.diff(w.memberNicks).affectedKeys().hasOnly([uid()])
+          && !(uid() in n.memberNicks)
+          && rolesAfter.diff(rolesOf(w)).affectedKeys().hasOnly([uid()])
+          && !(uid() in rolesAfter)
+          && questAfter != uid()
+          && (questAfter == questBefore || questBefore == uid());
+      }
+
+      // Этап ролей: участник меняет только свои роли. Квестовика можно взять, если он свободен, и отдать свой.
+      function isOwnRoles() {
+        let w = resource.data;
+        let n = request.resource.data;
+        let rolesAfter = rolesOf(n);
+        let questAfter = questOf(n);
+        let questBefore = questOf(w);
+        return phaseOf(w) == 'roles'
+          && n.diff(w).affectedKeys().hasOnly(['roles', 'questRunner'])
+          && rolesAfter.diff(rolesOf(w)).affectedKeys().hasOnly([uid()])
+          && (!(uid() in rolesAfter) || validRoleList(rolesAfter[uid()]))
+          && (questAfter == questBefore
+              || (questBefore == null && questAfter == uid())
+              || (questBefore == uid() && questAfter == null));
+      }
+
+      // Капитан: название, вход по ID, этап, роли, квестовик, приглашённые, исключение, передача капитана.
+      // Добавить человека в участники капитан не может: вступает человек сам.
+      function isCaptainEdit() {
+        let w = resource.data;
+        let n = request.resource.data;
+        let ch = n.diff(w).affectedKeys();
+        let members = n.members.toSet();
+        let rolesAfter = rolesOf(n);
+        let questAfter = questOf(n);
+        let invited = invitedOf(n);
+        let hours = autoCloseOf(n);
+        let nicks = n.memberNicks.diff(w.memberNicks);
+        return ch.hasOnly(['name', 'open', 'openedAt', 'autoCloseHours', 'phase', 'roles', 'questRunner',
+                           'invited', 'planVersion', 'members', 'memberNicks', 'captainUid'])
+          && validTeamName(n.name)
+          && n.open is bool
+          && (!('openedAt' in ch) || n.openedAt == request.time)
+          && hours is int && hours >= 1 && hours <= 720
+          && phaseOf(n) in ['gathering', 'roles', 'running']
+          && rolesAfter is map
+          && members.hasAll(rolesAfter.keys())
+          && (questAfter == null || questAfter in members)
+          && invited is map && invited.size() <= 20
+          && n.get('planVersion', 0) is int
+          && w.members.toSet().hasAll(members)
+          && n.captainUid in members
+          && members.hasAll(n.memberNicks.keys())
+          && n.memberNicks.keys().toSet().hasAll(members)
+          && nicks.addedKeys().size() == 0
+          && nicks.changedKeys().size() == 0;
+      }
+
+      // Кто пишет, тому и своё правило: капитан, участник или ещё не участник.
+      allow update: if signedIn()
+        && (resource.data.captainUid == uid()
+              ? isCaptainEdit()
+              : (uid() in resource.data.members
+                  ? (isLeave() || isOwnRoles())
+                  : (isJoin() || isDeclineInvitation())));
+      // Распустить команду капитан может, когда в ней остался он один.
+      allow delete: if signedIn() && resource.data.captainUid == uid() && resource.data.members.size() == 1;
+
+      // ---- План и прогресс ----
+      match /state/{docId} {
+        function sNow() { return request.resource.data; }
+        function sWas() { return resource.data; }
+        function isMember() { return signedIn() && uid() in teamDoc(teamId).members; }
+        function isCaptain() { return signedIn() && teamDoc(teamId).captainUid == uid(); }
+        function plan() { return get(/databases/$(database)/documents/teams/$(teamId)/state/plan).data; }
+
+        allow get: if isMember();
+        allow list: if false;
+
+        // План пишет только капитан, когда нажимает «Распределение завершено».
+        function validPlan() {
+          return sNow().keys().hasOnly(['version', 'catalog', 'tasks', 'uncovered', 'questFallback', 'by', 'at'])
+            && sNow().tasks is map && sNow().tasks.size() <= 300
+            && sNow().uncovered is list
+            && sNow().version is int
+            && sNow().catalog is string
+            && sNow().by == uid()
+            && sNow().at == request.time;
+        }
+
+        // Статус задания меняет исполнитель, квестовик этого задания или капитан.
+        function canEditTask(id) {
+          return teamDoc(teamId).captainUid == uid()
+            || (id in plan().tasks && (uid() in plan().tasks[id].a || plan().tasks[id].get('q', null) == uid()));
+        }
+
+        function validTaskEntry(e) {
+          return e.keys().hasOnly(['s', 'sub', 'by', 'at'])
+            && e.s in ['todo', 'doing', 'done']
+            && e.sub is list && e.sub.size() <= 30
+            && e.by == uid()
+            && e.at == request.time;
+        }
+
+        // Этапы квестов ведёт квестовик (или тот, кому квесты достались по плану) и капитан.
+        function canEditQuests() {
+          return teamDoc(teamId).captainUid == uid()
+            || questOf(teamDoc(teamId)) == uid()
+            || plan().get('questFallback', null) == uid();
+        }
+
+        function validQuestEntry(e) {
+          return e.keys().hasOnly(['st', 'by', 'at'])
+            && e.st is int && e.st >= 0 && e.st <= 3
+            && e.by == uid()
+            && e.at == request.time;
+        }
+
+        // За одну запись меняется ровно одно задание или один квест. Какое именно, сказано в поле last.
+        function validProgressUpdate() {
+          return sNow().keys().hasOnly(['tasks', 'quests', 'last'])
+            && sNow().last.keys().hasOnly(['kind', 'id', 'by', 'at'])
+            && sNow().last.id is string
+            && sNow().last.by == uid()
+            && sNow().last.at == request.time
+            && ((sNow().last.kind == 'task'
+                  && sNow().quests == sWas().quests
+                  && sNow().tasks.diff(sWas().tasks).affectedKeys().hasOnly([sNow().last.id])
+                  && canEditTask(sNow().last.id)
+                  && validTaskEntry(sNow().tasks[sNow().last.id]))
+                || (sNow().last.kind == 'quest'
+                  && sNow().tasks == sWas().tasks
+                  && sNow().quests.diff(sWas().quests).affectedKeys().hasOnly([sNow().last.id])
+                  && canEditQuests()
+                  && validQuestEntry(sNow().quests[sNow().last.id])));
+        }
+
+        allow create: if isCaptain()
+          && ((docId == 'plan' && validPlan())
+              || (docId == 'progress'
+                  && sNow().keys().hasOnly(['tasks', 'quests'])
+                  && sNow().tasks.size() == 0
+                  && sNow().quests.size() == 0));
+        allow update: if (docId == 'plan' && isCaptain() && validPlan())
+          || (docId == 'progress' && isMember() && validProgressUpdate());
+        // Удаляются только вместе с командой: когда капитан остался один и распускает её.
+        allow delete: if isCaptain() && teamDoc(teamId).members.size() == 1;
+      }
+
+      // ---- Ссылки-приглашения ----
+      match /invites/{token} {
+        function iNow() { return request.resource.data; }
+        function iWas() { return resource.data; }
+        function isCaptain() { return signedIn() && teamDoc(teamId).captainUid == uid(); }
+        function myJoin() { return getAfter(/databases/$(database)/documents/teams/$(teamId)/joins/$(uid())).data; }
+
+        // Прочитать ссылку может тот, у кого она есть. Список видит только капитан.
+        allow get: if signedIn();
+        allow list: if isCaptain();
+
+        // maxUses: от 1 до 5, а 0 значит «без ограничений».
+        allow create: if isCaptain()
+          && token.matches('^[A-Za-z0-9]{20}$')
+          && iNow().keys().hasOnly(['maxUses', 'uses', 'revoked', 'by', 'at'])
+          && iNow().maxUses is int && iNow().maxUses >= 0 && iNow().maxUses <= 5
+          && iNow().uses == 0
+          && iNow().revoked == false
+          && iNow().by == uid()
+          && iNow().at == request.time;
+
+        // Капитан может отозвать ссылку. Вступающий увеличивает счётчик ровно на один,
+        // и только если в той же пачке он действительно вступает по этой ссылке.
+        allow update: if signedIn()
+          && ((isCaptain()
+                && iNow().diff(iWas()).affectedKeys().hasOnly(['revoked'])
+                && iNow().revoked is bool)
+              || (iNow().diff(iWas()).affectedKeys().hasOnly(['uses'])
+                && iNow().uses == iWas().uses + 1
+                && iWas().revoked == false
+                && (iWas().maxUses == 0 || iWas().uses < iWas().maxUses)
+                && myJoin().at == request.time
+                && myJoin().token == token));
+        allow delete: if isCaptain();
+      }
+
+      // Отметка о входе по ссылке. Пишется той же пачкой, что и вход, и связывает ссылку с командой.
+      match /joins/{userId} {
+        function jNow() { return request.resource.data; }
+        function invitePath(token) { return /databases/$(database)/documents/teams/$(teamId)/invites/$(token); }
+
+        allow get: if signedIn() && (userId == uid() || teamDoc(teamId).captainUid == uid());
+        allow list: if false;
+        allow create, update: if signedIn()
+          && userId == uid()
+          && jNow().keys().hasOnly(['token', 'at'])
+          && jNow().token is string
+          && jNow().at == request.time
+          && !(uid() in teamDoc(teamId).members)
+          && uid() in teamAfter(teamId).members
+          && getAfter(invitePath(jNow().token)).data.uses == get(invitePath(jNow().token)).data.uses + 1;
+        allow delete: if signedIn() && (userId == uid() || teamDoc(teamId).captainUid == uid());
+      }
+    }
+
+    // Личное приглашение. Право войти даёт запись в teams/{id}.invited, а этот документ нужен,
+    // чтобы приглашённый увидел приглашение у себя в кабинете.
+    match /invitations/{invId} {
+      function vNow() { return request.resource.data; }
+
+      allow get, list: if signedIn() && (resource.data.toUid == uid() || resource.data.fromUid == uid());
+      allow create: if signedIn()
+        && vNow().keys().hasOnly(['teamId', 'toUid', 'toNick', 'teamName', 'server', 'fromUid', 'fromNick', 'at'])
+        && invId == vNow().teamId + '_' + vNow().toUid
+        && vNow().fromUid == uid()
+        && vNow().at == request.time
+        && teamDoc(vNow().teamId).captainUid == uid()
+        && vNow().toUid in invitedOf(teamAfter(vNow().teamId))
+        && !(vNow().toUid in teamDoc(vNow().teamId).members)
+        && validNick(vNow().toNick)
+        && validNick(vNow().fromNick)
+        && validTeamName(vNow().teamName)
+        && knownServer(vNow().server);
+      allow update: if false;
+      // Удаление того, чего уже нет, разрешено: так роспуск команды не спотыкается о приглашение,
+      // которое игрок успел убрать сам.
+      allow delete: if signedIn()
+        && (resource == null
+            || resource.data.toUid == uid()
+            || resource.data.fromUid == uid()
+            || teamDoc(resource.data.teamId).captainUid == uid());
+    }
+  }
+}

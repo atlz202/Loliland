@@ -1,0 +1,106 @@
+# Проверки и выкладка сайта.
+#
+# Любой pull request, который трогает site/, проходит проверки.
+# Слияние в main выкладывает сайт и правила базы на https://loliland-team.web.app.
+# Ту же выкладку можно запустить руками для любой ветки: Actions → «Сайт» → Run workflow.
+#
+# Нужен один секрет репозитория: FIREBASE_SERVICE_ACCOUNT (ключ сервисного аккаунта Firebase в JSON).
+# Как его получить, написано в site/README.md, раздел «Автовыкладка».
+name: Сайт
+
+on:
+  pull_request:
+    paths:
+      - 'site/**'
+      - '.github/workflows/site.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - '.github/workflows/site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  FIREBASE_PROJECT: loliland-team
+
+defaults:
+  run:
+    working-directory: site
+
+jobs:
+  check:
+    name: Проверки
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      # Эмулятору базы нужна Java 21.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: npm ci
+      - name: Код без замечаний
+        run: npm run lint
+      - name: Список заданий и распределение
+        run: npm run test:unit
+      - name: Правила базы
+        run: npm run test:rules
+      - name: Сборка
+        run: npm run build
+
+  deploy:
+    name: Выкладка
+    needs: check
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # Две выкладки подряд не мешают друг другу: вторая ждёт первую.
+    concurrency:
+      group: site-deploy
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      # Пакет для выкладки правил ставится до того, как на диске появится ключ.
+      - name: Пакет для выкладки правил
+        run: npm install --no-save --no-audit --no-fund firebase-admin@13
+      - name: Настройки Firebase для сборки
+        env:
+          VITE_FIREBASE_API_KEY: ${{ vars.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ vars.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_APP_ID: ${{ vars.VITE_FIREBASE_APP_ID }}
+        run: node scripts/ci-env.mjs
+      - name: Сборка
+        run: npm run build
+      - name: Ключ для выкладки
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT" ]; then
+            echo "::error::Нет секрета FIREBASE_SERVICE_ACCOUNT. Как его добавить, написано в site/README.md, раздел «Автовыкладка»."
+            exit 1
+          fi
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-key.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/firebase-key.json" >> "$GITHUB_ENV"
+      # Сначала правила, потом сайт: новый сайт не должен попасть на старые правила.
+      - name: Правила базы
+        run: node scripts/deploy-rules.mjs
+      - name: Сайт
+        run: npx firebase deploy --only hosting --project "$FIREBASE_PROJECT" --non-interactive
+      - name: Убрать ключ
+        if: always()
+        run: rm -f "$RUNNER_TEMP/firebase-key.json"
