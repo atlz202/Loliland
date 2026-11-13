@@ -6,7 +6,7 @@
 //   node tests/e2e/scenario.mjs
 //
 // Скриншоты складываются в tests/e2e/shots (папка не попадает в репозиторий).
-import { BASE, check, chromium, fillRegistration, login, newPlayer, problems, register, resetEmulators, shot } from './lib.mjs'
+import { BASE, check, chromium, fillRegistration, login, newPlayer, problems, register, resetEmulators, shot, treeGeometry } from './lib.mjs'
 
 const step = (title) => console.log(`\n${title}`)
 const settle = (p, ms = 500) => p.page.waitForTimeout(ms)
@@ -151,8 +151,59 @@ try {
   check((await cap.page.locator('.route').count()) > 5, 'путь нарисован стрелками')
   await shot(cap, '08-tree-captain')
 
+  // ---------- Дерево: стрелки и масштаб ----------
+  step('8. Дерево: стрелки смотрят только вверх, масштаб меняется')
+  let tree = await treeGeometry(cap.page)
+  check(tree.deps === 70 && tree.depsDown.length === 0, 'все 70 связей идут снизу вверх')
+  check(tree.depsOff.length === 0, 'концы связей стоят на своих карточках')
+  check(tree.route > 5 && tree.routeDown.length === 0 && tree.routeLeft.length === 0, 'путь капитана идёт только вверх, а в одном ряду слева направо')
+  for (const nick of ['Bee_Mira', 'Drakon_77', 'Questy']) {
+    await cap.page.locator('.tree-people button', { hasText: nick }).click()
+    await settle(cap, 300)
+    const other = await treeGeometry(cap.page)
+    check(other.route > 5 && other.routeDown.length === 0 && other.routeLeft.length === 0, `путь ${nick} тоже нигде не возвращается назад (${other.route} стрелок)`)
+  }
+  await cap.page.locator('.tree-people button', { hasText: 'Cap_Alex' }).click()
+
+  const fullHeight = tree.height
+  await cap.page.getByRole('button', { name: 'Отдалить' }).click()
+  await settle(cap, 300)
+  tree = await treeGeometry(cap.page)
+  check(tree.zoom === '85%' && tree.height < fullHeight, 'кнопка «−» отдаляет дерево')
+  check(tree.depsOff.length === 0 && tree.depsDown.length === 0, 'после смены масштаба линии остались на карточках')
+
+  // Ctrl и колесо мыши: масштаб меняется вокруг курсора.
+  const middle = (box) => box.y + box.height / 2
+  await card(cap, 44).scrollIntoViewIfNeeded()
+  const under = await card(cap, 44).boundingBox()
+  await cap.page.mouse.move(under.x + under.width / 2, middle(under))
+  await cap.page.keyboard.down('Control')
+  await cap.page.mouse.wheel(0, -100)
+  await cap.page.keyboard.up('Control')
+  await settle(cap, 300)
+  const closer = await treeGeometry(cap.page)
+  const moved = Math.abs(middle(await card(cap, 44).boundingBox()) - middle(under))
+  check(closer.zoom === '100%' && closer.height > tree.height, 'Ctrl и колесо мыши приближают дерево')
+  check(moved < 3, `задание под курсором при этом остаётся на месте (сдвиг ${moved.toFixed(1)} пикс.)`)
+  await cap.page.mouse.move(5, 5)
+
+  await cap.page.getByRole('button', { name: 'Целиком' }).click()
+  await settle(cap, 400)
+  tree = await treeGeometry(cap.page)
+  check(tree.overflowX <= 1 && tree.overflowY <= 1, `«Целиком» показывает всё дерево без прокрутки (масштаб ${tree.zoom})`)
+  check(tree.far && tree.depsOff.length === 0 && tree.depsDown.length === 0 && tree.routeDown.length === 0, 'в мелком масштабе карточки сжаты в строку, линии на месте и смотрят вверх')
+  await shot(cap, '08b-tree-whole')
+  await cap.page.reload()
+  await card(cap, 1).waitFor()
+  await settle(cap, 600)
+  check((await cap.page.locator('.zoom-value').textContent()) === tree.zoom, 'масштаб запоминается после перезагрузки страницы')
+  await cap.page.locator('.zoom-value').click()
+  await settle(cap, 300)
+  tree = await treeGeometry(cap.page)
+  check(tree.zoom === '100%' && !tree.far && tree.depsOff.length === 0, 'нажатие на проценты возвращает обычный размер')
+
   // ---------- Работа ----------
-  step('8. Пчеловод открывает своё задание, отмечает подпункты и закрывает его')
+  step('9. Пчеловод открывает своё задание, отмечает подпункты и закрывает его')
   await settle(bee, 600)
   await shot(bee, '09-tree-beekeeper')
   await card(bee, 17).scrollIntoViewIfNeeded()
@@ -164,10 +215,12 @@ try {
   const boxes = dialog.locator('.subtasks input')
   const subtasks = await boxes.count()
   check(subtasks >= 2, `в задании ${subtasks} подпунктов`)
-  await boxes.nth(0).check()
+  // Галочка появляется, когда отметка дошла до базы и вернулась, поэтому нажимаем и ждём, а не проверяем её сразу.
+  await boxes.nth(0).click()
   await dialog.locator('.status.s-doing').waitFor()
   check(true, 'первый подпункт сам перевёл задание «в работу»')
-  await boxes.nth(1).check()
+  await boxes.nth(1).click()
+  await dialog.locator('.subtasks input:checked').nth(1).waitFor()
   await dialog.getByRole('button', { name: 'Готово' }).click()
   await dialog.locator('.status.s-done').waitFor()
   check((await dialog.locator('.subtasks input:checked').count()) === subtasks, '«Готово» отметило все подпункты')
@@ -175,7 +228,7 @@ try {
   await card(cap, 17).locator('.tcard-state.s-done').waitFor()
   check(true, 'капитан видит у себя, что задание готово')
 
-  step('9. Чужое задание отмечать нельзя, капитану можно любое')
+  step('10. Чужое задание отмечать нельзя, капитану можно любое')
   await card(bee, 14).scrollIntoViewIfNeeded()
   await card(bee, 14).click()
   await dialog.getByText('отмечают его исполнители и капитан').waitFor()
@@ -188,7 +241,7 @@ try {
   await cap.page.keyboard.press('Escape')
   check(true, 'капитан отметил задание драконика')
 
-  step('10. Вкладка «Мои задачи»')
+  step('11. Вкладка «Мои задачи»')
   await tab(bee, 'Мои задачи').click()
   await bee.page.locator('.mytask').first().waitFor()
   check((await bee.page.getByRole('heading', { name: /Сделано/ }).count()) === 1, 'есть раздел «Сделано»')
@@ -198,7 +251,7 @@ try {
   await settle(bee)
   await shot(bee, '11-my-tasks', { fullPage: true })
 
-  step('11. Вкладка «Квесты»: этапы ведёт квестовик')
+  step('12. Вкладка «Квесты»: этапы ведёт квестовик')
   await tab(quest, 'Квесты').click()
   const artifacts = quest.page.locator('.quest', { hasText: 'Артефакты' }).first()
   await artifacts.getByRole('button', { name: 'Готов к сдаче' }).click()
@@ -212,14 +265,14 @@ try {
   check((await bee.page.locator('.stages button:enabled').count()) === 0, 'не квестовик этапы менять не может')
   check((await bee.page.getByText(/Сдано\s*1\s*из 27/).count()) === 1, 'счётчик квестов обновился у всех')
 
-  step('12. Квестовик видит свои квестовые задания отдельно')
+  step('13. Квестовик видит свои квестовые задания отдельно')
   await tab(quest, 'Мои задачи').click()
   await quest.page.getByRole('heading', { name: /Квестовые задания/ }).waitFor()
   await shot(quest, '13-my-tasks-quest-runner', { fullPage: true })
   check(true, 'квестовые задания идут отдельным списком')
 
   // ---------- Перераспределение и состав ----------
-  step('13. Капитан меняет роли: отметки сохраняются')
+  step('14. Капитан меняет роли: отметки сохраняются')
   await cap.page.getByRole('button', { name: 'Изменить роли' }).click()
   await cap.page.getByRole('button', { name: 'Изменить роли' }).last().click()
   await cap.page.locator('.badge.phase-roles').waitFor()
@@ -231,7 +284,7 @@ try {
   await card(cap, 17).locator('.tcard-state.s-done').waitFor()
   check(true, 'после перераспределения готовое задание осталось готовым')
 
-  step('14. Игрок выходит, капитан видит предупреждение и исключает ещё одного')
+  step('15. Игрок выходит, капитан видит предупреждение и исключает ещё одного')
   await drak.page.getByRole('button', { name: 'Выйти из команды' }).click()
   await drak.page.getByRole('dialog').getByRole('button', { name: 'Выйти' }).click()
   await drak.page.waitForURL('**/cabinet')
@@ -245,14 +298,14 @@ try {
   await quest.page.getByText('Ты не в этой команде').waitFor()
   check(true, 'исключённый игрок больше не видит команду')
 
-  step('15. Капитан передаёт капитана')
+  step('16. Капитан передаёт капитана')
   await cap.page.locator('.found li', { hasText: 'Bee_Mira' }).getByRole('button', { name: 'Сделать капитаном' }).click()
   await cap.page.getByRole('button', { name: 'Передать' }).click()
   await bee.page.getByRole('button', { name: 'Управление командой' }).waitFor()
   await cap.page.getByRole('button', { name: 'Выйти из команды' }).waitFor()
   check(true, 'новый капитан получил управление, прежний стал участником')
 
-  step('16. Телефон: страница команды помещается по ширине')
+  step('17. Телефон: страница команды помещается по ширине')
   const phone = await newPlayer(browser, 'Bee_Mira', { width: 390, height: 844 })
   await login(phone)
   await phone.page.goto(`${BASE}/team/${teamId}`)
@@ -261,9 +314,16 @@ try {
   const overflow = await phone.page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)
   check(overflow <= 1, `на телефоне страница не уезжает вбок (лишних пикселей: ${overflow})`)
   await shot(phone, '15-phone', { fullPage: true })
+  await phone.page.getByRole('button', { name: 'Целиком' }).click()
+  await settle(phone, 400)
+  const small = await treeGeometry(phone.page)
+  check(small.overflowX <= 1 && small.overflowY <= 1, `на телефоне «Целиком» тоже показывает всё дерево (масштаб ${small.zoom})`)
+  check(await phone.page.locator('.colhead-icon').first().isVisible(), 'в узких колонках вместо названий значки')
+  check(small.depsOff.length === 0 && small.depsDown.length === 0, 'линии на телефоне на месте и смотрят вверх')
+  await shot(phone, '15b-phone-whole')
 
   // ---------- Приглашение поверх закрытого входа и роспуск ----------
-  step('17. Приглашённый лично входит по ID даже в закрытую команду, и приглашение гаснет')
+  step('18. Приглашённый лично входит по ID даже в закрытую команду, и приглашение гаснет')
   await bee.page.getByRole('button', { name: 'Управление командой' }).click()
   const manage = bee.page.locator('.manage')
   await manage.getByLabel('Ник игрока').fill('lat')
@@ -283,7 +343,7 @@ try {
   await settle(late2)
   check((await late2.page.getByRole('heading', { name: 'Приглашения' }).count()) === 0, 'приглашение погасло и у игрока, и у капитана')
 
-  step('18. Капитан остаётся один и распускает команду')
+  step('19. Капитан остаётся один и распускает команду')
   await manage.getByLabel('Ник игрока').fill('')
   check((await manage.getByRole('button', { name: 'Распустить команду' }).count()) === 0, 'пока в команде есть другие, распустить её нельзя')
   for (const nick of ['Late_One', 'Cap_Alex']) {

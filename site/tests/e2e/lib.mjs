@@ -55,6 +55,59 @@ export async function login(p) {
   await p.page.waitForURL('**/cabinet')
 }
 
+/**
+ * Геометрия дерева на экране: куда смотрят стрелки, сидят ли концы связей на своих карточках
+ * и помещается ли дерево в своё окно. Работает в любом масштабе.
+ */
+export const treeGeometry = (page) =>
+  page.evaluate(() => {
+    const out = { deps: 0, depsDown: [], depsOff: [], route: 0, routeDown: [], routeLeft: [] }
+    const svg = document.querySelector('.board-svg')
+    const ctm = svg.getScreenCTM()
+    const onScreen = (x, y) => {
+      const point = svg.createSVGPoint()
+      point.x = x
+      point.y = y
+      return point.matrixTransform(ctm)
+    }
+    const rectOf = (id) => document.querySelector(`.tcard[data-task="${id}"]`).getBoundingClientRect()
+    for (const path of svg.querySelectorAll('path.dep')) {
+      out.deps++
+      const numbers = path.getAttribute('d').match(/-?\d+(\.\d+)?/g).map(Number)
+      const [x1, y1] = numbers
+      const [x2, y2] = numbers.slice(-2)
+      const link = path.dataset.link
+      // Связь идёт от верхнего края условия к нижнему краю задания: конец должен быть выше начала.
+      if (!(y2 < y1 - 1)) out.depsDown.push(link)
+      const [from, to] = link.split('-').map(Number)
+      const a = rectOf(from)
+      const b = rectOf(to)
+      const start = onScreen(x1, y1)
+      const end = onScreen(x2, y2)
+      const miss = Math.max(
+        Math.abs(start.x - (a.left + a.width / 2)),
+        Math.abs(start.y - a.top),
+        Math.abs(end.x - (b.left + b.width / 2)),
+        Math.abs(end.y - b.bottom),
+      )
+      if (miss > 1.5) out.depsOff.push(`${link}: мимо на ${miss.toFixed(1)}`)
+    }
+    for (const line of svg.querySelectorAll('.route line.route-flow')) {
+      out.route++
+      const [x1, y1, x2, y2] = ['x1', 'y1', 'x2', 'y2'].map((k) => Number(line.getAttribute(k)))
+      const link = line.parentElement.dataset.link
+      if (y2 > y1 + 0.5) out.routeDown.push(link)
+      if (Math.abs(y2 - y1) <= 0.5 && x2 < x1) out.routeLeft.push(link)
+    }
+    const view = document.querySelector('.board-scroll')
+    out.overflowX = view.scrollWidth - view.clientWidth
+    out.overflowY = view.scrollHeight - view.clientHeight
+    out.height = view.scrollHeight
+    out.zoom = document.querySelector('.zoom-value').textContent
+    out.far = document.querySelector('.board').classList.contains('far')
+    return out
+  })
+
 export const shot = (p, name, options = {}) => p.page.screenshot({ path: `${SHOTS}/${name}.png`, ...options })
 
 export function check(condition, message) {

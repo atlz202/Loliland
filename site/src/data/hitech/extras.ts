@@ -21,16 +21,16 @@ export const DAYS: { id: 1 | 2; title: string }[] = [
 
 // Колонки дерева слева направо.
 export const GROUPS: Group[] = [
-  { id: 'base', title: 'Старт и база' },
-  { id: 'ae', title: 'Applied Energistics' },
-  { id: 'ind', title: 'Industrial и Мека' },
-  { id: 'matter', title: 'Материя и молекулярные' },
-  { id: 'misc', title: 'Ресурсы, удача, мана' },
-  { id: 'tech', title: 'TechGuns, QED, 3D' },
-  { id: 'bees', title: 'Пчёлы и рагу' },
-  { id: 'dragons', title: 'Души и драконы' },
-  { id: 'multi', title: 'Многоблочки и звёзды' },
-  { id: 'quests', title: 'Вехи и квесты' },
+  { id: 'base', title: 'Старт и база', icon: '🏠' },
+  { id: 'ae', title: 'Applied Energistics', icon: '💾' },
+  { id: 'ind', title: 'Industrial и Мека', icon: '⚙️' },
+  { id: 'matter', title: 'Материя и молекулярные', icon: '⚛️' },
+  { id: 'misc', title: 'Ресурсы, удача, мана', icon: '💎' },
+  { id: 'tech', title: 'TechGuns, QED, 3D', icon: '🧪' },
+  { id: 'bees', title: 'Пчёлы и рагу', icon: '🐝' },
+  { id: 'dragons', title: 'Души и драконы', icon: '🐉' },
+  { id: 'multi', title: 'Многоблочки и звёзды', icon: '⭐' },
+  { id: 'quests', title: 'Вехи и квесты', icon: '🏆' },
 ]
 
 const GROUP_TASKS: Record<string, number[]> = {

@@ -24,10 +24,17 @@ function checkPlan(plan: ReturnType<typeof buildPlan>, members: string[]) {
     else assert.equal(p.q, undefined)
   }
   // У каждого своя очередь, и зависимость в ней всегда раньше.
+  // На дереве очередь идёт только вверх, а внутри одного ряда слева направо.
+  const column = new Map(c.groups.map((g, i) => [g.id, i]))
   for (const m of members) {
     const path = pathOf(plan, c, m)
     path.forEach((t, i) => {
-      if (i) assert.ok(path[i - 1].order < t.order)
+      if (!i) return
+      const prev = path[i - 1]
+      assert.ok(prev.order < t.order)
+      assert.ok(prev.epoch < t.epoch || prev.level <= t.level, `путь ${m}: шаг вниз от задания ${prev.id} к заданию ${t.id}`)
+      if (prev.epoch === t.epoch && prev.level === t.level)
+        assert.ok(column.get(prev.group)! < column.get(t.group)!, `путь ${m}: шаг влево от задания ${prev.id} к заданию ${t.id}`)
     })
   }
 }
