@@ -5,6 +5,7 @@ import RequireAuth from './components/RequireAuth'
 import Cabinet from './pages/Cabinet'
 import ChooseNickname from './pages/ChooseNickname'
 import Home from './pages/Home'
+import Join from './pages/Join'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 import Register from './pages/Register'
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="nickname" element={<ChooseNickname />} />
             <Route path="cabinet" element={<RequireAuth><Cabinet /></RequireAuth>} />
             <Route path="team/:id" element={<RequireAuth><TeamPage /></RequireAuth>} />
+            <Route path="join/:teamId/:token" element={<Join />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

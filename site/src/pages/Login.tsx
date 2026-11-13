@@ -4,6 +4,7 @@ import { Link, Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
 import { errorText } from '../lib/errors'
 import { auth } from '../lib/firebase'
+import { peekReturn } from '../lib/returnTo'
 
 export default function Login() {
   const { user } = useAuth()
@@ -13,7 +14,8 @@ export default function Login() {
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
 
-  if (user) return <Navigate to={(location.state as { from?: string })?.from ?? '/cabinet'} replace />
+  // Если человек пришёл по ссылке-приглашению, после входа возвращаем его к ней.
+  if (user) return <Navigate to={peekReturn() ?? (location.state as { from?: string })?.from ?? '/cabinet'} replace />
 
   async function submit(e: FormEvent) {
     e.preventDefault()

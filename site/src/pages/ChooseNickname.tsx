@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
 import { errorText } from '../lib/errors'
 import { auth } from '../lib/firebase'
+import { peekReturn } from '../lib/returnTo'
 import { claimNickname, isNicknameFree, NICK_RE } from '../lib/users'
 
 /** На случай, если аккаунт есть, а ник не сохранился (например, оборвалась связь при регистрации). */
@@ -14,7 +15,7 @@ export default function ChooseNickname() {
   const [busy, setBusy] = useState(false)
 
   if (user === null) return <Navigate to="/login" replace />
-  if (profile) return <Navigate to="/cabinet" replace />
+  if (profile) return <Navigate to={peekReturn() ?? '/cabinet'} replace />
   if (!user) return null
 
   async function submit(e: FormEvent) {

@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
 import { errorText } from '../lib/errors'
+import { peekReturn } from '../lib/returnTo'
 import { NICK_RE, register } from '../lib/users'
 
 export default function Register() {
@@ -13,7 +14,7 @@ export default function Register() {
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
 
-  if (user) return <Navigate to="/cabinet" replace />
+  if (user) return <Navigate to={peekReturn() ?? '/cabinet'} replace />
 
   const nickOk = NICK_RE.test(nickname)
 

@@ -26,3 +26,6 @@ dist-ssr
 # Firebase
 .firebase/
 .firebaserc
+
+# Скриншоты прогона в браузере
+tests/e2e/shots/
