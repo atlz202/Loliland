@@ -84,7 +84,9 @@ function TeamView({ team, uid, nickname, onLostAccess }: { team: Team; uid: stri
   const [editingName, setEditingName] = useState<string | null>(null)
   const [sideHidden, setSideHidden] = useState(() => {
     try {
-      return localStorage.getItem('teamSide') === 'hidden'
+      const saved = localStorage.getItem('teamSide')
+      // На узком экране панель занимает весь первый экран, поэтому там она свёрнута, пока её не откроют.
+      return saved ? saved === 'hidden' : window.matchMedia('(max-width: 1000px)').matches
     } catch {
       return false
     }
@@ -205,7 +207,7 @@ function TeamView({ team, uid, nickname, onLostAccess }: { team: Team; uid: stri
             {drift.gone.length > 0 && 'Кто-то вышел из команды после распределения, и его задания остались без исполнителя. '}
             {drift.newcomers.length > 0 && `После распределения в команду вошли: ${drift.newcomers.map((m) => nickOf(team, m)).join(', ')}. У них пока нет заданий. `}
             {drift.catalogChanged && 'Список заданий обновился после распределения. '}
-            {isCaptain ? 'Нажми «Изменить роли» справа и заверши распределение заново: задания пересчитаются, отметки сохранятся.' : 'Капитану нужно перераспределить задания.'}
+            {isCaptain ? 'Нажми «Изменить роли» в панели команды и заверши распределение заново: задания пересчитаются, отметки сохранятся.' : 'Капитану нужно перераспределить задания.'}
           </p>
         )}
 
